@@ -1,0 +1,582 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// HERO SECTION
+.hero_section {
+  position: relative;
+  width: 100%;
+  z-index: 0;
+  @include flex-col-center;
+}
+
+.hero {
+  @include flex-col-center;
+  gap: 28px;
+  padding: 72px 0 122px;
+  max-width: 1136px;
+  width: 100%;
+}
+
+.hero_bg {
+  @include absoluteFull;
+  z-index: -1;
+
+  img {
+    @include absoluteFull;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+
+  .hero_bg_overlay {
+    background-color: rgba(0, 0, 0, 0.25);
+    @include absoluteFull;
+  }
+}
+
+.hero_options {
+  @include flex-row;
+  border: 1px solid rgba(153, 153, 153, 1);
+  border-radius: 8px;
+  background-color: rgba(51, 51, 51, 0.75);
+
+  span {
+    @include accent3(500);
+    cursor: pointer;
+    padding: 9px 18px;
+    color: $white;
+    border-radius: 8px;
+    transition-property: color background-color;
+    transition: 0.3s ease-in-out;
+
+    &.active {
+      color: $black;
+      background-color: $white;
+    }
+  }
+}
+
+.hero_option_wrapper {
+  width: 100%;
+}
+
+.hero_option_container {
+  @include flex-col-center;
+
+  gap: 28px;
+}
+
+.hero_search {
+  @include flex-row;
+  width: 70%;
+
+  input {
+    @include input-style;
+    @include input-text;
+    height: 60px;
+    border-radius: 4px 0 0 4px;
+    width: 100%;
+    border: 0;
+  }
+
+  .select_container {
+    width: 100%;
+    border-width: 0 0 0 1px;
+  }
+
+  .btn {
+    height: 60px;
+    background-color: $gold;
+    padding: 19.5px 47px;
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+.hero_text {
+  @include flex-col-center;
+  gap: 20px;
+  color: $white;
+  text-align: center;
+
+  h2 {
+    @include h2(600);
+    margin: 0 auto;
+  }
+
+  p {
+    @include accent2(500);
+  }
+}
+
+.hero_buttons {
+  @include flex-row;
+  gap: 24px;
+
+  .btn {
+    height: 54px;
+    max-width: 240px;
+  }
+}
+
+.hero_buttons.sell {
+  .btn {
+    height: 40px;
+  }
+}
+
+.hero_stats {
+  @include flex-row;
+  gap: 64px;
+  padding: 16px 40px;
+  background-color: rgba(250, 250, 250, 1);
+  border: 1px solid rgba(195, 195, 195, 1);
+  border-radius: 8px;
+
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+
+  div {
+    @include flex-col-center;
+    gap: 2px;
+    color: $green;
+    text-align: center;
+
+    h3 {
+      @include h3(700);
+    }
+
+    p {
+      @include p2(400);
+    }
+  }
+}
+
+// HANDPICKED SECTION
+.handpicked {
+  @include flex-col-center;
+  gap: 32px;
+  background-color: $white;
+  padding: 98px 0 60px;
+
+  .btn-secondary {
+    padding: 11.5px 109.5px;
+  }
+}
+
+.handpicked_header {
+  @include flex-col;
+  gap: 4px;
+  text-align: center;
+
+  h2 {
+    @include h2(600);
+    color: $black;
+  }
+
+  p {
+    @include accent1(500);
+    color: rgba(51, 51, 51, 1);
+  }
+}
+
+// IMAGE WITH TEXT SECTION
+.imgWithText_section {
+  background-color: $teal-20;
+  width: 100%;
+  padding: 0 80px;
+}
+
+.imgWithText {
+  padding: 60px 0;
+  @include flex-row-center;
+  gap: 48px;
+
+  aside {
+    width: 50%;
+  }
+}
+
+.imgWithText_content {
+  @include flex-col;
+  gap: 16px;
+
+  div {
+    @include flex-col;
+    gap: 8px;
+
+    h2 {
+      @include h2(600);
+      color: $black;
+    }
+
+    p {
+      @include accent2(400);
+      color: $gray-1;
+    }
+  }
+
+  .btn {
+    background-color: $gold;
+    width: fit-content;
+    padding: 11.5px 81.5px;
+  }
+}
+
+.imgWithText_image_content {
+  aspect-ratio: 2.2 / 1;
+  border-radius: 8px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}
+
+// MIDDLE SECTION
+.homepage_middle {
+  @include flex-col;
+  gap: 60px;
+  padding: 60px 0;
+  background-color: $white;
+}
+
+.container_homepage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  column-gap: 40px;
+  row-gap: 24px;
+}
+
+// WHAT WOULD SECTION
+.whatWould {
+  align-self: center;
+  @include flex-col;
+  gap: 32px;
+
+  h2 {
+    @include h2(600);
+    color: $black;
+    text-align: center;
+  }
+}
+
+.whatWould_item {
+  @include flex-col;
+  gap: 20px;
+  background-color: rgba(245, 245, 245, 1);
+  border-radius: 8px;
+  border: 1px solid $gray-3;
+  padding: 24px;
+}
+
+.whatWould_item_text {
+  @include flex-col;
+  gap: 6px;
+  color: $black;
+
+  h5 {
+    @include h5(600);
+  }
+
+  p {
+    @include accent2(400);
+  }
+}
+
+.whatWould_item_image {
+  @include flex-row;
+  // justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background-color: $white;
+
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 100px;
+  }
+
+  .whatWouldSvg {
+    width: 60px;
+    height: 60px;
+  }
+
+  div {
+    @include flex-col;
+
+    p {
+      color: $black;
+      line-height: 100%;
+
+      &:first-of-type {
+        @include accent2(600);
+      }
+
+      &:nth-of-type(2) {
+        @include accent3(400);
+      }
+    }
+
+    span {
+      @include accent4(500);
+      color: $gray-2;
+      line-height: 100%;
+    }
+  }
+}
+
+.whatWouldSwiper_controls {
+  @include flex-row-center;
+  justify-content: space-between;
+  align-self: center;
+  width: 85%;
+
+  aside {
+    @include flex-row-center;
+    gap: 4px;
+
+    span {
+      width: 6px;
+      height: 6px;
+      border-radius: 6px;
+      background-color: rgba(195, 195, 195, 1);
+      cursor: pointer;
+
+      &.active {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background-color: $gold;
+      }
+    }
+  }
+
+  div {
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+    @include flex-row-center;
+    background-color: $gray-3;
+    cursor: pointer;
+  }
+}
+
+// TAGS SECTION
+.popularTags,
+.recentStories {
+  @include flex-col;
+  gap: 32px;
+  align-self: center;
+}
+
+.popularTags_header,
+.recentStories_header {
+  @include flex-col;
+  gap: 4px;
+  text-align: left;
+  color: $black;
+
+  h3 {
+    @include h3(600);
+  }
+
+  p {
+    @include accent2(400);
+  }
+}
+
+.popularTags_container {
+  div {
+    position: relative;
+    z-index: 0;
+    aspect-ratio: 3 / 1;
+    border-radius: 8px;
+    @include flex-row-center;
+
+    &::before {
+      content: "";
+      backdrop-filter: blur(2px);
+      box-shadow: 40px 40px 0px 4000px rgba(0, 0, 0, 0.45) inset;
+      @include overlay(rgba(0, 0, 0, 0.45));
+      border-radius: 8px;
+    }
+
+    span {
+      color: $white;
+      @include accent2(600);
+    }
+
+    img {
+      border-radius: 8px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+  }
+}
+
+// RECENT STORIES SECTION
+
+.recentStory {
+  @include flex-col;
+  gap: 12px;
+}
+
+.recentStory_image {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.recentStory_text {
+  @include flex-col;
+  gap: 8px;
+
+  span {
+    @include accent3(500);
+    color: $gray-2;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    @include accent1(600);
+    color: $black;
+    margin-bottom: 2px;
+  }
+
+  p {
+    @include accent4(400);
+    color: $gray-1;
+    text-transform: capitalize;
+  }
+}
+
+// GET UPDATES
+.getUpdates_section {
+  padding: 60px 80px;
+  background-image: url("../../public/images/newsletter-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  @include flex-col-center;
+
+  position: relative;
+  z-index: 0;
+
+  &::after {
+    content: "";
+    @include overlay(rgba(0, 0, 0, 0.25));
+  }
+}
+
+.getUpdates {
+  max-width: 900px;
+  width: 100%;
+  @include flex-col-center;
+  gap: 20px;
+}
+
+.getUpdates_header {
+  @include flex-col-center;
+  gap: 4px;
+  text-align: center;
+  color: $white;
+  max-width: 826px;
+  width: 100%;
+
+  h2 {
+    @include h2(600);
+  }
+
+  p {
+    @include accent2(400);
+  }
+}
+
+.newsletterForm {
+  @include flex-col-center;
+  gap: 20px;
+  width: 100%;
+
+  div {
+    @include flex-row;
+    border-radius: 4px;
+    width: 100%;
+
+    input {
+      @include input-style;
+      @include input-text;
+      width: 100%;
+      height: 60px;
+      border-right: 0;
+      border-top: 0;
+      border-bottom: 0;
+
+      &:first-of-type {
+        border-radius: 4px 0 0 4px;
+        border-left: 0;
+      }
+
+      &:last-of-type {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+  }
+
+  .btn {
+    height: 54px;
+    background-color: $gold;
+    padding: 16.5px 46.5px;
+  }
+}
+
+// RICH TEXT
+.richText {
+  background-color: $white;
+  @include flex-col-center;
+  padding: 60px 80px;
+}
+
+.richText_container {
+  @include flex-col-center;
+  gap: 12px;
+  text-align: center;
+  color: $black;
+  max-width: 1080px;
+  width: 100%;
+
+  h2 {
+    @include h2(600);
+
+    span {
+      color: $green;
+    }
+  }
+
+  p {
+    @include p1(400);
+  }
+}

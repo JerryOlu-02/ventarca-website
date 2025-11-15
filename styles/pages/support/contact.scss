@@ -1,0 +1,176 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.contact_header {
+  width: 100%;
+  height: 100%;
+  padding: 80px 80px 0;
+
+  background-color: $white;
+  @include flex-col;
+  gap: 37px;
+  position: relative;
+  z-index: 0;
+
+  h2 {
+    color: $white;
+    @include h2(600);
+    text-align: center;
+  }
+}
+
+.overlay-bg-contact {
+  @include overlay($white);
+  height: unset;
+  aspect-ratio: 3.7 / 1;
+  top: 0;
+  left: 0;
+  background: url("../../../public/images/contact-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.contact_container {
+  align-self: center;
+  position: relative;
+}
+
+.contact_item_left {
+  padding: 36px 40px 40px;
+  background-color: $white;
+  @include flex-col;
+  gap: 20px;
+  border-radius: 8px;
+  width: 85%;
+  border: 1px solid rgba(245, 245, 245, 1);
+}
+
+.contact_item_header {
+  width: 80%;
+  @include flex-col;
+  gap: 6px;
+  color: $black;
+
+  h4 {
+    @include h4(600);
+  }
+
+  p {
+    @include accent2(400);
+  }
+}
+
+.contact_form {
+  width: 80%;
+  @include flex-col;
+  gap: 16px;
+
+  .btn {
+    margin-top: 4px;
+  }
+}
+
+.contact_form_item {
+  @include flex-row;
+  gap: 16px;
+
+  div {
+    @include flex-col;
+    gap: 8px;
+    width: 100%;
+
+    label {
+      @include label;
+    }
+
+    input {
+      @include input-style;
+      @include input-text;
+    }
+
+    textarea {
+      @include textarea;
+    }
+
+    input[type="file"] {
+      height: 189px;
+      border: 1px solid rgba(153, 153, 153, 1);
+      border-radius: 4px;
+      border-style: dashed;
+
+      @include flex-col-center;
+    }
+  }
+}
+
+.contact_item_right {
+  height: fit-content;
+  padding: 32px 28px 35px;
+  background-color: $green;
+  @include flex-col;
+  gap: 18px;
+  color: $white;
+  border-radius: 8px;
+
+  width: 30%;
+  position: absolute;
+  bottom: 50%;
+  right: 0;
+  transform: translateY(50%);
+
+  h6 {
+    @include h6(600);
+  }
+
+  .border_span {
+    border-top: 1px solid rgba(245, 245, 245, 1);
+  }
+}
+
+.contact_right_list {
+  @include flex-col;
+  gap: 14px;
+}
+
+.contact_right_item {
+  padding: 16px;
+  @include flex-row;
+  align-items: center;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.25);
+  gap: 5.5px;
+
+  div {
+    @include flex-col;
+    gap: 4px;
+
+    p {
+      @include accent2(700);
+    }
+
+    span {
+      @include accent3(500);
+    }
+  }
+}
+
+.contact_connect {
+  @include flex-col;
+  gap: 8px;
+
+  p {
+    @include accent2(700);
+  }
+
+  .socials_container {
+    @include flex-row;
+    gap: 20px;
+
+    svg {
+      path {
+        fill: $white;
+      }
+    }
+  }
+}

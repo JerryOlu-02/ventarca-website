@@ -1,0 +1,305 @@
+@use "./variables" as *;
+
+@mixin flex-row {
+  display: flex;
+}
+
+@mixin flex-row-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin overlay($bg-color: rgba(51, 51, 51, 0.25)) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $bg-color;
+  z-index: -1;
+}
+
+@mixin absoluteFull {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@mixin lineAbsolute($color: $gold) {
+  content: "";
+  position: absolute;
+  background-color: $color;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+}
+
+@mixin input-style {
+  height: 44px;
+  background-color: $white;
+  border: 1px solid rgba(153, 153, 153, 1);
+  padding: 13px 12px;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+
+  &:focus {
+    border: 1px solid rgba(30, 77, 216, 1);
+    color: $gray-1;
+  }
+
+  &:active {
+    border: 1px solid rgba(0, 0, 0, 1);
+  }
+
+  &:autofill {
+    border: 1px solid rgba(0, 0, 0, 1);
+  }
+
+  &::after {
+    border: 1px solid rgba(0, 0, 0, 1);
+  }
+}
+
+@mixin select($height: 60px) {
+  background-color: $white;
+  padding: 19.5px 20px;
+  @include accent2(500);
+  height: 60px;
+  color: rgba(51, 51, 51, 1);
+  border-color: rgba(153, 153, 153, 1);
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+
+  position: relative;
+}
+
+@mixin textarea {
+  @include input-text;
+  @include input-style;
+  height: 112px;
+}
+
+@mixin checkbox {
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border: 2px solid rgba(102, 102, 102, 1);
+  border-radius: 3px;
+
+  &:checked {
+    border: 0;
+    background-image: url("../../public/images/checkbox.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+
+  &:disabled {
+    background-image: url("../../public/images/checkbox.jpg");
+    opacity: 0.4;
+  }
+
+  &:not(:disabled) {
+    opacity: 1;
+  }
+}
+
+@mixin sora {
+  font-family: "Sora", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@mixin ibm-plex-sans {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+@mixin dm-sans {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@mixin playfair {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+@mixin h1($weight) {
+  font-size: var(--header-1);
+  font-weight: $weight;
+  line-height: var(--line-height-header-1);
+  letter-spacing: var(--letter-spacing-header-1);
+  @include sora;
+}
+
+@mixin h2($weight) {
+  font-size: var(--header-2);
+  font-weight: $weight;
+  line-height: var(--line-height-header-2);
+  letter-spacing: var(--letter-spacing-header-2);
+  @include sora;
+}
+
+@mixin h3($weight) {
+  font-size: var(--header-3);
+  font-weight: $weight;
+  line-height: var(--line-height-header-3);
+  letter-spacing: var(--letter-spacing-header-3);
+  @include sora;
+}
+
+@mixin h4($weight) {
+  font-size: var(--header-4);
+  line-height: var(--line-height-header-4);
+  font-weight: $weight;
+  letter-spacing: var(--letter-spacing-header-4);
+  @include sora;
+}
+
+@mixin h5($weight) {
+  font-size: var(--header-5);
+  font-weight: $weight;
+  line-height: var(--line-height-header-5);
+  letter-spacing: var(--letter-spacing-header-5);
+  @include sora;
+}
+
+@mixin h6($weight) {
+  font-size: var(--header-6);
+  font-weight: $weight;
+  line-height: var(--line-height-header-6);
+  letter-spacing: var(--letter-spacing-header-6);
+  @include sora;
+}
+
+@mixin p1($weight) {
+  font-size: var(--body-1);
+  font-weight: $weight;
+  line-height: var(--line-height-body-1);
+  letter-spacing: var(--letter-spacing-body-1);
+  @include ibm-plex-sans;
+}
+
+@mixin p2($weight) {
+  font-size: var(--body-2);
+  font-weight: $weight;
+  line-height: var(--line-height-body-2);
+  letter-spacing: var(--letter-spacing-body-2);
+  @include ibm-plex-sans;
+}
+
+@mixin p3($weight) {
+  font-size: var(--body-3);
+  font-weight: $weight;
+  line-height: var(--line-height-body-3);
+  letter-spacing: var(--letter-spacing-body-3);
+  @include ibm-plex-sans;
+}
+
+@mixin p4($weight) {
+  font-size: var(--body-4);
+  line-height: var(--line-height-body-4);
+  letter-spacing: var(--letter-spacing-body-4);
+  @include ibm-plex-sans;
+}
+
+@mixin accent1($weight) {
+  font-size: var(--accent-1);
+  font-weight: $weight;
+  line-height: var(--line-height-accent-1);
+  letter-spacing: var(--letter-spacing-accent-1);
+  @include dm-sans;
+}
+
+@mixin accent2($weight) {
+  font-size: var(--accent-2);
+  font-weight: $weight;
+  line-height: var(--line-height-accent-2);
+  letter-spacing: var(--letter-spacing-accent-2);
+  @include dm-sans;
+}
+
+@mixin accent3($weight) {
+  font-size: var(--accent-3);
+  font-weight: $weight;
+  line-height: var(--line-height-accent-3);
+  letter-spacing: var(--letter-spacing-accent-3);
+  @include dm-sans;
+}
+
+@mixin accent4($weight) {
+  font-size: var(--accent-4);
+  line-height: var(--line-height-accent-4);
+  letter-spacing: var(--letter-spacing-accent-4);
+  @include dm-sans;
+}
+
+@mixin btn-medium {
+  font-size: var(--btn-medium);
+  line-height: var(--line-height-btn-medium);
+  letter-spacing: var(--letter-spacing-btn-medium);
+  @include dm-sans;
+}
+
+@mixin btn-small {
+  font-size: var(--btn-small);
+  line-height: var(--line-height-btn-small);
+  letter-spacing: var(--letter-spacing-btn-small);
+  @include dm-sans;
+}
+
+@mixin input-text {
+  font-size: var(--input);
+  font-weight: 400;
+  line-height: var(--line-height-input);
+  letter-spacing: var(--letter-spacing-input);
+  @include ibm-plex-sans;
+  text-transform: capitalize;
+}
+
+@mixin label {
+  font-size: var(--label);
+  font-weight: 500;
+  line-height: var(--line-height-label);
+  letter-spacing: var(--letter-spacing-label);
+  @include ibm-plex-sans;
+}
+
+@mixin blockquote {
+  font-size: var(--blockquote);
+  font-weight: 600;
+  line-height: var(--line-height-blockquote);
+  letter-spacing: var(--letter-spacing-blockquote);
+  @include playfair;
+  font-style: italic;
+}
+
+@mixin blockquote {
+  font-size: var(--metrics);
+  font-weight: 600;
+  line-height: var(--line-height-metrics);
+  letter-spacing: var(--letter-spacing-metrics);
+  @include dm-sans;
+  text-transform: uppercase;
+}

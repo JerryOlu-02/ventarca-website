@@ -1,0 +1,111 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+// LISTING CARD
+.listingCard {
+  @include flex-col;
+  gap: 16px;
+  padding: 20px;
+  background-color: $white;
+  border: 1px solid rgba(153, 153, 153, 1);
+  border-radius: 8px;
+}
+
+.listingCard_image {
+  width: 100%;
+  aspect-ratio: 1.5 / 1;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.listingCard_content {
+  @include flex-col;
+  gap: 12px;
+
+  h5 {
+    @include h5(600);
+    color: $black;
+  }
+}
+
+.listingCard_save {
+  @include flex-row;
+  justify-content: space-between;
+
+  span {
+    @include flex-row-center;
+    gap: 6px;
+    @include accent2(500);
+    color: $black;
+
+    &:nth-of-type(2) {
+      gap: 4px;
+      color: $gray-2;
+      cursor: pointer;
+    }
+  }
+}
+
+.listingCard_tags {
+  @include flex-row;
+  gap: 8px;
+
+  span {
+    background-color: $gray-3;
+    color: $white;
+    @include accent4(500);
+    padding: 3px 12px;
+    border-radius: 100px;
+  }
+}
+
+.listingCard_profitability {
+  @include flex-row;
+  gap: 10px;
+}
+
+.listingCard_profitability_item {
+  padding: 10px;
+  border: 1px solid rgba(245, 245, 245, 1);
+  border-radius: 4px;
+  @include flex-col;
+  gap: 6px;
+  width: 100%;
+  background-color: $white;
+
+  &:first-of-type {
+    background-color: rgba(22, 153, 127, 0.1);
+    border: 1px solid rgba(22, 153, 127, 0.1);
+  }
+
+  &.price-drop {
+    background-color: rgba(245, 245, 245, 1);
+    border: 1px solid rgba(245, 245, 245, 1);
+  }
+
+  p {
+    @include p1(600);
+  }
+
+  div {
+    @include flex-row;
+    justify-content: space-between;
+    color: $green;
+
+    p {
+      @include accent3(600);
+    }
+
+    span {
+      @include accent4(600);
+      padding: 2px 8px;
+      background-color: rgba(245, 245, 245, 1);
+      border-radius: 100px;
+    }
+  }
+}

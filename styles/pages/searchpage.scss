@@ -1,0 +1,87 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// SEARCH FORM SECTION
+.section_search {
+  background-color: rgba(245, 245, 245, 1);
+}
+
+.search_form {
+  padding: 18px 0;
+
+  form {
+    width: 100%;
+    @include flex-row;
+    gap: 24px;
+
+    input {
+      @include input-style;
+      @include input-text;
+      width: 100%;
+    }
+
+    .select_container {
+      height: 44px;
+      padding: 10px 12px;
+      width: 70%;
+
+      .arrow {
+        right: 10px;
+      }
+    }
+
+    .btn {
+      border-radius: 0;
+      height: 44px;
+      padding: 13px 42.5px;
+    }
+
+    .btn-primary {
+      background-color: $gold;
+      border-radius: 4px;
+      padding: 11px 63px;
+    }
+  }
+}
+
+// SEARCH HEADER SECTION
+.section_header {
+  border-bottom: 1px solid rgba(195, 195, 195, 1);
+}
+
+.search_header {
+  padding: 20px 0;
+  justify-content: space-between;
+
+  h3 {
+    @include h3(600);
+  }
+}
+
+.search_sort {
+  @include flex-row-center;
+  gap: 20px;
+
+  p {
+    @include accent3(400);
+
+    span {
+      color: $green;
+    }
+  }
+
+  .btn {
+    border-radius: 0;
+    height: 40px;
+    padding: 11px 36.5px;
+  }
+}
+
+// LISTING SECTION
+.listing_list {
+  padding: 40px 0 66px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 34px;
+  row-gap: 28px;
+}

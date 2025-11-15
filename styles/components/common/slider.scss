@@ -1,0 +1,41 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.slider_container {
+  width: 100%;
+}
+
+.swiper,
+.swiper-wrapper {
+  z-index: unset;
+}
+
+.slider_home {
+  padding-bottom: 36px;
+}
+
+.swiper-pagination-progressbar.swiper-pagination-horizontal {
+  background-color: $white;
+  border: 1px solid rgba(195, 195, 195, 1);
+  padding: 3px 4px;
+  height: 12px;
+  border-radius: 12px;
+  width: 40%;
+  top: unset;
+}
+
+.swiper-horizontal > .swiper-pagination-progressbar {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: rgba(102, 102, 102, 1);
+  border-radius: 100px;
+  height: 6px;
+  top: 2px;
+  left: 4px;
+  width: calc(100% - 8px);
+}

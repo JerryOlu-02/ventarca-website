@@ -1,0 +1,38 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.file_upload {
+  height: 189px;
+  border: 1px solid rgba(153, 153, 153, 1);
+  border-radius: 4px;
+  border-style: dashed;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  @include flex-col-center;
+  gap: 8px;
+
+  div {
+    @include flex-col-center;
+    gap: 4px;
+    width: fit-content;
+
+    p {
+      @include accent2(600);
+      color: $black;
+
+      span {
+        color: $green;
+      }
+
+      &:last-of-type {
+        @include accent4(400);
+        color: rgba(102, 102, 102, 1);
+      }
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}

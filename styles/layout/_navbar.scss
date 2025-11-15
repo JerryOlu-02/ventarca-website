@@ -1,0 +1,41 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.navbar_section {
+  border-bottom: 1px solid rgba(245, 245, 245, 1);
+}
+
+.navbar {
+  @include flex-row-center;
+  justify-content: space-between;
+  padding: 28px 0;
+
+  // background-color: $white;
+}
+
+.nav_links {
+  ul {
+    @include flex-row-center;
+    gap: 40px;
+    list-style-type: none;
+
+    li {
+      @include flex-row-center;
+      @include accent2(500);
+      cursor: pointer;
+      gap: 12px;
+    }
+  }
+}
+
+.nav_actions {
+  @include flex-row-center;
+  gap: 24px;
+
+  .btn {
+    width: 180px;
+    height: 44px;
+    border-radius: 100px;
+    padding: 11.5px inherit;
+  }
+}

@@ -1,0 +1,194 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.support_center {
+  width: 100%;
+  padding: 80px 80px 0;
+  @include flex-col;
+  gap: 48px;
+  position: relative;
+
+  h2 {
+    @include h2(600);
+    color: $white;
+    align-self: center;
+  }
+}
+
+.support_center_container {
+  @include flex-col;
+  gap: 32px;
+  align-self: center;
+
+  .support_buttons {
+    @include flex-row;
+    max-width: 494px;
+    border: 1px solid rgba(153, 153, 153, 1);
+
+    .btn {
+      height: 48px;
+      border: 0;
+      border-radius: 0;
+      width: 50%;
+
+      transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out,
+        border 0.4s ease-in-out;
+    }
+  }
+}
+
+.overlay-bg-support-center {
+  @include overlay($white);
+  height: 65%;
+  background-image: url("../../../public/images/support-center-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+// CREATE TICKET
+.create_ticket_container {
+  width: 100%;
+}
+
+.create_ticket_item_left {
+  padding: 36px 40px 40px;
+  background-color: $white;
+  @include flex-col;
+  gap: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 245, 245, 1);
+}
+
+.create_ticket_item_header {
+  @include flex-col;
+  gap: 6px;
+  color: $black;
+
+  h4 {
+    @include h4(600);
+  }
+
+  p {
+    @include accent2(400);
+  }
+}
+
+.create_ticket_form {
+  @include flex-col;
+  gap: 16px;
+
+  .btn {
+    margin-top: 4px;
+  }
+}
+
+.create_ticket_form_item {
+  @include flex-row;
+  gap: 16px;
+
+  div {
+    @include flex-col;
+    gap: 8px;
+    width: 100%;
+
+    label {
+      @include label;
+    }
+
+    input {
+      @include input-style;
+      @include input-text;
+    }
+
+    textarea {
+      @include textarea;
+    }
+
+    input[type="file"] {
+      height: 189px;
+      border: 1px solid rgba(153, 153, 153, 1);
+      border-radius: 4px;
+      border-style: dashed;
+
+      @include flex-col-center;
+    }
+  }
+}
+
+// VIEW TICKETS
+.view_ticket_container {
+  background-color: $white;
+  padding: 32px 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 245, 245, 1);
+
+  @include flex-col;
+  gap: 24px;
+
+  h4 {
+    color: $black;
+    @include h4(600);
+  }
+}
+
+.view_tickets {
+  @include flex-col;
+  width: 100%;
+  border: 1px solid rgba(195, 195, 195, 1);
+  border-bottom: 0;
+
+  div {
+    display: grid;
+    height: 64px;
+    grid-template-columns: 60px repeat(6, minmax(50px, 1fr));
+    border-bottom: 1px solid rgba(195, 195, 195, 1);
+
+    span {
+      @include flex-col-center;
+      border-right: 1px solid rgba(195, 195, 195, 1);
+    }
+
+    p {
+      @include accent2(600);
+      margin-top: auto;
+      margin-bottom: auto;
+      padding-left: 20px;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      line-clamp: 1;
+      -webkit-line-clamp: 1;
+
+      &:first-of-type {
+        padding-left: 30px;
+      }
+    }
+  }
+
+  .ticket_item {
+    p {
+      @include accent2(400);
+
+      &:first-of-type {
+        color: $blue;
+        @include accent2(600);
+      }
+
+      &.open {
+        @include accent2(500);
+        text-transform: capitalize;
+        color: $error;
+      }
+
+      &.closed {
+        @include accent2(500);
+        text-transform: capitalize;
+        color: $success;
+      }
+    }
+  }
+}

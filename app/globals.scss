@@ -1,0 +1,115 @@
+@use "../styles/abstracts/variables" as *;
+@use "../styles/abstracts/mixins" as *;
+@use "../styles/base/typography";
+@use "../styles/base/reset";
+
+@use "../styles/layout/navbar";
+@use "../styles/layout/footer";
+
+@use "../styles/components/button";
+
+@use "../styles/pages/homepage";
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Sora:wght@100..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.section {
+  padding-left: 80px;
+  padding-right: 80px;
+  width: 100%;
+  background-color: $white;
+}
+
+.page_width {
+  max-width: 1280px;
+  @include flex-row;
+  width: 100%;
+  justify-self: center;
+}
+
+:root {
+  // HEADER TEXT SIZES
+  --header-1: 60px;
+  --header-2: 48px;
+  --header-3: 36px;
+  --header-4: 28px;
+  --header-5: 24px;
+  --header-6: 20px;
+
+  --line-height-header-1: auto;
+  --line-height-header-2: auto;
+  --line-height-header-3: auto;
+  --line-height-header-4: auto;
+  --line-height-header-5: auto;
+  --line-height-header-6: auto;
+
+  --letter-spacing-header-1: 0px;
+  --letter-spacing-header-2: 0px;
+  --letter-spacing-header-3: 0px;
+  --letter-spacing-header-4: 0px;
+  --letter-spacing-header-5: 0px;
+  --letter-spacing-header-6: 0px;
+
+  // BODY TEXT SIZES
+  --body-1: 18px;
+  --body-2: 16px;
+  --body-3: 14px;
+  --body-4: 12px;
+
+  --line-height-body-1: auto;
+  --line-height-body-2: auto;
+  --line-height-body-3: auto;
+  --line-height-body-4: auto;
+
+  --letter-spacing-body-1: 0px;
+  --letter-spacing-body-2: 0px;
+  --letter-spacing-body-3: 0px;
+  --letter-spacing-body-4: 0px;
+
+  // ACCENT TEXT SIZES
+  --accent-1: 18px;
+  --accent-2: 16px;
+  --accent-3: 14px;
+  --accent-4: 12px;
+
+  --line-height-accent-1: auto;
+  --line-height-accent-2: auto;
+  --line-height-accent-3: auto;
+  --line-height-accent-4: auto;
+
+  --letter-spacing-accent-1: 0px;
+  --letter-spacing-accent-2: 0px;
+  --letter-spacing-accent-3: 0px;
+  --letter-spacing-accent-4: 0px;
+
+  // BUTTON TEXT SIZES
+  --btn-medium: 16px;
+  --btn-small: 14px;
+
+  --line-height-btn-medium: auto;
+  --line-height-btn-small: auto;
+
+  --letter-spacing-btn-medium: 0px;
+  --letter-spacing-btn-small: 0px;
+
+  // OTHER TEXT SIZES
+  --input: 14px;
+  --label: 14px;
+  --blockquote: 20px;
+  --metrics: 20px;
+
+  --line-height-input: auto;
+  --line-height-label: auto;
+  --line-height-blockquote: auto;
+  --line-height-metrics: auto;
+
+  --letter-spacing-input: 0px;
+  --letter-spacing-label: 0px;
+  --letter-spacing-blockquote: 0px;
+  --letter-spacing-metrics: 0px;
+}
