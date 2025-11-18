@@ -1,9 +1,32 @@
+"use client";
+
 import "@/styles/components/forms/RegisterForm.scss";
 import Button from "@/components/common/Button";
 import GoogleSvg from "@/public/icon/google.svg";
 import AppleSvg from "@/public/icon/apple.svg";
 
+import { useActionState } from "react";
+
+import { registerUser } from "@/actions/auth";
+
+const initialState = {
+  success: undefined,
+  error: {
+    firstName: "",
+    email: "",
+    lastName: "",
+    password: "",
+    phoneNumber: "",
+    acceptPromotionalEmails: "",
+  },
+};
+
 export default function RegisterForm() {
+  const [state, formAction, pending] = useActionState(
+    registerUser,
+    initialState
+  );
+
   return (
     <section className="section register_section">
       <div className="register_container">
@@ -25,56 +48,115 @@ export default function RegisterForm() {
           <span />
         </div>
 
-        <form className="register_form">
+        <form action={formAction} className="register_form">
           <div className="register_form-inputs">
             <div className="register_form-item">
               <div>
-                <label>First Name</label>
-                <input type="text" placeholder="First Name" />
+                <label htmlFor="firstName">First Name</label>
+
+                <input
+                  id="firstName"
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                />
+
+                {state.error?.firstName && (
+                  <span className="error">{state.error.firstName}</span>
+                )}
               </div>
 
               <div>
-                <label>Last Name</label>
-                <input type="text" placeholder="Last Name" />
+                <label htmlFor="lastName">Last Name</label>
+
+                <input
+                  id="lastName"
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                />
+
+                {state.error?.lastName && (
+                  <span className="error">{state.error.lastName}</span>
+                )}
               </div>
             </div>
 
             <div className="register_form-item">
               <div>
-                <label>Email Address</label>
-                <input type="text" placeholder="Email Address" />
+                <label htmlFor="email">Email Address</label>
+
+                <input
+                  id="email"
+                  type="text"
+                  name="email"
+                  placeholder="Email Address"
+                />
+
+                {state.error?.email && (
+                  <span className="error">{state.error.email}</span>
+                )}
               </div>
 
               <div>
-                <label>Phone Number</label>
-                <input type="text" placeholder="Phone Number" />
+                <label htmlFor="phoneNumber">Phone Number</label>
+
+                <input
+                  id="phoneNumber"
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                />
+
+                {state.error?.phoneNumber && (
+                  <span className="error">{state.error.phoneNumber}</span>
+                )}
               </div>
             </div>
 
             <div className="register_form-item">
               <div>
-                <label>Password</label>
-                <input type="password" placeholder="Password" />
+                <label htmlFor="password">Password</label>
+
+                {state.error?.password && (
+                  <span className="error">{state.error.password}</span>
+                )}
+
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
               </div>
             </div>
           </div>
 
           <aside className="agree_terms">
             <div>
-              <input type="checkbox" /> I agree to Ventarca’s{" "}
+              <input type="checkbox" required /> I agree to Ventarca’s{" "}
               <span>term and policies.</span>
             </div>
 
             <div>
-              <input type="checkbox" /> I agree to receive mail and updates via
-              mail from Ventarca.
+              <input type="checkbox" name="acceptPromotionalEmails" /> I agree
+              to receive mail and updates via mail from Ventarca.
             </div>
           </aside>
 
-          <Button className="btn btn-primary btn-medium">
+          <Button
+            type="submit"
+            disabled={pending}
+            className="btn btn-primary btn-medium"
+          >
+            <span className="loader" />
             Create My Account
           </Button>
         </form>
+
+        {state.error?.form && (
+          <p className="register_link error">{state.error.form}</p>
+        )}
 
         <p className="register_link">
           Already have an account? <span>Sign in here.</span>

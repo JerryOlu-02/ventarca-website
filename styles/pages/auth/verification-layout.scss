@@ -1,0 +1,39 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.verification_section {
+  padding-top: 124px;
+  padding-bottom: 124px;
+  background-image: url("../../../public/images/verification-layout-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 0;
+
+  &::before {
+    content: "";
+    @include overlay(rgba(0, 0, 0, 0.25));
+  }
+}
+
+.verification_container {
+  max-width: 720px;
+  justify-self: center;
+  width: 100%;
+  padding: 40px 120px 48px;
+  background-color: $white;
+  border-radius: 8px;
+  @include flex-col;
+  align-items: center;
+  gap: 12px;
+  color: $black;
+  text-align: center;
+
+  h4 {
+    @include h4(500);
+  }
+
+  p {
+    @include accent2(300);
+  }
+}

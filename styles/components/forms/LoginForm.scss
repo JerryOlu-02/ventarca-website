@@ -72,6 +72,12 @@
     @include label;
   }
 
+  .error {
+    @include label;
+    color: $error;
+    font-size: 12px;
+  }
+
   input {
     @include input-style;
     @include input-text;

@@ -275,7 +275,6 @@
   line-height: var(--line-height-input);
   letter-spacing: var(--letter-spacing-input);
   @include ibm-plex-sans;
-  text-transform: capitalize;
 }
 
 @mixin label {

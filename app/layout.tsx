@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
+import {
+  DM_Sans,
+  IBM_Plex_Sans,
+  Playfair_Display,
+  Sora,
+} from "next/font/google";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -6,15 +12,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 import "./globals.scss";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-import {
-  DM_Sans,
-  IBM_Plex_Sans,
-  Playfair_Display,
-  Sora,
-} from "next/font/google";
+import Provider from "./providers";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -60,10 +62,13 @@ export default function RootLayout({
       className={`${dmSans.className} ${ibmPlexSans.className} ${playfairDisplay.className} ${sora.className}`}
     >
       <body>
-        <Navbar />
-        {children}
+        <Provider>
+          <Navbar />
 
-        <Footer />
+          {children}
+
+          <Footer />
+        </Provider>
       </body>
     </html>
   );

@@ -82,6 +82,12 @@
     @include label;
   }
 
+  .error {
+    @include label;
+    color: $error;
+    font-size: 12px;
+  }
+
   input {
     @include input-style;
     @include input-text;
@@ -117,5 +123,10 @@
   span {
     color: $blue;
     text-decoration: underline;
+  }
+
+  &.error {
+    color: $error;
+    font-size: 14px;
   }
 }
