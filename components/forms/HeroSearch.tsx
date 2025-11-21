@@ -5,34 +5,68 @@ import Select from "../common/Select";
 
 import { useRouter } from "next/navigation";
 
+import { SearchInput, SearchSchema } from "@/utils/types/searchSchema";
+
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 export default function HeroSearch() {
   const router = useRouter();
 
-  const handleSubmit = function (formData: FormData) {
-    const data = formData.get("location") as string;
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<Omit<SearchInput, "moreFilters">>({
+    resolver: zodResolver(SearchSchema),
+  });
+
+  const onSubmit: SubmitHandler<Omit<SearchInput, "moreFilters">> = function (
+    data
+  ) {
     console.log(data);
 
-    // Use data to fetch listings
+    router.push(
+      `/search?location=${data.location}${
+        data.industry ? `&industry=${data.industry}` : ""
+      }${data.priceRange ? `&priceRange=${data.priceRange}` : ""}`
+    );
+  };
 
-    // Update searchListings state
-
-    // Go to search page
-    router.push(`/search?location=${data}`);
+  const handleClickSubmit = () => {
+    if (errors.location) alert("Please Fill a location");
   };
 
   return (
-    <form action={handleSubmit} className="hero_search">
+    <form onSubmit={handleSubmit(onSubmit)} className="hero_search">
       <input
         type="text"
-        name="location"
+        {...register("location")}
         placeholder="Search City, County, State"
       />
 
-      <Select placeholder="Industry / Sector" options={["Retail", "Saas"]} />
+      <Select
+        containerClass="big"
+        {...register("industry")}
+        setFormValue={(option) => setValue("industry", option)}
+        placeholder="Industry / Sector"
+        options={["Retail", "Saas"]}
+      />
 
-      <Select placeholder="Price Range" options={["2000-3000", "3000-4000"]} />
+      <Select
+        containerClass="big"
+        {...register("priceRange")}
+        setFormValue={(option) => setValue("priceRange", option)}
+        placeholder="Price Range"
+        options={["2000-3000", "3000-4000"]}
+      />
 
-      <Button type="submit" className="btn btn-primary btn-medium">
+      <Button
+        onClick={handleClickSubmit}
+        type="submit"
+        className="btn btn-primary btn-medium"
+      >
         Search
       </Button>
     </form>

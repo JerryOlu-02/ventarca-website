@@ -20,10 +20,12 @@
       width: 100%;
     }
 
-    .select_container {
-      height: 44px;
-      padding: 10px 12px;
+    .select {
       width: 70%;
+
+      .select_container {
+        height: 44px;
+      }
 
       .arrow {
         right: 10px;

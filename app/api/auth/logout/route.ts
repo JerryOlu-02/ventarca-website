@@ -1,20 +1,41 @@
-// app/api/auth/logout/route.ts
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const backend = process.env.BACKEND_API_URL!;
-  // forward cookie for backend logout (optional)
-  const cookieHeader = req.headers.get("cookie") ?? "";
+  const cookie = req.headers.get("cookie") ?? "";
+  const { accessToken } = await req.json();
 
-  await fetch(`${backend}/auth/logout`, {
+  const resp = await fetch(`${process.env.BACKEND_API_URL}/auth/logout`, {
     method: "POST",
-    headers: { Cookie: cookieHeader },
-  }).catch(() => {});
+    credentials: "include",
+    headers: {
+      Cookie: cookie,
+      "Content-Type": "application/json",
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
+  });
 
-  const res = NextResponse.json({ ok: true });
-  res.headers.set(
-    "Set-Cookie",
-    `refreshToken=deleted; HttpOnly; Secure; Path=/; SameSite=Lax; Domain=.ventarca.biz; Max-Age=0`
-  );
-  return res;
+  if (!resp.ok) {
+    return NextResponse.json({ status: resp.status });
+  }
+
+  // backend clears the HttpOnly refresh cookie
+
+  const outwardResponse = NextResponse.json({ ok: true });
+
+  const setCookie = resp?.headers?.get("set-cookie");
+  if (setCookie) outwardResponse.headers.set("Set-Cookie", setCookie);
+
+  if (resp?.ok) {
+    const cookieStore = await cookies();
+
+    cookieStore.set({
+      name: "logged_in",
+      value: "",
+      maxAge: 0,
+      path: "/",
+    });
+  }
+
+  return outwardResponse;
 }

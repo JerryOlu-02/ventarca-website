@@ -1,11 +1,14 @@
 "use client";
 
 import "@/styles/components/forms/RegisterForm.scss";
+
 import Button from "@/components/common/Button";
+import Link from "next/link";
+
 import GoogleSvg from "@/public/icon/google.svg";
 import AppleSvg from "@/public/icon/apple.svg";
 
-import { useActionState } from "react";
+import { startTransition, useActionState } from "react";
 
 import { registerUser } from "@/actions/auth";
 
@@ -26,6 +29,13 @@ export default function RegisterForm() {
     registerUser,
     initialState
   );
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    startTransition(() => formAction(formData));
+  };
 
   return (
     <section className="section register_section">
@@ -48,7 +58,11 @@ export default function RegisterForm() {
           <span />
         </div>
 
-        <form action={formAction} className="register_form">
+        <form
+          onSubmit={handleSubmit}
+          // action={formAction}
+          className="register_form"
+        >
           <div className="register_form-inputs">
             <div className="register_form-item">
               <div>
@@ -159,7 +173,7 @@ export default function RegisterForm() {
         )}
 
         <p className="register_link">
-          Already have an account? <span>Sign in here.</span>
+          Already have an account? <Link href="/login">Sign in here.</Link>
         </p>
       </div>
     </section>

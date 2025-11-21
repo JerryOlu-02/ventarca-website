@@ -4,7 +4,7 @@ import parsePhoneNumberFromString from "libphonenumber-js";
 import apiClient from "@/lib/axios";
 import { success, z } from "zod";
 import { redirect } from "next/navigation";
-import axios from "axios";
+import { ErrorResponse } from "@/types/apiResponse";
 import { error } from "console";
 
 // REGISTER AUTH ACTIONS
@@ -61,10 +61,14 @@ export async function registerUser(prevState: any, formData: FormData) {
 
     console.log("Registration Succesful", response.status);
   } catch (error: any) {
-    console.error("SIGN UP FAILED", error.status);
+    const errorData: ErrorResponse = error.response.data;
+    console.error("SIGN UP FAILED", errorData);
 
     return {
-      error: { form: "Sign Up Failed" },
+      error:
+        typeof errorData.message === "object"
+          ? Object.values(errorData.message)[0]
+          : errorData.message,
     };
   }
 
@@ -83,19 +87,19 @@ export async function confirmEmail(hash: string) {
         "Your email has been verified. Proceed to sign in to complete your onboarding.",
     };
   } catch (error: any) {
-    console.error("Email Confirmation FAILED", error.status);
+    const errorData: ErrorResponse = error.response.data;
+    console.error("Email Confirmation FAILED", errorData);
 
     return {
-      error: `${
-        error.status === 404
-          ? "Email has already been verified. Proceed to sign in to complete your onboarding."
-          : "Verification Failed"
-      }`,
+      error:
+        typeof errorData.message === "object"
+          ? Object.values(errorData.message)[0]
+          : errorData.message,
     };
   }
 }
 
-// LOGIN AUTH ACTION
+// LOGIN SERVER FORM VALIDIATION AUTH ACTION
 const loginSchema = z.object({
   email: z.email({ error: "Pease Enter a valid email" }),
   password: z.string().min(1, "Please Enter a password"),
@@ -123,4 +127,102 @@ export async function validiateLogin(formData: {
     success: "Form was Validiated Successfully",
     error: {},
   };
+}
+
+// FORGOT PASSWORD AUTH ACTIONS
+const ForgotPasswordSchema = z.object({
+  email: z.email({ error: "Pease Enter a valid email" }),
+});
+
+export async function forgetPassword(prevState: any, formData: FormData) {
+  const forgetPasswordData = Object.fromEntries(formData);
+  const validiatedForgotPasswordEmail =
+    ForgotPasswordSchema.safeParse(forgetPasswordData);
+
+  if (!validiatedForgotPasswordEmail.success) {
+    const formFieldErrors = z.flattenError(validiatedForgotPasswordEmail.error);
+
+    return {
+      error: {
+        email: formFieldErrors.fieldErrors.email?.[0],
+      },
+    };
+  }
+
+  const data = validiatedForgotPasswordEmail.data;
+
+  try {
+    const response = await apiClient.post("/auth/forgot/password", { ...data });
+  } catch (error: any) {
+    const errorData: ErrorResponse = error.response.data;
+    console.error("Forgotpassword Error --->", errorData);
+
+    return {
+      error: {
+        form:
+          typeof errorData.message === "object"
+            ? Object.values(errorData.message)[0]
+            : errorData.message,
+      },
+    };
+  }
+
+  redirect("/forgot-password/verification-pending");
+}
+
+// PASSWORD CHANGE AUTH ACTIONS
+const PasswordChangeSchema = z
+  .object({
+    newPassword: z.string().min(1, "Please Enter a password"),
+    confirmPassword: z.string().min(1, "Please Enter a password"),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export async function validiatePasswordInputsOnServer(formData: {
+  newPassword: string;
+  confirmPassword: string;
+}) {
+  const validiatedChangePasswordData = PasswordChangeSchema.safeParse(formData);
+
+  if (!validiatedChangePasswordData.success) {
+    const formFieldErrors = z.flattenError(validiatedChangePasswordData.error);
+
+    return {
+      error: {
+        newPassword: formFieldErrors.fieldErrors.newPassword?.[0],
+        confirmPassword: formFieldErrors.fieldErrors.confirmPassword?.[0],
+      },
+    };
+  }
+
+  return {
+    success: "Form was Validiated Successfully",
+    error: {},
+  };
+}
+
+export async function changePassword(password: string, hash: string) {
+  try {
+    await apiClient.post("/auth/reset/password", {
+      password: password,
+      hash: hash,
+    });
+
+    return {
+      success: "Password Reset Successful",
+    };
+  } catch (error: any) {
+    const errorData: ErrorResponse = error.response.data;
+    console.error("Could Not Change Password --->", errorData);
+
+    return {
+      error:
+        typeof errorData.message === "object"
+          ? Object.values(errorData.message)[0]
+          : errorData.message,
+    };
+  }
 }

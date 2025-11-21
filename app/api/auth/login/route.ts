@@ -1,4 +1,5 @@
-import { createRefreshCookie } from "@/lib/cookies";
+import { ErrorResponse, LoginSuccessResponse } from "@/types/apiResponse";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -12,23 +13,45 @@ export async function POST(req: Request) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+    credentials: "include",
   });
 
   const data = await resp.json();
 
   if (!resp.ok) {
-    return NextResponse.json(data, { status: resp.status });
+    const errorData: ErrorResponse = data;
+
+    return NextResponse.json(errorData, { status: resp.status });
   }
 
-  const { token: accessToken, refreshToken, user } = data;
+  // Foward HttpOnly cookie Backend sets
+  const setCookie = resp.headers.get("set-cookie");
 
-  const response = NextResponse.json({
+  const { token, user, tokenExpires }: LoginSuccessResponse = data;
+
+  const outwardResponse = NextResponse.json({
     success: true,
-    accessToken,
+    token,
+    tokenExpires,
     user,
   });
 
-  response.headers.set("Set-Cookie", createRefreshCookie(refreshToken));
+  if (setCookie) {
+    outwardResponse.headers.set("Set-Cookie", setCookie);
+  }
 
-  return response;
+  // Set SSR session cookie
+  const cookieStore = await cookies();
+
+  cookieStore.set({
+    name: "logged_in",
+    value: "true",
+    path: "/",
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  return outwardResponse;
 }

@@ -1,4 +1,4 @@
-import { clearRefreshCookie, createRefreshCookie } from "@/lib/cookies";
+import { ErrorResponse, RefreshResponse } from "@/types/apiResponse";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -7,32 +7,44 @@ export async function POST(req: Request) {
   // Extract cookies from incoming request
   const cookieHeader = req.headers.get("cookie") ?? "";
 
+  // console.log("Cookie header --->", cookieHeader);
+
   const resp = await fetch(`${backend}/auth/refresh`, {
     method: "POST",
+
     headers: {
       Cookie: cookieHeader,
+      "Content-Type": "application/json",
     },
+
+    credentials: "include",
   });
 
   const data = await resp.json();
 
   if (!resp.ok) {
-    // Clear cookie
-    const response = NextResponse.json(data, { status: resp.status });
-    response.headers.set("Set-Cookie", clearRefreshCookie());
-    return response;
+    // User not signed in → clear set-cookie header
+    const errorData: ErrorResponse = data;
+
+    const outwardResponse = NextResponse.json(errorData, {
+      status: resp.status,
+    });
+
+    return outwardResponse;
   }
 
-  const { token: accessToken, refreshToken } = data;
+  // backend returns { token, tokenExpires }
+  const successData: RefreshResponse = data;
 
-  console.log("Incoming Cookie", refreshToken);
-
-  const response = NextResponse.json({
-    accessToken,
+  const outwardResponse = NextResponse.json({
+    token: successData.token,
+    tokenExpires: successData.tokenExpires,
   });
 
   // Set new refresh token cookie
-  response.headers.set("Set-Cookie", createRefreshCookie(refreshToken));
+  const setCookie = resp.headers.get("set-cookie");
 
-  return response;
+  if (setCookie) outwardResponse.headers.set("Set-Cookie", setCookie);
+
+  return outwardResponse;
 }

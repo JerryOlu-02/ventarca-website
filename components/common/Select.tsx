@@ -2,44 +2,82 @@
 
 import "@/styles/components/common/select.scss";
 import ArrowDown from "@/public/icon/arrow-down.svg";
-import { useRef, useState } from "react";
+import React, { useState } from "react";
 
-interface SelectProps {
+interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: string[];
-  placeholder: string;
+  placeholder?: string;
+  defaultSelectedOption?: string;
+  setFormValue: (option: string) => void;
+  containerClass?: string;
+  optionsClass?: string;
 }
 
-export default function Select({ options, placeholder }: SelectProps) {
+export default function Select({
+  options,
+  placeholder,
+  defaultSelectedOption,
+  setFormValue,
+  containerClass,
+  optionsClass,
+  ...props
+}: SelectProps) {
+  const [selectedOption, setSelectedOption] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const selectRef = useRef(null);
 
   const handleSelect = function () {
-    // if (selectRef.current) {
-    //   console.log(selectRef);
-    // }
-
     setIsOpen((isPreviouslyOpen) =>
       isPreviouslyOpen ? false : !isPreviouslyOpen
     );
   };
 
-  return (
-    <div onClick={() => handleSelect()} className="select_container">
-      {placeholder}
+  const handleClickedOption = function (e: React.MouseEvent<HTMLLIElement>) {
+    // onClickOption(e);
+    setSelectedOption(e.currentTarget.innerText);
 
-      <div className="arrow">
-        <ArrowDown />
+    setIsOpen(false);
+
+    setFormValue(e.currentTarget.innerHTML);
+  };
+
+  return (
+    <div className="select">
+      <div
+        onClick={() => handleSelect()}
+        className={`select_container ${containerClass}`}
+      >
+        {selectedOption !== ""
+          ? selectedOption
+          : placeholder
+          ? placeholder
+          : defaultSelectedOption}
+
+        <div className="arrow">
+          <ArrowDown />
+        </div>
       </div>
 
-      <ul ref={selectRef} className={`custom_select ${!isOpen && "open"}`}>
+      <ul className={`custom_select ${optionsClass} ${isOpen && "open"}`}>
         {options.map((option, i) => {
           return (
-            <li className="custom_option" key={i}>
+            <li onClick={handleClickedOption} className="custom_option" key={i}>
               {option}
             </li>
           );
         })}
       </ul>
+
+      <select {...props}>
+        <option value=""></option>
+
+        {options.map((option, i) => {
+          return (
+            <option value={option} key={i}>
+              {option}
+            </option>
+          );
+        })}
+      </select>
     </div>
   );
 }

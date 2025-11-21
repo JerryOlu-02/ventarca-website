@@ -1,50 +1,74 @@
 @use "../../abstracts/variables" as *;
 @use "../../abstracts/mixins" as *;
 
-.select_container {
+.select {
+  @include flex-col;
   width: 100%;
   position: relative;
+
+  select,
+  option {
+    display: none;
+  }
+}
+
+.select_container {
+  width: 100%;
   @include select;
-  @include flex-row-center;
+  @include flex-row;
+  align-items: center;
   justify-content: flex-start;
 }
 
-.custom_select {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  transform: translateY(0%);
+.select_container.big {
+  min-height: 60px;
+}
 
+.custom_select {
   background-color: $white;
   list-style-type: none;
-  display: block;
+  border: 1px solid rgba(153, 153, 153, 1);
+  transform: scaleY(0);
+  height: 0;
+  transition: height 0.4s ease, transform 0.4s ease, margin-top 0.4s ease;
+  transform-origin: top;
 
   &.open {
-    .custom_option {
-      display: none;
-    }
+    margin-top: 10px;
+    height: 100%;
+    transform: scaleY(1);
+    padding: 4px 10px;
+  }
+}
+
+.custom_select.absolute {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  z-index: 4;
+
+  &.open {
+    margin-top: 10px;
+    height: max-content;
   }
 }
 
 .arrow {
+  @include flex-col-center;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 20px;
+  right: 0;
 }
 
 .custom_option {
-  padding: 19.5px 20px;
+  @include accent3(300);
+  cursor: pointer;
+  color: $black;
+  padding: 10px 8px;
   border-bottom: 1px solid rgba(153, 153, 153, 1);
-  border-left: 1px solid rgba(153, 153, 153, 1);
-  border-right: 1px solid rgba(153, 153, 153, 1);
-
-  &:first-of-type {
-    border-top: 1px solid rgba(153, 153, 153, 1);
-  }
 
   &:last-of-type {
-    border-bottom: rgba(153, 153, 153, 1);
+    border-bottom: 0;
   }
 }

@@ -76,11 +76,11 @@
   }
 }
 
-@mixin select($height: 60px) {
+@mixin select($height: 44px) {
   background-color: $white;
-  padding: 19.5px 20px;
-  @include accent2(500);
-  height: 60px;
+  padding: 13px 12px;
+  @include accent3(400);
+  height: $height;
   color: rgba(51, 51, 51, 1);
   border-color: rgba(153, 153, 153, 1);
   border-width: 1px;

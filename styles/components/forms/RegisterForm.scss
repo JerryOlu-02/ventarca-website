@@ -120,7 +120,7 @@
 .register_link {
   @include accent2(400);
 
-  span {
+  a {
     color: $blue;
     text-decoration: underline;
   }
