@@ -1,48 +1,26 @@
+"use client";
+
 import ListingCard from "./ListingCard";
 
-import ListingImg1 from "@/public/images/listing-1.jpg";
-import ListingImg2 from "@/public/images/listing-2.jpg";
-import ListingImg3 from "@/public/images/listing-3.jpg";
 import Slider from "../common/Slider";
-import { Listing } from "./types/index";
+import { use } from "react";
+import { GetHandPickedListingResponseData } from "@/utils/getHandpickedListings";
 
-export default function ListingSlider() {
-  const listings: Listing[] = [
-    {
-      id: 1,
-      image: ListingImg1,
-      name: "Home Interior Design Items Shop At The City Centre with Parking",
-      location: "Cockermouth, Cumbria.",
-      tags: ["Retail", "Home Decoration", "Shipping"],
-      price: "£48.5K",
-      revenue: "£140K",
-      profit: "£27K",
-    },
-    {
-      id: 2,
-      image: ListingImg2,
-      name: "Beautiful  Sectioned Retail Clothing Store With Home Delivery Option",
-      location: "Exeter, Devon.",
-      tags: ["Retail", "Fashion", "Shipping"],
-      price: "£48.5K",
-      revenue: "£293K",
-      profit: "£84K",
-    },
-    {
-      id: 3,
-      image: ListingImg3,
-      name: "Interior and Exterior Service Coffee Shop With Bicycle Parking",
-      location: "Rye, East Sussex.",
-      tags: ["Retail", "Resturant", "Shipping"],
-      price: "£60.7K",
-      revenue: "£80K",
-      profit: "£27K",
-    },
-  ];
-
+export default function ListingSlider({
+  getHandpickedListingPromise,
+}: {
+  getHandpickedListingPromise: Promise<GetHandPickedListingResponseData>;
+}) {
   const listingArray: React.ReactNode[] = [];
 
-  const listingCardArray = listings.map((listing, i) =>
+  const handpickedListings = use(getHandpickedListingPromise);
+
+  if (!handpickedListings.data)
+    return <div>Failed to fetch Handpicked Listings</div>;
+
+  const handpickedListingsData = handpickedListings.data.data;
+
+  handpickedListingsData.map((listing, i) =>
     listingArray.push(<ListingCard key={i} listing={listing} />)
   );
 

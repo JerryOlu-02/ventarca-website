@@ -1,10 +1,17 @@
 "use server";
 
 import apiClient from "@/lib/axios";
-import { SearchInput, SearchSchema } from "@/utils/types/searchSchema";
+import { ErrorResponse } from "@/types/apiResponse";
+import { SearchSchema } from "@/utils/types/searchSchema";
 import z from "zod";
 
-export async function searchListing(searchData: SearchInput) {
+type HeroSearchInput = {
+  location: string;
+  industry: string | undefined;
+  priceRange: string | undefined;
+};
+
+export async function searchHeroListing(searchData: HeroSearchInput) {
   const validiatedRegisterUserData = SearchSchema.safeParse(searchData);
 
   if (!validiatedRegisterUserData.success) {
@@ -14,7 +21,6 @@ export async function searchListing(searchData: SearchInput) {
       error: {
         industry: formFieldErrors.fieldErrors.industry?.[0],
         location: formFieldErrors.fieldErrors.location?.[0],
-        moreFilters: formFieldErrors.fieldErrors.moreFilters?.[0],
         priceRange: formFieldErrors.fieldErrors.priceRange?.[0],
       },
     };
@@ -22,23 +28,45 @@ export async function searchListing(searchData: SearchInput) {
 
   const data = validiatedRegisterUserData.data;
 
+  const priceRange = data.priceRange
+    ? data.priceRange.split("-").map((price) => Number(price))
+    : undefined;
+
+  const minAskingPrice = priceRange && priceRange[0];
+  const maxAskingPrice = priceRange && priceRange[1];
+
   try {
     const response = await apiClient.get("/listing/search", {
       params: {
+        page: 1,
         limit: 9,
-        filters: {
-          location: "nigeria",
-          industries: [""],
-        },
+        ...(data.location && {
+          filters: {
+            location: data.location,
+            ...(data.industry && { industries: [data.industry] }),
+            ...(maxAskingPrice && { minAskingPrice: minAskingPrice }),
+            ...(minAskingPrice && { maxAskingPrice: maxAskingPrice }),
+          },
+        }),
       },
     });
 
-    console.log("Search Successful", response.data);
-  } catch (error: any) {
-    console.error("Seaech failed FAILED", error.status);
+    // console.log("Search Successful", response.data);
 
     return {
-      error: { form: "Sign Up Failed" },
+      success: true,
+      data: response.data as ListingSearchResponse,
+    };
+  } catch (error: any) {
+    const errorData: ErrorResponse = error.response.data;
+    console.error("Search Failed --->", errorData);
+
+    return {
+      error:
+        typeof errorData.message === "object"
+          ? Object.values(errorData.message)[0]
+          : errorData.message,
+      data: undefined,
     };
   }
 }

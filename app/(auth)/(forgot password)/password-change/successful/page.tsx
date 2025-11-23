@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <VerificationLayout
       header="Password Reset Succesful!"
-      content="Your Password has been reset succesfully. Proceed to login"
+      content="Your Password has been reset succesfully. Proceed to Sign In"
     />
   );
 }

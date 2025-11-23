@@ -5,27 +5,33 @@ import Location from "@/public/icon/location.svg";
 import Bookmark from "@/public/icon/bookmark.svg";
 import Image from "next/image";
 
-import { Listing } from "./types/index";
 import Link from "next/link";
 
 interface ListingCardProp {
-  listing: Listing;
+  listing: ListingCardResponse;
 }
 
 export default function ListingCard({ listing }: ListingCardProp) {
   return (
     <div className="listingCard">
       <div className="listingCard_image">
-        <Image src={listing.image} alt="Listing_Image" />
+        <span className="move" />
+        <Image
+          src={listing.mediaAndDocumentation.listingCoverImage.path}
+          width={100}
+          height={100}
+          alt="Listing_Image"
+          unoptimized
+        />
       </div>
 
       <div className="listingCard_content">
-        <h5>{listing.name}</h5>
+        <h5>{listing.businessInfo.headline}</h5>
 
         <div className="listingCard_save">
           <span>
             <Location />
-            {listing.location}
+            {listing.businessInfo.location}
           </span>
 
           <span>
@@ -35,14 +41,14 @@ export default function ListingCard({ listing }: ListingCardProp) {
         </div>
 
         <div className="listingCard_tags">
-          {listing.tags.map((tag, i) => (
-            <span key={i}>{tag}</span>
-          ))}
+          {/* {listing.businessInfo.industry.map((tag, i) => ( */}
+          <span>{listing.businessInfo.industry.name}</span>
+          {/* ))} */}
         </div>
 
         <div className="listingCard_profitability">
           <div className="listingCard_profitability_item">
-            <p>{listing.price}</p>
+            <p>{listing.valuation.askingPrice}</p>
 
             <div>
               <p>Price</p>
@@ -52,7 +58,7 @@ export default function ListingCard({ listing }: ListingCardProp) {
           </div>
 
           <div className="listingCard_profitability_item">
-            <p>{listing.revenue}</p>
+            <p>{listing.financialHighlights.lastFyRevenue}</p>
 
             <div>
               <p>Revenue</p>
@@ -62,7 +68,7 @@ export default function ListingCard({ listing }: ListingCardProp) {
           </div>
 
           <div className="listingCard_profitability_item">
-            <p>{listing.profit}</p>
+            <p>{listing.financialHighlights.lastFyEBITDA}</p>
 
             <div>
               <p>Profit</p>

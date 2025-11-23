@@ -2,7 +2,11 @@
 import ListingCard from "./ListingCard";
 import { Listing } from "./types/index";
 
-export default function ListingList({ listings }: { listings: Listing[] }) {
+export default function ListingList({
+  listings,
+}: {
+  listings: ListingCardResponse[];
+}) {
   return (
     <>
       {listings.map((listing) => (

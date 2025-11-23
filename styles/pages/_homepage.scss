@@ -73,6 +73,7 @@
   gap: 28px;
 }
 
+// HERO SEARCH
 .hero_search {
   @include flex-row;
   width: 70%;
@@ -89,6 +90,10 @@
   .select_container {
     width: 100%;
     border-width: 0 0 0 1px;
+
+    .arrow {
+      right: 20px;
+    }
   }
 
   .btn {

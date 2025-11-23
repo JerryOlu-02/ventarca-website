@@ -1,7 +1,8 @@
+"use client";
+
 import { Listing } from "@/components/listings/types";
 
 import Button from "@/components/common/Button";
-import SearchPageForm from "@/components/forms/SearchPageForm";
 
 import SortImg from "@/public/icon/sort.svg";
 import ListingList from "@/components/listings/ListingList";
@@ -9,8 +10,9 @@ import ListingList from "@/components/listings/ListingList";
 import ListingImg1 from "@/public/images/listing-1.jpg";
 import ListingImg2 from "@/public/images/listing-2.jpg";
 import ListingImg3 from "@/public/images/listing-3.jpg";
+import { useSearchParams } from "next/navigation";
 
-const listings: Listing[] = [
+const listingsFake: Listing[] = [
   {
     id: 1,
     image: ListingImg1,
@@ -103,11 +105,22 @@ const listings: Listing[] = [
   },
 ];
 
-export default function Searchpage() {
+export default function Searchpage({
+  listings,
+}: {
+  listings: ListingCardResponse[];
+}) {
+  // console.log("Listings", listings);
+  // const searchParams = useSearchParams();
+
+  // const location = searchParams.get("location");
+
+  // const industry = searchParams.get("industry");
+
+  // const priceRange = searchParams.get("priceRange");
+
   return (
     <>
-      <SearchPageForm />
-
       <section className="section section_header">
         <div className="page_width search_header">
           <h3>E-commerce</h3>

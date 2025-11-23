@@ -1,7 +1,6 @@
-import { searchListing } from "@/actions/search";
+import { searchHeroListing } from "@/actions/search";
+
 import Searchpage from "./_components/Searchpage";
-import "@/styles/pages/searchpage.scss";
-import { SearchInput } from "@/utils/types/searchSchema";
 
 export default async function Page({
   searchParams,
@@ -10,7 +9,21 @@ export default async function Page({
 }) {
   const params = await searchParams;
 
-  await searchListing(params as SearchInput);
+  const location = params.location as string;
 
-  return <main>{<Searchpage />}</main>;
+  const industry = params.industry as string | undefined;
+
+  const priceRange = params.priceRange as string | undefined;
+
+  const response = await searchHeroListing({
+    location: location,
+    industry: industry,
+    priceRange: priceRange,
+  });
+
+  if (!response.data) return console.log("Search Failed", response.error);
+
+  const listingsCardData = response.data.data;
+
+  return <Searchpage listings={listingsCardData} />;
 }

@@ -1,4 +1,3 @@
-import apiClient from "@/lib/axios";
 import { getAccessToken, setAccessToken } from "@/lib/session";
 import { ErrorResponse, LoginSuccessResponse } from "@/types/apiResponse";
 import { User } from "@/types/apiResponse";

@@ -26,8 +26,9 @@ import FinImg from "@/public/images/fin.jpg";
 import RecentStory1Img from "@/public/images/recent-story-1.jpg";
 import RecentStory2Img from "@/public/images/recent-story-2.jpg";
 import RecentStory3Img from "@/public/images/recent-story-3.jpg";
-import Link from "next/link";
 import { useRef } from "react";
+import GetUpdates from "./GetUpdates";
+import Handpicked from "./Handpicked";
 
 const brokers: Broker[] = [
   {
@@ -103,7 +104,11 @@ const stories: RecentStory[] = [
   },
 ];
 
-export default function Homepage() {
+export default function Homepage({
+  listingSliderComponent,
+}: {
+  listingSliderComponent: React.ReactNode;
+}) {
   const targetRef = useRef<HTMLElement>(null);
 
   const scrollToTarget = () => {
@@ -116,13 +121,15 @@ export default function Homepage() {
     <>
       <Hero />
 
-      <Handpicked />
+      <Handpicked>{listingSliderComponent}</Handpicked>
 
       <ImgWithText />
 
       <section className="section homepage_middle">
         <WhatWould onScrollClick={scrollToTarget} brokers={brokers} />
+
         <Tags tags={tags} />
+
         <Stories stories={stories} />
       </section>
 
@@ -130,29 +137,6 @@ export default function Homepage() {
 
       <RichText />
     </>
-  );
-}
-
-// HANDPICKED SECTION
-function Handpicked() {
-  return (
-    <section className="section">
-      <div className="page_width handpicked">
-        <aside className="handpicked_header">
-          <h2>Handpicked for Your Next Move</h2>
-
-          <p>
-            Discover high-potential businesses vetted and ready for acquisition.
-          </p>
-        </aside>
-
-        <ListingSlider />
-
-        <Link href="/search" className="btn btn-secondary btn-medium">
-          View More Listings
-        </Link>
-      </div>
-    </section>
   );
 }
 
@@ -239,25 +223,6 @@ function Stories({ stories }: { stories: RecentStory[] }) {
         })}
       </aside>
     </div>
-  );
-}
-
-// GET UPDATES SECTION
-function GetUpdates({ ref }: { ref: React.Ref<HTMLElement> }) {
-  return (
-    <section ref={ref} className="getUpdates_section">
-      <div className="getUpdates">
-        <div className="getUpdates_header">
-          <h2>Get Updates on Trending Markets</h2>
-          <p>
-            Facilisis volutpat tempor nunc ut dictum quis. Orci venenatis in
-            amet non sed arcu nullam ut.
-          </p>
-        </div>
-
-        <NewsletterForm />
-      </div>
-    </section>
   );
 }
 
