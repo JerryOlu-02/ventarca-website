@@ -3,11 +3,11 @@
 
 @keyframes move {
   from {
-    left: 0%; /* Start off-screen to the left */
+    left: 0%;
   }
 
   to {
-    left: 100%; /* End at its original position */
+    left: 100%;
   }
 }
 
@@ -56,12 +56,36 @@
   h5 {
     @include h5(600);
     color: $black;
+    line-height: 100%;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    // white-space: nowrap;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 }
 
 .listingCard_save {
   @include flex-row;
   justify-content: space-between;
+
+  .location-container {
+    width: 50%;
+  }
+
+  .location {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
 
   span {
     @include flex-row-center;
@@ -102,7 +126,7 @@
   border-radius: 4px;
   @include flex-col;
   gap: 6px;
-  width: 100%;
+  width: calc(100% - 11px);
   background-color: $white;
 
   &:first-of-type {
@@ -115,8 +139,16 @@
     border: 1px solid rgba(245, 245, 245, 1);
   }
 
-  p {
+  .listingCard_profitability_item-text {
     @include p1(600);
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    // white-space: nowrap;
+    display: -webkit-box;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   div {

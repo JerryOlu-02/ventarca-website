@@ -6,7 +6,7 @@ import ArrowRight from "@/public/icon/arrow-right.svg";
 
 import Button from "@/components/common/Button";
 import Image from "next/image";
-import { industries } from "@/utils/arrays";
+import { industriesFake } from "@/utils/arrays";
 
 import { useState, useEffect } from "react";
 
@@ -49,7 +49,7 @@ export default function Preferences() {
         </h4>
 
         <div className="onboarding_industries">
-          {industries.map((industry, i) => {
+          {industriesFake.map((industry, i) => {
             return (
               <PreferencesItem
                 addIndustry={() => addIndustry(industry)}

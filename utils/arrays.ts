@@ -1,4 +1,4 @@
-export const industries: string[] = [
+export const industriesFake: string[] = [
   "AI",
   "Applications",
   "Automotive",

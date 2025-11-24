@@ -1,13 +1,15 @@
 import { getAccessToken, setAccessToken } from "@/lib/session";
 import { ErrorResponse, LoginSuccessResponse } from "@/types/apiResponse";
 import { User } from "@/types/apiResponse";
-import React, { createContext, useEffect, useState } from "react";
+import { getIndustriesFromBackend } from "@/utils/getIndustries";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 
 type AuthContextType = {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<any>;
+  industries: string[] | undefined;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -19,16 +21,31 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
 }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [industries, setIndustries] = useState<string[] | undefined>();
 
   useEffect(() => {
-    const raw = localStorage.getItem("user_cache");
+    getIndustries();
 
-    if (raw) {
-      setUser(JSON.parse(raw));
+    const userCache = localStorage.getItem("user_cache");
+
+    if (userCache) {
+      setUser(JSON.parse(userCache));
     }
 
     setLoading(false);
   }, []);
+
+  async function getIndustries() {
+    const res = await getIndustriesFromBackend();
+
+    if (res.data) {
+      const industries = res.data.data.map((industry) => industry.name);
+      setIndustries(industries);
+      return;
+    }
+
+    return setIndustries(res.data);
+  }
 
   const login = async (email: string, password: string) => {
     const res = await fetch("/api/auth/login", {
@@ -140,7 +157,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, industries }}>
       {children}
     </AuthContext.Provider>
   );

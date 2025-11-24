@@ -18,6 +18,7 @@
   @include flex-row;
   align-items: center;
   justify-content: flex-start;
+  text-transform: capitalize;
 }
 
 .select_container.big {
@@ -44,12 +45,21 @@
 .custom_select.absolute {
   position: absolute;
   width: 100%;
+
   top: 100%;
   z-index: 4;
 
   &.open {
     margin-top: 10px;
     height: max-content;
+  }
+}
+
+.custom_select.absolute.scroll {
+  overflow-y: scroll;
+
+  &.open {
+    height: 200px;
   }
 }
 
@@ -67,6 +77,7 @@
   color: $black;
   padding: 10px 8px;
   border-bottom: 1px solid rgba(153, 153, 153, 1);
+  text-transform: capitalize;
 
   &:last-of-type {
     border-bottom: 0;

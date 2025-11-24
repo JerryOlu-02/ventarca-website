@@ -2,11 +2,12 @@
 
 import apiClient from "@/lib/axios";
 import { ErrorResponse } from "@/types/apiResponse";
+import { ListingDetailResponse, ListingSearchResponse } from "@/types/listing";
 import { SearchSchema } from "@/utils/types/searchSchema";
 import z from "zod";
 
 type HeroSearchInput = {
-  location: string;
+  location: string | undefined;
   industry: string | undefined;
   priceRange: string | undefined;
 };
@@ -40,18 +41,16 @@ export async function searchHeroListing(searchData: HeroSearchInput) {
       params: {
         page: 1,
         limit: 9,
-        ...(data.location && {
-          filters: {
-            location: data.location,
-            ...(data.industry && { industries: [data.industry] }),
-            ...(maxAskingPrice && { minAskingPrice: minAskingPrice }),
-            ...(minAskingPrice && { maxAskingPrice: maxAskingPrice }),
-          },
-        }),
+        filters: {
+          ...(data.location && { location: data.location }),
+          ...(data.industry && { industries: [data.industry] }),
+          ...(maxAskingPrice && { minAskingPrice: minAskingPrice }),
+          ...(minAskingPrice && { maxAskingPrice: maxAskingPrice }),
+        },
       },
     });
 
-    // console.log("Search Successful", response.data);
+    console.log("Search Successful", response.data);
 
     return {
       success: true,
@@ -60,6 +59,33 @@ export async function searchHeroListing(searchData: HeroSearchInput) {
   } catch (error: any) {
     const errorData: ErrorResponse = error.response.data;
     console.error("Search Failed --->", errorData);
+
+    return {
+      error:
+        typeof errorData.message === "object"
+          ? Object.values(errorData.message)[0]
+          : errorData.message,
+      data: undefined,
+    };
+  }
+}
+
+export async function getListingDetail(id: number) {
+  try {
+    const response = await apiClient.get(`/listing/${id}`, {
+      params: {},
+    });
+
+    console.log("Search Successful", response.data);
+
+    return {
+      success: true,
+      data: response.data as ListingDetailResponse,
+    };
+  } catch (error: any) {
+    const errorData: ErrorResponse = error.response.data;
+
+    console.error("Listing Detail Search Failed --->", errorData);
 
     return {
       error:

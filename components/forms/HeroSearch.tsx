@@ -25,7 +25,7 @@ export default function HeroSearch() {
   const onSubmit: SubmitHandler<Omit<SearchInput, "moreFilters">> = function (
     data
   ) {
-    console.log(data);
+    // console.log(data);
 
     router.push(
       `/search?location=${data.location}${
@@ -42,7 +42,7 @@ export default function HeroSearch() {
     <form onSubmit={handleSubmit(onSubmit)} className="hero_search">
       <input
         type="text"
-        {...register("location")}
+        {...register("location", { required: true })}
         placeholder="Search City, County, State"
       />
 

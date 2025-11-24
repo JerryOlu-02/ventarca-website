@@ -7,7 +7,7 @@ export default function SimilarListingDetail() {
       <div className="page_width similar_listings">
         <h2>Similar Listings</h2>
 
-        <ListingSlider />
+        {/* <ListingSlider /> */}
       </div>
     </section>
   );

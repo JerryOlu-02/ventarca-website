@@ -57,6 +57,7 @@
 
   h3 {
     @include h3(600);
+    text-transform: capitalize;
   }
 }
 

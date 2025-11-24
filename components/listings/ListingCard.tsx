@@ -6,6 +6,7 @@ import Bookmark from "@/public/icon/bookmark.svg";
 import Image from "next/image";
 
 import Link from "next/link";
+import { ListingCardResponse } from "@/types/listing";
 
 interface ListingCardProp {
   listing: ListingCardResponse;
@@ -16,6 +17,7 @@ export default function ListingCard({ listing }: ListingCardProp) {
     <div className="listingCard">
       <div className="listingCard_image">
         <span className="move" />
+
         <Image
           src={listing.mediaAndDocumentation.listingCoverImage.path}
           width={100}
@@ -29,9 +31,9 @@ export default function ListingCard({ listing }: ListingCardProp) {
         <h5>{listing.businessInfo.headline}</h5>
 
         <div className="listingCard_save">
-          <span>
+          <span className="location-container">
             <Location />
-            {listing.businessInfo.location}
+            <span className="location">{listing.businessInfo.location}</span>
           </span>
 
           <span>
@@ -48,7 +50,9 @@ export default function ListingCard({ listing }: ListingCardProp) {
 
         <div className="listingCard_profitability">
           <div className="listingCard_profitability_item">
-            <p>{listing.valuation.askingPrice}</p>
+            <p className="listingCard_profitability_item-text">
+              {listing.valuation.askingPrice}
+            </p>
 
             <div>
               <p>Price</p>
@@ -58,7 +62,9 @@ export default function ListingCard({ listing }: ListingCardProp) {
           </div>
 
           <div className="listingCard_profitability_item">
-            <p>{listing.financialHighlights.lastFyRevenue}</p>
+            <p className="listingCard_profitability_item-text">
+              {listing.financialHighlights.lastFyRevenue}
+            </p>
 
             <div>
               <p>Revenue</p>
@@ -68,7 +74,9 @@ export default function ListingCard({ listing }: ListingCardProp) {
           </div>
 
           <div className="listingCard_profitability_item">
-            <p>{listing.financialHighlights.lastFyEBITDA}</p>
+            <p className="listingCard_profitability_item-text">
+              {listing.financialHighlights.lastFyEBITDA}
+            </p>
 
             <div>
               <p>Profit</p>

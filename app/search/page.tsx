@@ -1,6 +1,6 @@
-import { searchHeroListing } from "@/actions/search";
-
 import Searchpage from "./_components/Searchpage";
+import { Suspense } from "react";
+import SearchLoading from "./_components/SearchLoading";
 
 export default async function Page({
   searchParams,
@@ -9,21 +9,23 @@ export default async function Page({
 }) {
   const params = await searchParams;
 
-  const location = params.location as string;
+  const location = params.location as string | undefined;
 
   const industry = params.industry as string | undefined;
 
   const priceRange = params.priceRange as string | undefined;
 
-  const response = await searchHeroListing({
-    location: location,
-    industry: industry,
-    priceRange: priceRange,
-  });
+  const filters = params.filters as string | undefined;
 
-  if (!response.data) return console.log("Search Failed", response.error);
+  const suspenseKey = JSON.stringify(params);
 
-  const listingsCardData = response.data.data;
-
-  return <Searchpage listings={listingsCardData} />;
+  return (
+    <Suspense key={suspenseKey} fallback={<SearchLoading />}>
+      <Searchpage
+        priceRange={priceRange}
+        industry={industry}
+        location={location}
+      />
+    </Suspense>
+  );
 }

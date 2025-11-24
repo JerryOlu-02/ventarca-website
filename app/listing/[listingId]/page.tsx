@@ -1,4 +1,7 @@
+import "@/styles/components/listing/listing-detail.scss";
+
 import ListingDetail from "@/components/listings/ListingDetail";
+import ListingDetailLoading from "@/components/listings/ListingDetailLoading";
 import SimilarListingDetail from "@/components/listings/SimilarListingDetail";
 import { ListingDetailProp } from "@/components/listings/types";
 
@@ -10,6 +13,7 @@ import ListingDetailImg3 from "@/public/images/listing-detail-3-img.jpg";
 import ListingDetailImg4 from "@/public/images/listing-detail-4-img.jpg";
 
 import ListingOwnerImg from "@/public/images/listing-owner-img.jpg";
+import { Suspense } from "react";
 
 export default async function Page({
   params,
@@ -70,9 +74,11 @@ export default async function Page({
 
   return (
     <>
-      <ListingDetail listing={listing} />
+      <Suspense key={listingId} fallback={<ListingDetailLoading />}>
+        <ListingDetail listingId={listingId} listing={listing} />
 
-      <SimilarListingDetail />
+        {/* <SimilarListingDetail /> */}
+      </Suspense>
     </>
   );
 }

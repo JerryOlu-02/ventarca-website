@@ -1,6 +1,4 @@
-import "@/styles/components/listing/listing-detail.scss";
-
-import Image from "next/image";
+// import Image from "next/image";
 
 import { ListingDetailProp } from "./types/index";
 
@@ -16,12 +14,23 @@ import Bookmarks2Svg from "@/public/icon/bookmark-2.svg";
 import VerifiedSvg from "@/public/icon/verified.svg";
 import ListingChart from "./ListingChart";
 import Button from "../common/Button";
+import { getListingDetail } from "@/actions/search";
 
-export default function ListingDetail({
-  listing,
+export default async function ListingDetail({
+  listingId,
 }: {
-  listing: ListingDetailProp;
+  listing?: ListingDetailProp;
+  listingId: string;
 }) {
+  const listingIdProp = parseInt(listingId);
+  const listingDetailResponse = await getListingDetail(listingIdProp);
+
+  if (!listingDetailResponse.data) {
+    return <section>Could not Fetch Listing</section>;
+  }
+
+  const listing = listingDetailResponse.data;
+
   return (
     <>
       <section className="section listing_detail_menu-section">
@@ -45,15 +54,15 @@ export default function ListingDetail({
 
       <section className="section">
         <div className="page_width listing_detail_container">
-          {/*  BUYER DETAILS */}
+          {/*  SELLER DETAILS */}
 
           <aside className="listing_detail">
-            <h3>{listing.name}</h3>
+            <h3>{listing.businessInfo.headline}</h3>
 
             <div className="listing_detail_save">
               <span>
                 <LoactionSvg />
-                {listing.location}
+                {listing.businessInfo.location}
               </span>
 
               <div>
@@ -77,39 +86,74 @@ export default function ListingDetail({
             <div className="listing_detail_img">
               <div className="detail_img">
                 <div className="cover_photo">
-                  <Image src={listing.image} alt="listing_cover__photo" />
+                  <span className="move" />
+                  <img
+                    src={listing.mediaAndDocumentation.listingCoverImage.path}
+                    alt="listing_cover__photo"
+                  />
                 </div>
 
-                <div className="detail_photo">
-                  {listing.listingPhotos?.map((img, i) => (
-                    <div key={i}>
-                      <Image src={img} alt="listing_cover__photo" />
+                {listing.mediaAndDocumentation.listingImages.length > 0 && (
+                  <div className="detail_photo">
+                    <div className="detail_photo-item">
+                      {listing.mediaAndDocumentation.listingImages
+                        .slice(0, 2)
+                        .map((img) => {
+                          return (
+                            <div key={img.id}>
+                              <span className="move" />
+                              <img src={img.path} alt="listing_cover__photo" />
+                            </div>
+                          );
+                        })}
                     </div>
-                  ))}
-                </div>
+
+                    {listing.mediaAndDocumentation.listingImages.length >=
+                      4 && (
+                      <div className="detail_photo-item">
+                        {listing.mediaAndDocumentation.listingImages
+                          .slice(2, 4)
+                          .map((img) => {
+                            return (
+                              <div key={img.id}>
+                                <span className="move" />
+                                <img
+                                  src={img.path}
+                                  alt="listing_cover__photo"
+                                />
+                              </div>
+                            );
+                          })}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="listing_detail_tags">
                 <div className="tags">
-                  {listing.tags.map((tag, i) => (
-                    <span key={i}>{tag}</span>
-                  ))}
+                  {/* {listing.tags.map((tag, i) => ( */}
+                  <span>{listing.businessInfo.industry.name}</span>
+                  {/* ))} */}
                 </div>
 
                 <span
                   className={`verification ${
-                    listing.verification ? "verified" : "unverified"
+                    listing.progress === "verified" ? "verified" : "unverified"
                   }`}
                 >
                   <VerifiedSvg />{" "}
-                  {listing.verification ? "Verified" : "Unverified"}
+                  {listing.progress === "verified" ? "Verified" : "Unverified"}
                 </span>
               </div>
             </div>
 
             <div className="listing_detail_valuation">
               <div className="listing_detail_valuation_item">
-                <p className="listing_value">{listing.price}</p>
+                <p className="listing_value">
+                  {listing.financialHighlights.currency}
+                  {listing.valuation.askingPrice}
+                </p>
 
                 <div>
                   <p className="listing_value-desc">Price</p>
@@ -119,19 +163,28 @@ export default function ListingDetail({
               </div>
 
               <div className="listing_detail_valuation_item">
-                <p className="listing_value">{listing.revenue}</p>
+                <p className="listing_value">
+                  {listing.financialHighlights.currency}
+                  {listing.financialHighlights.lastFyRevenue}
+                </p>
 
                 <p className="listing_value-desc">Revenue</p>
               </div>
 
               <div className="listing_detail_valuation_item">
-                <p className="listing_value">{listing.profit}</p>
+                <p className="listing_value">
+                  {listing.financialHighlights.currency}
+                  {listing.financialHighlights.lastFyEBITDA}
+                </p>
 
                 <p className="listing_value-desc">Profit</p>
               </div>
 
               <div className="listing_detail_valuation_item">
-                <p className="listing_value">{listing.avgMonthlyProfit}</p>
+                <p className="listing_value">
+                  {listing.financialHighlights.currency}
+                  {listing.financialHighlights.lastFyEBITDA / 12}
+                </p>
 
                 <p className="listing_value-desc">Avg. Monthly Profit</p>
               </div>
@@ -145,7 +198,7 @@ export default function ListingDetail({
               </div>
 
               <div className="listing_about-desc">
-                <p>{listing.aboutBusiness}</p>
+                <p>{listing.businessHighlights.executiveSummary}</p>
               </div>
             </div>
 
@@ -158,45 +211,39 @@ export default function ListingDetail({
                 <p>Opportunities</p>
 
                 <ul>
-                  {listing.opportunities.map((opportunity, i) => (
-                    <li key={i}>{opportunity}</li>
-                  ))}
+                  <li>{listing.businessHighlights.keyGrowthOpportunities}</li>
                 </ul>
               </div>
 
               <span className="line"></span>
 
-              <div className="listing_info-item">
+              {/* <div className="listing_info-item">
                 <p>Risks</p>
 
                 <ul>
-                  {listing.risks.map((risk, i) => (
-                    <li key={i}>{risk}</li>
-                  ))}
+                  <li>{listing.businessHighlights.keyGrowthOpportunities}</li>
                 </ul>
-              </div>
+              </div> */}
 
-              <span className="line"></span>
+              {/* <span className="line"></span> */}
 
-              <div className="listing_info-item">
+              {/* <div className="listing_info-item">
                 <p>Work and Skills Required</p>
 
                 <ul>
-                  {listing.skillsRequired.map((skill, i) => (
-                    <li key={i}>{skill}</li>
-                  ))}
+                  <li>{listing.businessHighlights.keyGrowthOpportunities}</li>
                 </ul>
               </div>
 
-              <span className="line"></span>
+              <span className="line"></span> */}
 
               <div className="listing_info-item">
                 <p>Reason for Sale</p>
 
                 <ul>
-                  {listing.saleReason.map((reason, i) => (
-                    <li key={i}>{reason}</li>
-                  ))}
+                  {/* {listing.saleReason.map((reason, i) => ( */}
+                  <li>{listing.businessHighlights.reasonForSelling}</li>
+                  {/* ))} */}
                 </ul>
               </div>
 
@@ -206,9 +253,9 @@ export default function ListingDetail({
                 <p>Post Acquisition Support</p>
 
                 <ul>
-                  {listing.postAcquisitionSupport?.map((support, i) => (
-                    <li key={i}>{support}</li>
-                  ))}
+                  {/* {listing.postAcquisitionSupport?.map((support, i) => ( */}
+                  <li>{listing.businessHighlights.postSaleValueOffer}</li>
+                  {/* ))} */}
                 </ul>
               </div>
             </div>
@@ -223,18 +270,22 @@ export default function ListingDetail({
                 <div className="contact_seller_item">
                   <div className="contact_seller_item_left">
                     <div className="owner_img">
-                      {listing.sellerImage && (
-                        <Image
-                          src={listing.sellerImage}
+                      {/* {listing.user && (
+                        <img
+                          src={listing.user.firstName}
+                          
+                          
                           alt="Listing_Owner__Image"
                         />
-                      )}
+                      )} */}
                     </div>
 
                     <div className="owner_details">
-                      <p>{listing.sellerName}</p>
+                      <p>
+                        {listing.user.firstName} {listing.user.lastName}
+                      </p>
                       <p>Business Owner</p>
-                      <span>{listing.sellerLocation}</span>
+                      <span>{listing.user.phoneNumber}</span>
                     </div>
                   </div>
 
@@ -249,7 +300,7 @@ export default function ListingDetail({
 
                 <div className="business_started_item">
                   <div>
-                    <p>{listing.businessStartedDate}</p>
+                    <p>{listing.businessInfo.dateFounded}</p>
                     <span>(2 years, 11 months old)</span>
                   </div>
 

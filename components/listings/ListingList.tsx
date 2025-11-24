@@ -1,6 +1,6 @@
 // import "@/styles/components/listings.scss";
+import { ListingCardResponse } from "@/types/listing";
 import ListingCard from "./ListingCard";
-import { Listing } from "./types/index";
 
 export default function ListingList({
   listings,
