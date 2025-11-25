@@ -7,20 +7,19 @@ import { use } from "react";
 import { GetHandPickedListingResponseData } from "@/utils/getHandpickedListings";
 
 export default function ListingSlider({
-  getHandpickedListingPromise,
+  getListingPromise,
 }: {
-  getHandpickedListingPromise: Promise<GetHandPickedListingResponseData>;
+  getListingPromise: Promise<GetHandPickedListingResponseData>;
 }) {
   const listingArray: React.ReactNode[] = [];
 
-  const handpickedListings = use(getHandpickedListingPromise);
+  const listings = use(getListingPromise);
 
-  if (!handpickedListings.data)
-    return <div>Failed to fetch Handpicked Listings</div>;
+  if (!listings.data) return <div>Failed to fetch Listings</div>;
 
-  const handpickedListingsData = handpickedListings.data.data;
+  const listingsData = listings.data.data;
 
-  handpickedListingsData.map((listing, i) =>
+  listingsData.map((listing, i) =>
     listingArray.push(<ListingCard key={i} listing={listing} />)
   );
 

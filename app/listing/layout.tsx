@@ -3,5 +3,5 @@ export default function ListingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main>{children}</main>;
+  return <main className="main">{children}</main>;
 }

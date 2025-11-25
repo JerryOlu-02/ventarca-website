@@ -15,9 +15,7 @@ export default function Home() {
         listingSliderComponent={
           <ErrorBoundary fallback={<div>Something Went Wrong...</div>}>
             <Suspense fallback={<ListingSliderLoading />}>
-              <ListingSlider
-                getHandpickedListingPromise={handpickedListingsPromise}
-              />
+              <ListingSlider getListingPromise={handpickedListingsPromise} />
             </Suspense>
           </ErrorBoundary>
         }

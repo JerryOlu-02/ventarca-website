@@ -70,6 +70,14 @@ export default function SearchPageForm() {
     setPending(false);
   };
 
+  const clearForm = () => {
+    setValue("location", "");
+    setValue("industry", "");
+    setValue("priceRange", "");
+
+    console.log("Cleared Form--->");
+  };
+
   return (
     <section className="section section_search">
       <div className="page_width search_form">
@@ -121,7 +129,13 @@ export default function SearchPageForm() {
             options={["2000", "3000"]}
           />
 
-          <Button className="btn btn-secondary btn-small">Clear</Button>
+          <Button
+            onClick={clearForm}
+            type="button"
+            className="btn btn-secondary btn-small"
+          >
+            Clear
+          </Button>
 
           <Button disabled={pending} className="btn btn-primary btn-medium">
             <span className="loader" />

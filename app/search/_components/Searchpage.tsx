@@ -1,23 +1,29 @@
 import { searchHeroListing } from "@/actions/search";
-import Button from "@/components/common/Button";
 import ListingList from "@/components/listings/ListingList";
 
-import SortImg from "@/public/icon/sort.svg";
 import SearchHeader from "./SearchHeader";
+import SearchPagination from "./SearchPagination";
 
 export default async function Searchpage({
   industry,
   location,
   priceRange,
+  sort,
+  page,
 }: {
   industry: string | undefined;
   location: string | undefined;
   priceRange: string | undefined;
+  sort: string | undefined;
+  page: string | undefined;
 }) {
+  const pageNo = page ? parseInt(page) : undefined;
   const response = await searchHeroListing({
-    location: location,
-    industry: industry,
-    priceRange: priceRange,
+    location,
+    industry,
+    priceRange,
+    sort,
+    page: pageNo,
   });
 
   if (!response.data) {
@@ -29,7 +35,7 @@ export default async function Searchpage({
   const listingsCardData = response.data.data;
 
   return (
-    <>
+    <aside className="search_page">
       <SearchHeader
         location={location}
         industry={industry}
@@ -41,6 +47,11 @@ export default async function Searchpage({
           <ListingList listings={listingsCardData} />
         </div>
       </section>
-    </>
+
+      <SearchPagination
+        currentSelectedPage={pageNo}
+        noOfListings={response.data.total}
+      />
+    </aside>
   );
 }

@@ -49,6 +49,9 @@ export type ListingDetailResponse = {
       name: string;
       __entity: string;
     };
+    photo?: {
+      path: string;
+    };
     status: {
       id: number;
       name: string;

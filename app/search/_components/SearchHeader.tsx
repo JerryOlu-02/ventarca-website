@@ -16,15 +16,17 @@ export default function SearchHeader({
         <h3>{industry ? industry : location ? location : "Curated For You"}</h3>
 
         <div className="search_sort">
-          <p>
+          <p className="sort_text">
             Showing {noOfListings}+ results sorted by{" "}
             <span>date published</span>
           </p>
 
-          <Button className="btn btn-secondary btn-small">
-            <SortImg />
-            SORT BY
-          </Button>
+          <div>
+            <Button className="btn btn-secondary btn-small">
+              <SortImg />
+              SORT BY
+            </Button>
+          </div>
         </div>
       </div>
     </section>

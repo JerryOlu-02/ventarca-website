@@ -24,8 +24,18 @@
   z-index: -1;
 }
 
+#listing_detail_traffic,
+#listing_detail_earnings,
+#listing_detail_details,
+#listing_detail_overview {
+  scroll-margin-top: 90px;
+}
+
 .listing_detail_menu-section {
   background-color: rgba(245, 245, 245, 1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .listing_detail_menu {
@@ -57,17 +67,32 @@
     gap: 32px;
     padding-bottom: 6px;
 
-    p {
+    button {
       @include accent2(400);
       color: $black;
       position: relative;
+      transition: left 0.3s ease-in-out;
+
+      &::before {
+        @include lineAbsolute;
+        overflow-x: hidden;
+        width: 0;
+        bottom: -6px;
+        transition: transform 0.3s ease-in-out;
+        left: 10%;
+        right: unset;
+
+        transform: scaleX(0);
+        transform-origin: left;
+      }
 
       &.active {
         &::before {
-          @include lineAbsolute;
           width: 80%;
-          bottom: -6px;
-          left: 10%;
+          transform: translateX(10%);
+          transform: scaleX(1);
+
+          // transform-origin: right;
         }
       }
     }

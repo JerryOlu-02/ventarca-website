@@ -10,6 +10,8 @@ type HeroSearchInput = {
   location: string | undefined;
   industry: string | undefined;
   priceRange: string | undefined;
+  sort: string | undefined;
+  page: number | undefined;
 };
 
 export async function searchHeroListing(searchData: HeroSearchInput) {
@@ -23,6 +25,8 @@ export async function searchHeroListing(searchData: HeroSearchInput) {
         industry: formFieldErrors.fieldErrors.industry?.[0],
         location: formFieldErrors.fieldErrors.location?.[0],
         priceRange: formFieldErrors.fieldErrors.priceRange?.[0],
+        sort: formFieldErrors.fieldErrors.sort?.[0],
+        page: formFieldErrors.fieldErrors.page?.[0],
       },
     };
   }
@@ -39,8 +43,9 @@ export async function searchHeroListing(searchData: HeroSearchInput) {
   try {
     const response = await apiClient.get("/listing/search", {
       params: {
-        page: 1,
+        page: data.page ? data.page : 1,
         limit: 9,
+        ...(data.sort && { sort: [data.sort] }),
         filters: {
           ...(data.location && { location: data.location }),
           ...(data.industry && { industries: [data.industry] }),
@@ -50,6 +55,7 @@ export async function searchHeroListing(searchData: HeroSearchInput) {
       },
     });
 
+    console.log("Search Successful", response.config.params);
     console.log("Search Successful", response.data);
 
     return {

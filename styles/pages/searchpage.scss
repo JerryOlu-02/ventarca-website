@@ -6,6 +6,10 @@
   background-color: rgba(245, 245, 245, 1);
 }
 
+.loading_section {
+  padding-top: 40px;
+}
+
 .search_form {
   padding: 18px 0;
 
@@ -65,14 +69,6 @@
   @include flex-row-center;
   gap: 20px;
 
-  p {
-    @include accent3(400);
-
-    span {
-      color: $green;
-    }
-  }
-
   .btn {
     border-radius: 0;
     height: 40px;
@@ -80,11 +76,62 @@
   }
 }
 
+.sort_text {
+  @include accent3(400);
+
+  span {
+    color: $green;
+  }
+}
+
+// SEARCH PAGE
+.search_page {
+  @include flex-col;
+  gap: 40px;
+  padding-bottom: 66px;
+}
+
 // LISTING SECTION
 .listing_list {
-  padding: 40px 0 66px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   column-gap: 34px;
   row-gap: 28px;
+}
+
+// PAGINATION SECTION
+// .pagination_section {
+// }
+
+.pagination_container {
+  @include flex-row-center;
+  justify-content: space-between;
+}
+
+.pagination {
+  display: flex;
+  height: 44px;
+  border: 1px solid rgba(153, 153, 153, 1);
+}
+
+.pagination_btn {
+  @include flex-row-center;
+  border-right: 1px solid rgba(153, 153, 153, 1);
+  color: rgba(102, 102, 102, 1);
+  @include accent2(300);
+  transition: background-color 0.1s ease-in-out;
+  padding-left: 14px;
+  padding-right: 14px;
+  cursor: pointer;
+
+  &:last-of-type {
+    color: $black;
+    border-right: 0;
+  }
+
+  &.active,
+  &:hover {
+    background-color: $gold;
+    color: $white;
+  }
 }

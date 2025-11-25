@@ -15,6 +15,10 @@ export default async function Page({
 
   const priceRange = params.priceRange as string | undefined;
 
+  const sort = params.sort as string | undefined;
+
+  const page = params.page as string | undefined;
+
   const filters = params.filters as string | undefined;
 
   const suspenseKey = JSON.stringify(params);
@@ -22,9 +26,11 @@ export default async function Page({
   return (
     <Suspense key={suspenseKey} fallback={<SearchLoading />}>
       <Searchpage
+        page={page}
         priceRange={priceRange}
         industry={industry}
         location={location}
+        sort={sort}
       />
     </Suspense>
   );
