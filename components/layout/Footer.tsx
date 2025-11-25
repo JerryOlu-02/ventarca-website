@@ -1,9 +1,48 @@
+"use client";
+
 import Logo from "@/public/logo.svg";
 
 import Button from "../common/Button";
 import Socials from "../common/Socials";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { subscribeToNewsLetter } from "@/actions/newsletter";
+import { useState } from "react";
+
+type FooterInput = {
+  email: string;
+};
 
 export default function Footer() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isErrorMessage, setIsErrorMessage] = useState<string | null>(null);
+  const [isSuccessMessage, setIsSuccessMessage] = useState<string | null>(null);
+
+  const { register, handleSubmit, reset } = useForm<FooterInput>();
+
+  const subscribeOnSubmit: SubmitHandler<FooterInput> = async (data) => {
+    setIsLoading(true);
+
+    const response = await subscribeToNewsLetter(data.email);
+
+    if (!response.ok) {
+      setIsErrorMessage(response.errorMessage);
+
+      setTimeout(() => {
+        setIsErrorMessage(null);
+      }, 10000);
+    } else {
+      reset();
+
+      setIsSuccessMessage("You have successfully subscribed To Our Newsletter");
+
+      setTimeout(() => {
+        setIsSuccessMessage(null);
+      }, 10000);
+    }
+
+    setIsLoading(false);
+  };
+
   return (
     <section className="section section_footer">
       <div className="page_width footer">
@@ -57,18 +96,30 @@ export default function Footer() {
         <div className="footer_news container">
           <h6>Join our newsletter</h6>
 
-          <div className="form">
+          <form onSubmit={handleSubmit(subscribeOnSubmit)} className="form">
             <p>
               Get insights on valuations, deal-making tips, and
               <br /> the latest listings directly to your inbox.
             </p>
 
-            <input placeholder="Enter your email address..." type="email" />
+            <input
+              {...register("email", { required: true })}
+              placeholder="Enter your email address..."
+              type="email"
+            />
 
-            <Button className="btn btn-primary btn-small">
+            <Button
+              disabled={isLoading}
+              type="submit"
+              className="btn btn-primary btn-small"
+            >
+              <span className="loader" />
               Subscribe to Newsletter
             </Button>
-          </div>
+
+            {isErrorMessage && <p className="error">{isErrorMessage}</p>}
+            {isSuccessMessage && <p className="success">{isSuccessMessage}</p>}
+          </form>
         </div>
       </div>
     </section>

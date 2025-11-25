@@ -30,7 +30,7 @@ export default function HeroSearch() {
     router.push(
       `/search?location=${data.location}${
         data.industry ? `&industry=${data.industry}` : ""
-      }${data.priceRange ? `&priceRange=${data.priceRange}` : ""}`
+      }${data.priceRange ? `&priceRange=${data.priceRange}` : ""}&page=1`
     );
   };
 

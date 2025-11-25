@@ -45,12 +45,12 @@
   --header-5: 24px;
   --header-6: 20px;
 
-  --line-height-header-1: 100%;
-  --line-height-header-2: 100%;
-  --line-height-header-3: 100%;
-  --line-height-header-4: 100%;
-  --line-height-header-5: 100%;
-  --line-height-header-6: 100%;
+  --line-height-header-1: calc(100% + 6px);
+  --line-height-header-2: calc(100% + 6px);
+  --line-height-header-3: calc(100% + 6px);
+  --line-height-header-4: calc(100% + 6px);
+  --line-height-header-5: calc(100% + 6px);
+  --line-height-header-6: calc(100% + 6px);
 
   --letter-spacing-header-1: 0px;
   --letter-spacing-header-2: 0px;
@@ -65,10 +65,10 @@
   --body-3: 14px;
   --body-4: 12px;
 
-  --line-height-body-1: 100%;
-  --line-height-body-2: 100%;
-  --line-height-body-3: 100%;
-  --line-height-body-4: 100%;
+  --line-height-body-1: calc(100% + 6px);
+  --line-height-body-2: calc(100% + 6px);
+  --line-height-body-3: calc(100% + 6px);
+  --line-height-body-4: calc(100% + 6px);
 
   --letter-spacing-body-1: 0px;
   --letter-spacing-body-2: 0px;
@@ -81,10 +81,10 @@
   --accent-3: 14px;
   --accent-4: 12px;
 
-  --line-height-accent-1: 100%;
-  --line-height-accent-2: 100%;
-  --line-height-accent-3: 100%;
-  --line-height-accent-4: 100%;
+  --line-height-accent-1: calc(100% + 6px);
+  --line-height-accent-2: calc(100% + 6px);
+  --line-height-accent-3: calc(100% + 6px);
+  --line-height-accent-4: calc(100% + 6px);
 
   --letter-spacing-accent-1: 0px;
   --letter-spacing-accent-2: 0px;
@@ -95,8 +95,8 @@
   --btn-medium: 16px;
   --btn-small: 14px;
 
-  --line-height-btn-medium: 100%;
-  --line-height-btn-small: 100%;
+  --line-height-btn-medium: calc(100% + 6px);
+  --line-height-btn-small: calc(100% + 6px);
 
   --letter-spacing-btn-medium: 0px;
   --letter-spacing-btn-small: 0px;
@@ -107,10 +107,10 @@
   --blockquote: 20px;
   --metrics: 20px;
 
-  --line-height-input: 100%;
-  --line-height-label: 100%;
-  --line-height-blockquote: 100%;
-  --line-height-metrics: 100%;
+  --line-height-input: calc(100% + 6px);
+  --line-height-label: calc(100% + 6px);
+  --line-height-blockquote: calc(100% + 6px);
+  --line-height-metrics: calc(100% + 6px);
 
   --letter-spacing-input: 0px;
   --letter-spacing-label: 0px;

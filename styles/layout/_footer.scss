@@ -84,5 +84,15 @@
       @include input-text;
       @include input-style;
     }
+
+    .error,
+    .success {
+      font-size: 12px;
+      color: $error;
+    }
+
+    .success {
+      color: $green;
+    }
   }
 }
