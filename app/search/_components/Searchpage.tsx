@@ -18,12 +18,15 @@ export default async function Searchpage({
   page: string | undefined;
 }) {
   const pageNo = page ? parseInt(page) : undefined;
+
   const response = await searchHeroListing({
-    location,
-    industry,
-    priceRange,
-    sort,
-    page: pageNo,
+    searchData: {
+      location,
+      industry,
+      priceRange,
+      sort,
+      page: pageNo,
+    },
   });
 
   if (!response.data) {

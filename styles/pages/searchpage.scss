@@ -4,6 +4,9 @@
 // SEARCH FORM SECTION
 .section_search {
   background-color: rgba(245, 245, 245, 1);
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .loading_section {
@@ -84,6 +87,54 @@
   }
 }
 
+.sort_container {
+  @include flex-col;
+
+  position: relative;
+  z-index: 1;
+
+  div {
+    @include flex-col;
+    width: 100%;
+    padding: 4px 10px;
+    background-color: $white;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    border: 1px solid rgba(153, 153, 153, 1);
+
+    transform: scaleY(0);
+
+    transition: height 0.4s ease, transform 0.4s ease;
+    transform-origin: top;
+
+    button {
+      height: 44px;
+      @include flex-row;
+      align-items: center;
+      padding-left: 10px;
+      @include accent3(300);
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.1s ease;
+
+      &:first-child {
+        border-bottom: 1px solid rgba(153, 153, 153, 1);
+      }
+    }
+
+    &.visible {
+      transform: scaleY(1);
+
+      button {
+        pointer-events: all;
+        opacity: 1;
+      }
+    }
+  }
+}
+
 // SEARCH PAGE
 .search_page {
   @include flex-col;
@@ -94,9 +145,15 @@
 // LISTING SECTION
 .listing_list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  // place-items: center;
+  place-content: center;
   column-gap: 34px;
   row-gap: 28px;
+
+  .listingCard:only-child {
+    max-width: 404px;
+  }
 }
 
 // PAGINATION SECTION

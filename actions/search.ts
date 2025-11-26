@@ -14,7 +14,11 @@ type HeroSearchInput = {
   page: number | undefined;
 };
 
-export async function searchHeroListing(searchData: HeroSearchInput) {
+export async function searchHeroListing({
+  searchData,
+}: {
+  searchData: HeroSearchInput;
+}) {
   const validiatedRegisterUserData = SearchSchema.safeParse(searchData);
 
   if (!validiatedRegisterUserData.success) {
@@ -40,23 +44,28 @@ export async function searchHeroListing(searchData: HeroSearchInput) {
   const minAskingPrice = priceRange && priceRange[0];
   const maxAskingPrice = priceRange && priceRange[1];
 
+  const filters = {
+    ...(data.location && { location: data.location }),
+    ...(data.industry && { industries: [data.industry] }),
+    ...(minAskingPrice && { maxAskingPrice: maxAskingPrice }),
+    ...(maxAskingPrice && { minAskingPrice: minAskingPrice }),
+  };
+
   try {
     const response = await apiClient.get("/listing/search", {
       params: {
-        page: data.page ? data.page : 1,
+        page: data.page || 1,
         limit: 9,
-        ...(data.sort && { sort: [data.sort] }),
-        filters: {
-          ...(data.location && { location: data.location }),
-          ...(data.industry && { industries: [data.industry] }),
-          ...(maxAskingPrice && { minAskingPrice: minAskingPrice }),
-          ...(minAskingPrice && { maxAskingPrice: maxAskingPrice }),
-        },
+        ...(data.sort && {
+          sort: JSON.stringify([{ orderBy: "createdAt", order: data.sort }]),
+        }),
+        ...(Object.keys(filters).length > 0 && {
+          filters: JSON.stringify(filters),
+        }),
       },
     });
 
-    console.log("Search Successful", response.config.params);
-    console.log("Search Successful", response.data);
+    // console.log("Search Successful", response.data);
 
     return {
       success: true,
@@ -64,7 +73,7 @@ export async function searchHeroListing(searchData: HeroSearchInput) {
     };
   } catch (error: any) {
     const errorData: ErrorResponse = error.response.data;
-    console.error("Search Failed --->", errorData);
+    // console.error("Search Failed --->", errorData);
 
     return {
       error:

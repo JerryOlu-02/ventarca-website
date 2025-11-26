@@ -53,8 +53,9 @@
   @include flex-row-center;
   gap: 40px;
 
-  span {
+  .back_btn {
     @include flex-row-center;
+    cursor: pointer;
     width: 44px;
     height: 44px;
     border-radius: 100px;

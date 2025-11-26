@@ -39,13 +39,15 @@ export async function getHandpickedListings() {
 
 export async function getSimilarListings(industry: string) {
   try {
+    const filters = {
+      industries: [industry],
+    };
+
     const response = await apiClient.get("/listing/search", {
       params: {
         page: 1,
-        limit: 6,
-        filters: {
-          industries: [industry],
-        },
+        limit: 5,
+        filters: JSON.stringify(filters),
       },
     });
 

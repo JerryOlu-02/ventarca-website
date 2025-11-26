@@ -1,5 +1,5 @@
 import "@/styles/pages/searchpage.scss";
-import SearchPageForm from "@/components/forms/SearchPageForm";
+import SearchForm from "./_components/SearchForm";
 
 export default function SearchLayout({
   children,
@@ -8,7 +8,7 @@ export default function SearchLayout({
 }) {
   return (
     <main>
-      <SearchPageForm />
+      <SearchForm />
 
       {children}
     </main>

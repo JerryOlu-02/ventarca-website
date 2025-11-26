@@ -3,7 +3,7 @@ import "@/styles/components/listing/listings.scss";
 import Button from "../common/Button";
 import Location from "@/public/icon/location.svg";
 import Bookmark from "@/public/icon/bookmark.svg";
-import Image from "next/image";
+// import Image from "next/image";
 
 import Link from "next/link";
 import { ListingCardResponse } from "@/types/listing";
@@ -18,12 +18,12 @@ export default function ListingCard({ listing }: ListingCardProp) {
       <div className="listingCard_image">
         <span className="move" />
 
-        <Image
+        <img
           src={listing.mediaAndDocumentation.listingCoverImage.path}
           width={100}
           height={100}
           alt="Listing_Image"
-          unoptimized
+          loading="lazy"
         />
       </div>
 

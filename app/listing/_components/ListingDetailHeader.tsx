@@ -1,13 +1,18 @@
+"use client";
+
 import Arrowback from "@/public/icon/arrow-back.svg";
 
 import Button from "@/components/common/Button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function ListingDetailHeader({
   scrollToTarget,
 }: {
   scrollToTarget: (targetId: string) => void;
 }) {
+  const router = useRouter();
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   const scrollToSectionAndSetActiveIndex = (
@@ -23,9 +28,9 @@ export function ListingDetailHeader({
     <section className="section listing_detail_menu-section">
       <div className="page_width listing_detail_menu">
         <div className="listing_detail_menu-left">
-          <span>
+          <button onClick={() => router.back()} className="back_btn">
             <Arrowback />
-          </span>
+          </button>
 
           <div>
             <button
