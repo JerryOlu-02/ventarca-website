@@ -27,24 +27,24 @@ export default function NavbarMobile({
 
   return (
     <div className={`nav_mobile ${isMobileMenuVisible && "visible"}`}>
-      <div className="nav_links">
+      <div className="nav_links_mobile">
         <button
           type="submit"
           onClick={() => changeActiveIndex(0)}
-          className={`nav_item ${activeIndex === 0 && "active"}`}
+          className={`nav_item_mobile ${activeIndex === 0 && "active"}`}
         >
-          <span className="links_dropdown">
+          <span className="links_dropdown_mobile">
             Buyers <ArrowDown />
           </span>
 
           {user ? (
             <NavDropdown
-              className={`nav_dropdown ${activeIndex === 0 && "active"}`}
+              className={`nav_dropdown_mobile ${activeIndex === 0 && "active"}`}
               items={["Search", "Recently Viewed", "My Bookmarks"]}
             />
           ) : (
             <NavDropdown
-              className={`nav_dropdown ${activeIndex === 0 && "active"}`}
+              className={`nav_dropdown_mobile ${activeIndex === 0 && "active"}`}
               items={[
                 "Search for a Business",
                 "New Businesses",
@@ -60,15 +60,15 @@ export default function NavbarMobile({
         <button
           type="submit"
           onClick={() => changeActiveIndex(1)}
-          className={`nav_item ${activeIndex === 1 && "active"}`}
+          className={`nav_item_mobile ${activeIndex === 1 && "active"}`}
         >
-          <span className="links_dropdown">
+          <span className="links_dropdown_mobile">
             Sellers <ArrowDown />
           </span>
 
           {user ? (
             <NavDropdown
-              className={`nav_dropdown ${activeIndex === 1 && "active"}`}
+              className={`nav_dropdown_mobile ${activeIndex === 1 && "active"}`}
               items={[
                 "List Business",
                 "View and Edit Listings",
@@ -78,7 +78,7 @@ export default function NavbarMobile({
             />
           ) : (
             <NavDropdown
-              className={`nav_dropdown ${activeIndex === 1 && "active"}`}
+              className={`nav_dropdown_mobile ${activeIndex === 1 && "active"}`}
               items={[
                 "Sell your Business",
                 "Value a  Business",
@@ -93,15 +93,15 @@ export default function NavbarMobile({
         <button
           type="button"
           onClick={() => changeActiveIndex(2)}
-          className={`nav_item ${activeIndex === 2 && "active"}`}
+          className={`nav_item_mobile ${activeIndex === 2 && "active"}`}
         >
-          <span className="links_dropdown">
+          <span className="links_dropdown_mobile">
             Services <ArrowDown />
           </span>
 
           {user ? (
             <NavDropdown
-              className={`nav_dropdown ${activeIndex === 2 && "active"}`}
+              className={`nav_dropdown_mobile ${activeIndex === 2 && "active"}`}
               items={[
                 "Find a Broker",
                 "Find an Accountant",
@@ -110,7 +110,7 @@ export default function NavbarMobile({
             />
           ) : (
             <NavDropdown
-              className={`nav_dropdown ${activeIndex === 2 && "active"}`}
+              className={`nav_dropdown_mobile ${activeIndex === 2 && "active"}`}
               items={[
                 "Sell with a Broker",
                 "Hire a Solicitor",
@@ -124,7 +124,7 @@ export default function NavbarMobile({
       </div>
 
       {!user && (
-        <div className="nav_actions">
+        <div className="nav_actions_mobile">
           <Link href="/login" className="btn btn-secondary">
             Sign In
           </Link>
@@ -136,10 +136,10 @@ export default function NavbarMobile({
       )}
 
       {user && (
-        <div className="nav_user">
-          <div className="nav_user-profile">
+        <div className="nav_user_mobile">
+          <div className="nav_user-profile_mobile">
             <aside>
-              <div className="nav_user-img">
+              <div className="nav_user-img_mobile">
                 {user.photo && user.photo.path ? (
                   <Image
                     src={user.photo.path}
@@ -165,7 +165,11 @@ export default function NavbarMobile({
             </button>
           </div>
 
-          <div className={`nav_dropdown_user ${activeIndex === 4 && "active"}`}>
+          <div
+            className={`nav_dropdown_user_mobile ${
+              activeIndex === 4 && "active"
+            }`}
+          >
             <div className="dropdown_item">Dashboard</div>
             <div className="dropdown_item">Account Hub</div>
             <div className="dropdown_item" onClick={logoutUser}>

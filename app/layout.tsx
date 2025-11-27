@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-import "../styles/layout/navbar.scss";
+// import "../styles/layout/navbar.scss";
 import "../styles/layout/footer.scss";
 import "../styles/components/button.scss";
 import "../styles/pages/homepage.scss";
