@@ -73,7 +73,14 @@ export const registerUserAction = async (data: RegisterInput) => {
   try {
     const response = await axios.post(
       "https://api.ventarca.biz/api/v1/auth/email/register",
-      data
+      data,
+      {
+        // withCredentials: process.env.NODE_ENV === "production",
+        withCredentials: false,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
 
     const errorData: ErrorResponse = response.data;

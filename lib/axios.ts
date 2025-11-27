@@ -55,7 +55,8 @@ const processQueue = (error: any, token: string | null = null) => {
 // 3. Create the instance
 const apiClient: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  withCredentials: process.env.NODE_ENV === "production",
+  withCredentials: false,
+  // withCredentials: process.env.NODE_ENV === "production",
   headers: {
     "Content-Type": "application/json",
   },

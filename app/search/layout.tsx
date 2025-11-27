@@ -9,7 +9,7 @@ export default function SearchLayout({
 }) {
   return (
     <main>
-      <Suspense fallback={<div>Loading</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
         <SearchForm />
       </Suspense>
 

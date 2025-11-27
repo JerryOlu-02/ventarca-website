@@ -1,6 +1,8 @@
 import { searchHeroListing } from "@/actions/search";
+import ListingList from "@/components/listings/ListingList";
 
-import SearchPageClient from "./SearchpageClient";
+import SearchHeader from "./SearchHeader";
+import SearchPagination from "./SearchPagination";
 import { Suspense } from "react";
 
 export default async function Searchpage({
@@ -37,15 +39,23 @@ export default async function Searchpage({
   const listingsCardData = response.data.data;
 
   return (
-    <Suspense fallback={<div>Loading</div>}>
-      {/* <SearchPageClient
+    <aside className="search_page">
+      <SearchHeader
         location={location}
         industry={industry}
-        listingsCardData={listingsCardData}
-        pageNo={pageNo}
         noOfListings={response.data.total}
-      /> */}
-      <div>Search</div>
-    </Suspense>
+      />
+
+      <section className="section section_listings">
+        <div className="page_width listing_list">
+          <ListingList listings={listingsCardData} />
+        </div>
+      </section>
+
+      <SearchPagination
+        currentSelectedPage={pageNo}
+        noOfListings={response.data.total}
+      />
+    </aside>
   );
 }
