@@ -1,3 +1,5 @@
+"use client";
+
 import ListingList from "@/components/listings/ListingList";
 import SearchHeader from "./SearchHeader";
 import SearchPagination from "./SearchPagination";
