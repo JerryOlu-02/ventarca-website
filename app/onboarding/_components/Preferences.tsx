@@ -141,10 +141,8 @@ function PrefrencesContainer({
             ? industries.map((industry, i) => {
                 return (
                   <PreferencesItem
-                    addIndustry={() => addIndustry(industry.toLowerCase())}
-                    removeIndustry={() =>
-                      removeIndustry(industry.toLowerCase())
-                    }
+                    addIndustry={() => addIndustry(industry)}
+                    removeIndustry={() => removeIndustry(industry)}
                     industry={industry}
                     key={i}
                   />
@@ -153,10 +151,8 @@ function PrefrencesContainer({
             : industriesFake.map((industry, i) => {
                 return (
                   <PreferencesItem
-                    addIndustry={() => addIndustry(industry.toLowerCase())}
-                    removeIndustry={() =>
-                      removeIndustry(industry.toLowerCase())
-                    }
+                    addIndustry={() => addIndustry(industry)}
+                    removeIndustry={() => removeIndustry(industry)}
                     industry={industry}
                     key={i}
                   />

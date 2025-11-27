@@ -1,5 +1,7 @@
 "use client";
 
+import "@/styles/layout/navbar.scss";
+
 import Logo from "@/public/logo.svg";
 import LogoMobile from "@/public/icon/logo-mobile.svg";
 

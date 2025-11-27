@@ -7,6 +7,7 @@ import Bookmark from "@/public/icon/bookmark.svg";
 import Link from "next/link";
 import { ListingCardResponse } from "@/types/listing";
 import { formatCurrencyNumber } from "@/utils/formatCurrencyNumber";
+import Image from "next/image";
 
 interface ListingCardProp {
   listing: ListingCardResponse;
@@ -25,12 +26,13 @@ export default function ListingCard({ listing }: ListingCardProp) {
       <div className="listingCard_image">
         <span className="move" />
 
-        <img
+        <Image
           src={listing.mediaAndDocumentation.listingCoverImage.path}
           width={100}
           height={100}
           alt="Listing_Image"
           loading="lazy"
+          unoptimized
         />
       </div>
 
