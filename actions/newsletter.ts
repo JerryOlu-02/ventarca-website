@@ -17,6 +17,7 @@ export const subscribeToNewsLetter = async function (
       ...(firstName && { firstName: firstName }),
       ...(lastName && { lastName: lastName }),
     }),
+    credentials: "include",
   });
   const responseData = await resp.json();
 

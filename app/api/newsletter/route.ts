@@ -24,6 +24,7 @@ export async function POST(req: Request) {
       updateEnabled: false,
       listIds: [2],
     }),
+    credentials: "include",
   });
 
   const data = await resp.json();

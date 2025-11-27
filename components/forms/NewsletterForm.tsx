@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../common/Button";
 import { JSX, useState } from "react";
 import { subscribeToNewsLetter } from "@/actions/newsletter";
-import Modal from "../common/Modal";
+// import Modal from "../common/Modal";
 
 type NewsLetterInput = {
   email: string;
