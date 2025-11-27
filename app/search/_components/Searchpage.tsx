@@ -3,6 +3,7 @@ import ListingList from "@/components/listings/ListingList";
 
 import SearchHeader from "./SearchHeader";
 import SearchPagination from "./SearchPagination";
+import { Suspense } from "react";
 
 export default async function Searchpage({
   industry,
@@ -38,23 +39,25 @@ export default async function Searchpage({
   const listingsCardData = response.data.data;
 
   return (
-    <aside className="search_page">
-      <SearchHeader
-        location={location}
-        industry={industry}
-        noOfListings={response.data.total}
-      />
+    <Suspense>
+      <aside className="search_page">
+        <SearchHeader
+          location={location}
+          industry={industry}
+          noOfListings={response.data.total}
+        />
 
-      <section className="section section_listings">
-        <div className="page_width listing_list">
-          <ListingList listings={listingsCardData} />
-        </div>
-      </section>
+        <section className="section section_listings">
+          <div className="page_width listing_list">
+            <ListingList listings={listingsCardData} />
+          </div>
+        </section>
 
-      <SearchPagination
-        currentSelectedPage={pageNo}
-        noOfListings={response.data.total}
-      />
-    </aside>
+        <SearchPagination
+          currentSelectedPage={pageNo}
+          noOfListings={response.data.total}
+        />
+      </aside>
+    </Suspense>
   );
 }
