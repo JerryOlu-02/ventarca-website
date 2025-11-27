@@ -255,7 +255,11 @@
 @media screen and (max-width: 430px) {
   .hero_stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+
+    div {
+      justify-content: flex-start;
+    }
   }
 }
 

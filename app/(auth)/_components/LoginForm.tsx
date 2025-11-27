@@ -84,11 +84,11 @@ export default function LoginForm() {
         <h4>Welcome Back!</h4>
 
         <div className="login_buttons">
-          <Button className="btn btn-secondary btn-medium">
+          <Button type="button" className="btn btn-secondary btn-medium">
             <GoogleSvg /> Sign in with Google
           </Button>
 
-          <Button className="btn btn-secondary btn-medium">
+          <Button type="button" className="btn btn-secondary btn-medium">
             <AppleSvg /> Sign in with Apple
           </Button>
         </div>

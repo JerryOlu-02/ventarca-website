@@ -87,11 +87,11 @@ export default function RegisterForm() {
         <h4>Create Your Free Account</h4>
 
         <div className="register_buttons">
-          <Button className="btn btn-secondary btn-medium">
+          <Button type="button" className="btn btn-secondary btn-medium">
             <GoogleSvg /> Sign up with Google
           </Button>
 
-          <Button className="btn btn-secondary btn-medium">
+          <Button type="button" className="btn btn-secondary btn-medium">
             <AppleSvg /> Sign up with Apple
           </Button>
         </div>

@@ -201,14 +201,6 @@
     padding: 20px;
   }
 
-  .links_dropdown_mobile {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-  }
-
   .nav_item_mobile {
     position: relative;
     width: 100%;
@@ -220,6 +212,15 @@
     &.active {
       gap: 20px;
     }
+  }
+
+  .links_dropdown_mobile {
+    color: $black;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
   }
 
   .nav_dropdown_mobile {
@@ -239,6 +240,7 @@
 
     .dropdown_item {
       position: relative;
+      color: $black;
       top: 0;
       left: 0;
       opacity: 0;
