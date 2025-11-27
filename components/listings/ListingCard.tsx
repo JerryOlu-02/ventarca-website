@@ -6,12 +6,20 @@ import Bookmark from "@/public/icon/bookmark.svg";
 
 import Link from "next/link";
 import { ListingCardResponse } from "@/types/listing";
+import { formatCurrencyNumber } from "@/utils/formatCurrencyNumber";
 
 interface ListingCardProp {
   listing: ListingCardResponse;
 }
 
 export default function ListingCard({ listing }: ListingCardProp) {
+  const currency = listing.financialHighlights.currency;
+  const profit = formatCurrencyNumber(listing.financialHighlights.lastFyEBITDA);
+  const revenue = formatCurrencyNumber(
+    listing.financialHighlights.lastFyRevenue
+  );
+  const price = formatCurrencyNumber(listing.valuation.askingPrice);
+
   return (
     <div className="listingCard">
       <div className="listingCard_image">
@@ -50,7 +58,8 @@ export default function ListingCard({ listing }: ListingCardProp) {
         <div className="listingCard_profitability">
           <div className="listingCard_profitability_item">
             <p className="listingCard_profitability_item-text">
-              {listing.valuation.askingPrice}
+              {currency}
+              {price}
             </p>
 
             <div>
@@ -62,7 +71,8 @@ export default function ListingCard({ listing }: ListingCardProp) {
 
           <div className="listingCard_profitability_item">
             <p className="listingCard_profitability_item-text">
-              {listing.financialHighlights.lastFyRevenue}
+              {currency}
+              {revenue}
             </p>
 
             <div>
@@ -74,7 +84,8 @@ export default function ListingCard({ listing }: ListingCardProp) {
 
           <div className="listingCard_profitability_item">
             <p className="listingCard_profitability_item-text">
-              {listing.financialHighlights.lastFyEBITDA}
+              {currency}
+              {profit}
             </p>
 
             <div>

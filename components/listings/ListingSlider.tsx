@@ -29,12 +29,18 @@ export default function ListingSlider({
         slides={listingArray}
         breakpoints={{
           320: {
-            slidesPerView: 1.5,
+            slidesPerView: 1.0,
+          },
+          460: {
+            slidesPerView: 1.1,
           },
           640: {
-            slidesPerView: 2.5,
+            slidesPerView: 1.5,
           },
           768: {
+            slidesPerView: 1.8,
+          },
+          1100: {
             slidesPerView: 2.5,
           },
         }}

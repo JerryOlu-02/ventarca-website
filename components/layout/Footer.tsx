@@ -1,6 +1,7 @@
 "use client";
 
 import Logo from "@/public/logo.svg";
+import "@/styles/layout/footer.scss";
 
 import Button from "../common/Button";
 import Socials from "../common/Socials";

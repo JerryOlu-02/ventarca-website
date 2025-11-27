@@ -19,7 +19,7 @@
 .footer_logo-section {
   @include flex-col;
   gap: 18px;
-  @include p2(400);
+  @include p2(300);
 
   aside {
     @include flex-col;
@@ -47,14 +47,14 @@
   }
 
   h6 {
-    @include h6(600);
+    @include h6(500);
   }
 
   ul {
     list-style-type: none;
     @include flex-col;
     gap: 12px;
-    @include accent2(400);
+    @include accent2(300);
     width: fit-content;
 
     li {
@@ -69,7 +69,7 @@
   gap: 4px;
 
   h6 {
-    @include h6(600);
+    @include h6(500);
   }
 
   .form {
@@ -77,7 +77,7 @@
     gap: 10px;
 
     p {
-      @include p3(400);
+      @include p3(300);
     }
 
     input {
@@ -93,6 +93,73 @@
 
     .success {
       color: $green;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .section.section_footer {
+    padding: 0 24px;
+  }
+
+  .footer_links-section {
+    div {
+      gap: 20px;
+    }
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .page_width.footer {
+    padding: 40px 0;
+    width: 100%;
+    max-width: 100%;
+
+    .container {
+      width: 100%;
+    }
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 40px;
+
+    .container {
+      width: 100%;
+    }
+  }
+
+  .footer_logo-section {
+    width: 100%;
+    order: 4;
+  }
+
+  .footer_news {
+    order: 1;
+  }
+
+  .footer_links-section {
+    &:first-of-type {
+      order: 3;
+    }
+
+    &:nth-of-type(2) {
+      order: 1;
+    }
+
+    div {
+      justify-content: flex-start;
+      gap: 56px;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .footer_links-section {
+    ul {
+      @include accent3(300);
     }
   }
 }

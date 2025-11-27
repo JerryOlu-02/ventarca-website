@@ -6,7 +6,7 @@ import { useRef } from "react";
 // GET UPDATES SECTION
 export default function GetUpdates({ ref }: { ref: React.Ref<HTMLElement> }) {
   return (
-    <section ref={ref} className="getUpdates_section">
+    <section ref={ref} className="section getUpdates_section">
       <div className="getUpdates">
         <div className="getUpdates_header">
           <h2>Get Updates on Trending Markets</h2>

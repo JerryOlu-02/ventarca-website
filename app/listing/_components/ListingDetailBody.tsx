@@ -240,7 +240,7 @@ export default function ListingDetailBody({
               <div className="contact_seller_item">
                 <div className="contact_seller_item_left">
                   <div className="owner_img">
-                    {listing.user.photo ? (
+                    {listing.user?.photo ? (
                       <img
                         src={listing.user.photo.path}
                         alt="Listing_Owner__Image"
@@ -257,10 +257,10 @@ export default function ListingDetailBody({
 
                   <div className="owner_details">
                     <p>
-                      {listing.user.firstName} {listing.user.lastName}
+                      {listing.user?.firstName} {listing.user?.lastName}
                     </p>
                     <p>Business Owner</p>
-                    <span>{listing.user.phoneNumber}</span>
+                    <span>{listing.user?.phoneNumber}</span>
                   </div>
                 </div>
 

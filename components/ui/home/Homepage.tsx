@@ -77,38 +77,34 @@ const tags: Tag[] = [
   { id: 6, name: "Finance", image: FinImg },
 ];
 
-const stories: RecentStory[] = [
-  {
-    id: 1,
-    title:
-      "How Tiffany Built A Multimillion Pounds Franchise Buying Struggling Grocery Stores",
-    tag: "Retail",
-    image: RecentStory1Img,
-    writer: "Tiffany Guster",
-  },
-  {
-    id: 2,
-    title:
-      "Vestibulum a senectus ornare urna sit eu. Mattis suscipit bibendum tempus.",
-    tag: "E-commerce",
-    image: RecentStory2Img,
-    writer: "William Cook",
-  },
-  {
-    id: 3,
-    title:
-      "Faucibus ultricies sed vel velit elementum nunc. Tortor ac commodo hendrerit aliquet.",
-    tag: "SaaS",
-    image: RecentStory3Img,
-    writer: "Tony Gulliani",
-  },
-];
+// const stories: RecentStory[] = [
+//   {
+//     id: 1,
+//     title:
+//       "How Tiffany Built A Multimillion Pounds Franchise Buying Struggling Grocery Stores",
+//     tag: "Retail",
+//     image: RecentStory1Img,
+//     writer: "Tiffany Guster",
+//   },
+//   {
+//     id: 2,
+//     title:
+//       "Vestibulum a senectus ornare urna sit eu. Mattis suscipit bibendum tempus.",
+//     tag: "E-commerce",
+//     image: RecentStory2Img,
+//     writer: "William Cook",
+//   },
+//   {
+//     id: 3,
+//     title:
+//       "Faucibus ultricies sed vel velit elementum nunc. Tortor ac commodo hendrerit aliquet.",
+//     tag: "SaaS",
+//     image: RecentStory3Img,
+//     writer: "Tony Gulliani",
+//   },
+// ];
 
-export default function Homepage({
-  listingSliderComponent,
-}: {
-  listingSliderComponent: React.ReactNode;
-}) {
+export default function Homepage({ children }: { children: React.ReactNode }) {
   const targetRef = useRef<HTMLElement>(null);
 
   const scrollToTarget = () => {
@@ -121,7 +117,7 @@ export default function Homepage({
     <>
       <Hero />
 
-      <Handpicked>{listingSliderComponent}</Handpicked>
+      <Handpicked>{children}</Handpicked>
 
       <ImgWithText />
 
@@ -130,7 +126,7 @@ export default function Homepage({
 
         <Tags tags={tags} />
 
-        <Stories stories={stories} />
+        {/* <Stories stories={stories} /> */}
       </section>
 
       <GetUpdates ref={targetRef} />
@@ -143,21 +139,21 @@ export default function Homepage({
 // IMAGE WITH TEXT SECTION
 function ImgWithText() {
   return (
-    <section className="imgWithText_section">
+    <section className="section imgWithText_section">
       <div className="page_width">
         <div className="imgWithText">
           <aside className="imgWithText_content">
             <div>
-              <h2>Eu gravida nulla nisi massa commodo non.</h2>
+              <h2>Opportunities Worth Your Time...</h2>
               <p>
-                Dapibus amet ornare sed tortor urna tellus risus. Ornare at
-                mattis volutpat odio est nec tellus. Etiam integer risus
-                faucibus vel volutpat varius ut vitae scelerisque. Mi.
+                Explore curated listings backed by real data. Our team reviews
+                trends, valuations, and industry insights to ensure each
+                opportunity meets a high threshold of quality and potential.
               </p>
             </div>
 
             <Button className="btn btn-primary btn-medium">
-              Primary Button
+              Explore Opportunities
             </Button>
           </aside>
 
@@ -178,7 +174,8 @@ function Tags({ tags }: { tags: Tag[] }) {
         <h3>View Popular Tags</h3>
 
         <p>
-          Pulvinar pulvinar semper vestibulum massa feugiat quam in egestas.
+          Discover industries buyers search for most. Explore categories to find
+          businesses that match your interests and investment goals.
         </p>
       </aside>
 
@@ -202,7 +199,11 @@ function Stories({ stories }: { stories: RecentStory[] }) {
     <div className="page_width recentStories">
       <aside className="recentStories_header">
         <h3>Read Recent Success Stories</h3>
-        <p>Praesent mattis dictum metus nunc in turpis nulla aliquam metus.</p>
+        <p>
+          Hear from entrepreneurs who made successful transitions. Their
+          journeys highlight what’s possible when the right buyer meets the
+          right opportunity.
+        </p>
       </aside>
 
       <aside className="recentStories_container container_homepage">
@@ -229,16 +230,15 @@ function Stories({ stories }: { stories: RecentStory[] }) {
 // RICH TEXT SECTION
 function RichText() {
   return (
-    <div className="richText">
+    <div className="section richText">
       <div className="richText_container">
         <h2>
-          Venenatis aenean accumsan eu in tempor et. Senectus
-          <span>quis magna</span> ac bibendum.
+          Unlock <span>Opportunities</span> With Confidence
         </h2>
         <p>
-          Habitant morbi scelerisque elit arcu. Volutpat lorem luctus quis neque
-          morbi. Enim amet mauris in pharetra. Adipiscing id commodo ultrices
-          consequat tristique lacus.
+          From early research to final negotiations, Ventarca supports your
+          journey every step of the way. We combine data-driven insights with
+          human expertise to help you make smart, informed decisions quickly.
         </p>
       </div>
     </div>

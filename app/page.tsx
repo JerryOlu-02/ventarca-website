@@ -11,15 +11,13 @@ export default function Home() {
 
   return (
     <main className="main">
-      <Homepage
-        listingSliderComponent={
-          <ErrorBoundary fallback={<div>Something Went Wrong...</div>}>
-            <Suspense fallback={<ListingSliderLoading />}>
-              <ListingSlider getListingPromise={handpickedListingsPromise} />
-            </Suspense>
-          </ErrorBoundary>
-        }
-      />
+      <Homepage>
+        <ErrorBoundary fallback={<div>Something Went Wrong...</div>}>
+          <Suspense fallback={<ListingSliderLoading />}>
+            <ListingSlider getListingPromise={handpickedListingsPromise} />
+          </Suspense>
+        </ErrorBoundary>
+      </Homepage>
     </main>
   );
 }

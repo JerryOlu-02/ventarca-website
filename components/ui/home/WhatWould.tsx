@@ -65,6 +65,10 @@ export default function WhatWould({
             />
           </div>
 
+          <Button className="btn btn-secondary btn-small">
+            View All Brokers
+          </Button>
+
           <div className="whatWouldSwiper_controls">
             <div onClick={goToPrevSlide}>
               <ArrowLeft />
@@ -84,10 +88,6 @@ export default function WhatWould({
               <ArrowRight />
             </div>
           </div>
-
-          <Button className="btn btn-secondary btn-small">
-            View All Brokers
-          </Button>
         </div>
 
         <div className="whatWould_item">

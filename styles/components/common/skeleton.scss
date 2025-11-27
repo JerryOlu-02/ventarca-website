@@ -1,0 +1,88 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/variables" as *;
+
+@keyframes move {
+  from {
+    left: 0%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+.skeleton {
+  position: relative;
+  z-index: 0;
+  background-color: rgba(153, 153, 153, 0.1);
+
+  .move {
+    background-color: $white;
+    filter: blur(20px);
+    opacity: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    animation: move 3s ease-out 0.5s infinite alternate-reverse;
+    z-index: -1;
+  }
+}
+
+.card {
+  min-width: 450px;
+  height: 550px;
+  border-radius: 8px;
+}
+
+.listing_list {
+  gap: 30px;
+
+  .card {
+    min-width: 100%;
+  }
+}
+
+.listing_detail_loading {
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+  }
+
+  .card {
+    min-width: unset;
+
+    &:first-of-type {
+      width: 60%;
+      height: 900px;
+    }
+
+    &:nth-of-type(2) {
+      width: 40%;
+    }
+
+    @media screen and (max-width: 900px) {
+      &:first-of-type {
+        width: 100%;
+      }
+
+      &:nth-of-type(2) {
+        width: 100%;
+        display: none;
+      }
+    }
+  }
+}
+
+.listing_slider_loading {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow: scroll;
+}

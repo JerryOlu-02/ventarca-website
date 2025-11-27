@@ -3,12 +3,12 @@
 @use "../styles/base/typography";
 @use "../styles/base/reset";
 
-@use "../styles/layout/navbar";
-@use "../styles/layout/footer";
+// @use "../styles/layout/navbar";
+// @use "../styles/layout/footer";
 
-@use "../styles/components/button";
+// @use "../styles/components/button";
 
-@use "../styles/pages/homepage";
+// @use "../styles/pages/homepage";
 
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Sora:wght@100..800&display=swap");
 
@@ -16,6 +16,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
 }
 
 .main {
@@ -34,6 +39,13 @@
   @include flex-row;
   width: 100%;
   justify-self: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 :root {
