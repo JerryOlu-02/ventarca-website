@@ -38,13 +38,14 @@ export default async function Searchpage({
 
   return (
     <Suspense fallback={<div>Loading</div>}>
-      <SearchPageClient
+      {/* <SearchPageClient
         location={location}
         industry={industry}
         listingsCardData={listingsCardData}
         pageNo={pageNo}
         noOfListings={response.data.total}
-      />
+      /> */}
+      <div>Search</div>
     </Suspense>
   );
 }
