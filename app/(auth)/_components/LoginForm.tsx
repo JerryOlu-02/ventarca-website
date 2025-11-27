@@ -70,8 +70,9 @@ export default function LoginForm() {
 
       setLoading(false);
 
-      if (res.ok) router.replace("/");
-      else {
+      if (res.ok) {
+        return;
+      } else {
         setFormState({ error: { form: res.error } });
       }
     }

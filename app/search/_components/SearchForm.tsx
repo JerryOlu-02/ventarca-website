@@ -82,7 +82,7 @@ export default function SearchForm() {
     setValue("priceRange", "");
 
     handleReset();
-    router.push("/search");
+    router.push("/search?page=1");
   };
 
   return (
@@ -124,7 +124,7 @@ export default function SearchForm() {
               "60000-80000",
               "80000-100000",
               "100000-120000",
-              "120000+",
+              "120000-300000",
             ]}
           />
 

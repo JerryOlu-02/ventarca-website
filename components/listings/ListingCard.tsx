@@ -1,6 +1,5 @@
 import "@/styles/components/listing/listings.scss";
 
-import Button from "../common/Button";
 import Location from "@/public/icon/location.svg";
 import Bookmark from "@/public/icon/bookmark.svg";
 // import Image from "next/image";

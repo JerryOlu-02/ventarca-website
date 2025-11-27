@@ -26,16 +26,16 @@ export async function POST(req: Request) {
   const setCookie = resp?.headers?.get("set-cookie");
   if (setCookie) outwardResponse.headers.set("Set-Cookie", setCookie);
 
-  if (resp?.ok) {
-    const cookieStore = await cookies();
+  // if (resp?.ok) {
+  //   const cookieStore = await cookies();
 
-    cookieStore.set({
-      name: "logged_in",
-      value: "",
-      maxAge: 0,
-      path: "/",
-    });
-  }
+  //   cookieStore.set({
+  //     name: "logged_in",
+  //     value: "",
+  //     maxAge: 0,
+  //     path: "/",
+  //   });
+  // }
 
   return outwardResponse;
 }

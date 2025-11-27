@@ -19,7 +19,7 @@ export default function Handpicked({
 
         {children}
 
-        <Link href="/search" className="btn btn-secondary btn-medium">
+        <Link href="/search?page=1" className="btn btn-secondary btn-medium">
           View More Listings
         </Link>
       </div>

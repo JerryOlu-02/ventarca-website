@@ -17,7 +17,7 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  const loggedIn = request.cookies.get("logged_in")?.value === "true";
+  const loggedIn = request.cookies.get("refreshToken")?.value;
 
   // console.log("Proxy Refresh Cookie--->", refreshCookie);
 

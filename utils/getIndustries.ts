@@ -10,7 +10,12 @@ export type GetIndustries = {
 
 export async function getIndustriesFromBackend() {
   try {
-    const response = await apiClient.get("/industries", {});
+    const response = await apiClient.get("/industries", {
+      params: {
+        page: 1,
+        limit: 50,
+      },
+    });
 
     return {
       success: true,

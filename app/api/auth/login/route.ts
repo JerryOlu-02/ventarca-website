@@ -40,18 +40,18 @@ export async function POST(req: Request) {
     outwardResponse.headers.set("Set-Cookie", setCookie);
   }
 
-  // Set SSR session cookie
-  const cookieStore = await cookies();
+  // // Set SSR session cookie
+  // const cookieStore = await cookies();
 
-  cookieStore.set({
-    name: "logged_in",
-    value: "true",
-    path: "/",
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 7,
-  });
+  // cookieStore.set({
+  //   name: "logged_in",
+  //   value: "true",
+  //   path: "/",
+  //   httpOnly: true,
+  //   sameSite: "lax",
+  //   secure: process.env.NODE_ENV === "production",
+  //   maxAge: 60 * 60 * 24 * 7,
+  // });
 
   return outwardResponse;
 }

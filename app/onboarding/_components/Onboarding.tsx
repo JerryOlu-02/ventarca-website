@@ -8,14 +8,25 @@ import BuySelection from "@/public/icon/buy-selection.svg";
 import SellSelection from "@/public/icon/sell-selection.svg";
 import Info from "@/public/icon/info.svg";
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Onboarding() {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const [activeOption, setActiveOption] = useState<number>(0);
 
   const handleActiveOption = (i: number) => {
     setActiveOption((previousIndex) =>
       previousIndex === i ? previousIndex : i
     );
+  };
+
+  const goToPreferences = () => {
+    if (activeOption === 0)
+      return router.push(`${pathname}/preferences?option=BUYER`);
+    if (activeOption === 1)
+      return router.push(`${pathname}/preferences?option=SELLER`);
   };
 
   return (
@@ -71,6 +82,7 @@ export default function Onboarding() {
 
         <div className="onboarding_info">
           <Info />
+
           <p>
             Selecting either doesn’t restrict you from doing the other, it just
             helps us tailor your onboarding experience better.
@@ -78,9 +90,19 @@ export default function Onboarding() {
         </div>
 
         <div className="onboarding_buttons">
-          <Button className="btn btn-secondary btn-medium">Skip</Button>
+          <Button
+            onClick={goToPreferences}
+            type="button"
+            className="btn btn-secondary btn-medium"
+          >
+            Skip
+          </Button>
 
-          <Button className="btn btn-primary btn-medium">
+          <Button
+            type="button"
+            onClick={goToPreferences}
+            className="btn btn-primary btn-medium"
+          >
             Next <ArrowRight />
           </Button>
         </div>

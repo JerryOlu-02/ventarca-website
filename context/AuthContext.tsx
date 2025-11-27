@@ -2,6 +2,7 @@ import { getAccessToken, setAccessToken } from "@/lib/session";
 import { ErrorResponse, LoginSuccessResponse } from "@/types/apiResponse";
 import { User } from "@/types/apiResponse";
 import { getIndustriesFromBackend } from "@/utils/getIndustries";
+import { useRouter } from "next/navigation";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 
 type AuthContextType = {
@@ -19,6 +20,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
   children,
 }) {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [industries, setIndustries] = useState<string[] | undefined>();
@@ -72,8 +74,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
     const { token, tokenExpires, user }: LoginSuccessResponse = data;
 
     const userDataForStorage = {
-      name: user.firstName,
-      photo: user?.photo?.path,
+      firstName: user.firstName,
+      photo: { path: user?.photo?.path },
     };
 
     localStorage.setItem("user_cache", JSON.stringify(userDataForStorage));
@@ -81,6 +83,12 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
     setAccessToken(token, tokenExpires);
 
     setUser(user);
+
+    if (!user.isOnboarded) {
+      router.push("/onboarding");
+    } else {
+      router.push("/");
+    }
 
     return { ok: true };
   };
@@ -105,7 +113,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
     }
 
     // Redirect to login
-    window.location.href = "/login";
+    router.push("/login");
   };
 
   const logout = async () => {

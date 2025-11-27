@@ -14,6 +14,7 @@ export type User = {
   photo: {
     path: string;
   };
+  isOnboarded: boolean;
   role: {
     id: number;
     name: string;

@@ -2,9 +2,10 @@
 
 import parsePhoneNumberFromString from "libphonenumber-js";
 import apiClient from "@/lib/axios";
-import { success, z } from "zod";
+import { z } from "zod";
 import { redirect } from "next/navigation";
 import { ErrorResponse } from "@/types/apiResponse";
+import axios from "axios";
 import { error } from "console";
 
 // REGISTER AUTH ACTIONS
@@ -34,46 +35,65 @@ const registerSchema = z.object({
   acceptPromotionalEmails: z.coerce.boolean(),
 });
 
-export async function registerUser(prevState: any, formData: FormData) {
-  const registerUserData = Object.fromEntries(formData);
-  const validiatedRegisterUserData = registerSchema.safeParse(registerUserData);
+type RegisterInput = {
+  email: string;
+  password: string;
+  firstName: string;
+  phoneNumber: string;
+  lastName: string;
+  acceptPromotionalEmails: unknown;
+};
+
+export async function validiateRegisterUser(formData: RegisterInput) {
+  // const registerUserData = Object.fromEntries(formData);
+  const validiatedRegisterUserData = registerSchema.safeParse(formData);
 
   if (!validiatedRegisterUserData.success) {
     const formFieldErrors = z.flattenError(validiatedRegisterUserData.error);
 
     return {
+      success: false,
       error: {
         firstName: formFieldErrors.fieldErrors.firstName?.[0],
         lastName: formFieldErrors.fieldErrors.lastName?.[0],
         phoneNumber: formFieldErrors.fieldErrors.phoneNumber?.[0],
         email: formFieldErrors.fieldErrors.email?.[0],
         password: formFieldErrors.fieldErrors.password?.[0],
-        acceptPromotionalEmails:
-          formFieldErrors.fieldErrors.acceptPromotionalEmails?.[0],
       },
     };
   }
 
-  const data = validiatedRegisterUserData.data;
+  return {
+    success: "Form was Validiated Successfully",
+    error: {},
+  };
+}
 
+export const registerUserAction = async (data: RegisterInput) => {
   try {
-    const response = await apiClient.post("/auth/email/register", data);
+    const response = await axios.post(
+      "https://api.ventarca.biz/api/v1/auth/email/register",
+      data
+    );
+
+    const errorData: ErrorResponse = response.data;
 
     console.log("Registration Succesful", response.status);
+
+    return { success: true, error: {} };
   } catch (error: any) {
     const errorData: ErrorResponse = error.response.data;
-    console.error("SIGN UP FAILED", errorData);
 
     return {
-      error:
-        typeof errorData.message === "object"
-          ? Object.values(errorData.message)[0]
-          : errorData.message,
+      error: {
+        form:
+          typeof errorData.message === "object"
+            ? Object.values(errorData.message)[0]
+            : errorData.message,
+      },
     };
   }
-
-  redirect("/register/verification-pending");
-}
+};
 
 // CONFIRM EMAIL
 export async function confirmEmail(hash: string) {

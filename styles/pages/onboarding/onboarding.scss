@@ -1,6 +1,18 @@
 @use "../../abstracts/variables" as *;
 @use "../../abstracts/mixins" as *;
 
+@keyframes move {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
 .onboarding_section {
   padding-top: 80px;
   padding-bottom: 80px;
@@ -32,7 +44,7 @@
   gap: 24px;
 
   h4 {
-    @include h4(600);
+    @include h4(500);
     color: $black;
     @include flex-col;
     align-items: center;
@@ -40,7 +52,7 @@
     gap: 4px;
 
     span {
-      @include accent2(400);
+      @include accent2(300);
       color: rgba(102, 102, 102, 1);
       font-style: italic;
     }
@@ -96,6 +108,10 @@
   width: 100%;
   gap: 12px;
 
+  svg {
+    width: 28px;
+  }
+
   p {
     @include accent2(400);
     color: $black;
@@ -127,6 +143,7 @@
   justify-content: center;
 
   span {
+    text-transform: capitalize;
     cursor: pointer;
     padding: 6px 18px;
     @include accent2(500);
@@ -140,5 +157,48 @@
       background-color: $gold;
       color: $white;
     }
+  }
+}
+
+// PREERNCES SUCCESSFUL
+.preferences_successful_container {
+  background-color: $white;
+  border-radius: 8px;
+  @include flex-col-center;
+  gap: 10px;
+  padding: 20px;
+  position: absolute;
+  top: 20px;
+  right: 5%;
+  max-width: 300px;
+  width: 100%;
+  min-height: 100px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  .bar {
+    position: absolute;
+    width: calc(100% - 16px);
+    height: 2px;
+    background-color: $green;
+    left: 8px;
+    top: 0;
+
+    animation: move 15s alternate infinite linear;
+  }
+
+  p {
+    @include accent3(300);
+  }
+
+  svg {
+    width: 28px;
+    height: 28px;
+    fill: $green;
   }
 }
