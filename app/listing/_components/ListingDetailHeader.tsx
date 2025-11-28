@@ -6,6 +6,7 @@ import Button from "@/components/common/Button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ListingDetailResponse } from "@/types/listing";
+import Link from "next/link";
 
 export function ListingDetailHeader({
   scrollToTarget,
@@ -79,7 +80,12 @@ export function ListingDetailHeader({
           </div>
         </div>
 
-        <Button className="btn btn-primary btn-medium">Contact Seller</Button>
+        <Link
+          href={`mailto:${listing?.user?.phoneNumber}`}
+          className="btn btn-primary btn-medium"
+        >
+          Contact Seller
+        </Link>
       </div>
     </section>
   );

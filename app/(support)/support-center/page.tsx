@@ -24,16 +24,16 @@ const tickets: Ticket[] = [
 
 export default function SupportCenter() {
   return (
-    <>
-      <section className="support_center">
-        <div className="overlay-bg-support-center" />
+    <section className="section support_section">
+      <div className="overlay-bg-support-center" />
 
-        <h2 className="page_width">Support Center</h2>
+      <aside className="support_center">
+        <h2>Support Center</h2>
 
         <aside className="page_width support_center_container">
           <SupportContainer tickets={tickets} />
         </aside>
-      </section>
-    </>
+      </aside>
+    </section>
   );
 }

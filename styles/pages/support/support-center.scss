@@ -1,15 +1,20 @@
 @use "../../abstracts/variables" as *;
 @use "../../abstracts/mixins" as *;
 
+.section.support_section {
+  background-color: transparent;
+  position: relative;
+}
+
 .support_center {
   width: 100%;
-  padding: 80px 80px 0;
+  padding-top: 80px;
   @include flex-col;
   gap: 48px;
   position: relative;
 
   h2 {
-    @include h2(600);
+    @include h2(500);
     color: $white;
     align-self: center;
   }
@@ -46,6 +51,104 @@
   background-position: center;
 }
 
+@media screen and (max-width: 1024px) {
+  .support_center {
+    h2 {
+      @include h4(500);
+    }
+  }
+
+  .support_center_container {
+    gap: 24px;
+
+    .support_buttons {
+      .btn {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .support_center {
+    // padding-top: 100px;
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+
+    h2 {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .overlay-bg-support-center {
+    height: unset;
+    aspect-ratio: 2 / 1;
+  }
+
+  .support_center_container {
+    margin-top: 300px;
+    align-items: center;
+  }
+
+  .support_buttons {
+    width: 100%;
+
+    .btn {
+      padding: 10px 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .support_center_container {
+    margin-top: 250px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .support_center_container {
+    margin-top: 200px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .support_center_container {
+    margin-top: 150px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .support_center_container {
+    margin-top: 110px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .support_center_container {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .support_center_container {
+    margin-top: 60px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .support_center_container {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .support_center_container {
+    margin-top: 20px;
+  }
+}
+
 // CREATE TICKET
 .create_ticket_container {
   width: 100%;
@@ -66,11 +169,11 @@
   color: $black;
 
   h4 {
-    @include h4(600);
+    @include h4(500);
   }
 
   p {
-    @include accent2(400);
+    @include accent2(300);
   }
 }
 
@@ -116,6 +219,30 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .create_ticket_item_left {
+    padding: 24px 20px;
+
+    gap: 16px;
+  }
+
+  .create_ticket_item_header {
+    h4 {
+      @include h5(500);
+    }
+
+    p {
+      @include accent3(300);
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .create_ticket_form_item {
+    flex-direction: column;
+  }
+}
+
 // VIEW TICKETS
 .view_ticket_container {
   background-color: $white;
@@ -125,10 +252,11 @@
 
   @include flex-col;
   gap: 24px;
+  width: 100%;
 
   h4 {
     color: $black;
-    @include h4(600);
+    @include h4(500);
   }
 }
 
@@ -150,7 +278,7 @@
     }
 
     p {
-      @include accent2(600);
+      @include accent2(500);
       margin-top: auto;
       margin-bottom: auto;
       padding-left: 20px;
@@ -171,23 +299,80 @@
 
   .ticket_item {
     p {
-      @include accent2(400);
+      @include accent2(300);
 
       &:first-of-type {
         color: $blue;
-        @include accent2(600);
+        @include accent2(500);
       }
 
       &.open {
-        @include accent2(500);
+        @include accent2(400);
         text-transform: capitalize;
         color: $error;
       }
 
       &.closed {
-        @include accent2(500);
+        @include accent2(400);
         text-transform: capitalize;
         color: $success;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .view_ticket_container {
+    padding: 20px;
+    gap: 20px;
+
+    h4 {
+      @include h6(500);
+    }
+  }
+
+  .view_tickets {
+    overflow-x: scroll;
+
+    div {
+      height: 40px;
+      width: max-content;
+      grid-template-columns: 40px repeat(6, 120px);
+      // display: flex;
+      gap: 46px;
+
+      span {
+        // min-width: 40px;
+      }
+
+      p {
+        @include accent3(500);
+        padding-left: 0;
+        // min-width: 100px;
+        // width: 100%;
+        // max-width: 100%;
+
+        &:first-of-type {
+          padding-left: 0;
+        }
+      }
+    }
+
+    .ticket_item {
+      span {
+        min-width: 40px;
+      }
+
+      p {
+        @include accent3(300);
+
+        &:first-of-type {
+          @include accent3(500);
+        }
+
+        &.open {
+          @include accent3(400);
+        }
       }
     }
   }

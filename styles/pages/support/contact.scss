@@ -4,7 +4,7 @@
 .contact_header {
   width: 100%;
   height: 100%;
-  padding: 80px 80px 0;
+  padding-top: 80px;
 
   background-color: $white;
   @include flex-col;
@@ -14,7 +14,7 @@
 
   h2 {
     color: $white;
-    @include h2(600);
+    @include h2(500);
     text-align: center;
   }
 }
@@ -53,11 +53,11 @@
   color: $black;
 
   h4 {
-    @include h4(600);
+    @include h4(500);
   }
 
   p {
-    @include accent2(400);
+    @include accent2(300);
   }
 }
 
@@ -120,7 +120,7 @@
   transform: translateY(50%);
 
   h6 {
-    @include h6(600);
+    @include h6(500);
   }
 
   .border_span {
@@ -146,11 +146,11 @@
     gap: 4px;
 
     p {
-      @include accent2(700);
+      @include accent2(600);
     }
 
     span {
-      @include accent3(500);
+      @include accent3(400);
     }
   }
 }
@@ -160,7 +160,7 @@
   gap: 8px;
 
   p {
-    @include accent2(700);
+    @include accent2(500);
   }
 
   .socials_container {
@@ -172,5 +172,102 @@
         fill: $white;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contact_header {
+    h2 {
+      @include h4(500);
+    }
+  }
+
+  .contact_item_left {
+    padding: 20px;
+  }
+
+  .contact_item_header {
+    h4 {
+      @include h5(500);
+    }
+
+    p {
+      @include accent3(300);
+    }
+  }
+
+  .contact_item_right {
+    padding: 20px;
+    gap: 16px;
+
+    h6 {
+      @include accent1(500);
+    }
+  }
+
+  .contact_right_item {
+    gap: 14px;
+
+    div {
+      @include flex-col;
+      gap: 4px;
+    }
+  }
+
+  .contact_right_list {
+    gap: 12px;
+  }
+
+  .contact_connect {
+    p {
+      @include accent3(500);
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .contact_header {
+    padding-top: 115px;
+
+    h2 {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      // transform: translate(50%, 50%);
+    }
+  }
+
+  .contact_item_right {
+    height: fit-content;
+
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    right: 0;
+    transform: translateY(0);
+  }
+
+  .contact_container {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .overlay-bg-contact {
+    aspect-ratio: 5 / 1;
+  }
+
+  .contact_item_left {
+    width: 100%;
+  }
+
+  .contact_form {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .contact_form_item {
+    flex-direction: column;
   }
 }

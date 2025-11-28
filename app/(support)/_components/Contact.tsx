@@ -10,7 +10,7 @@ import EmailSvg from "@/public/icon/email.svg";
 export default function Contact() {
   return (
     <>
-      <section className="contact_header">
+      <section className="section contact_header">
         <div className="overlay-bg-contact" />
 
         <h2>Contact Us</h2>

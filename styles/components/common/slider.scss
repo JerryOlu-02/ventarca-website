@@ -8,6 +8,14 @@
 .swiper,
 .swiper-wrapper {
   z-index: unset;
+
+  .listingCard_content {
+    h5 {
+      // white-space: nowrap;
+      line-clamp: 1;
+      -webkit-line-clamp: 1;
+    }
+  }
 }
 
 .slider_home {

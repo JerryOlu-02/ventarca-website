@@ -75,6 +75,19 @@ export default function Faqs() {
               index={i}
             />
           ))}
+
+          <div className="faqs_desc_text mobile">
+            <div>
+              <h4>Still have questions?</h4>
+              <p>
+                Sed morbi at fames vitae quis donec. Mi pellentesque amet
+                integer aliquet habitant. Et pellentesque vel urna id
+                pellentesque a sapien posuere lobortis.
+              </p>
+            </div>
+
+            <Button className="btn btn-primary btn-small">Send Email</Button>
+          </div>
         </aside>
       </div>
     </section>
