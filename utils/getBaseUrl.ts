@@ -8,7 +8,7 @@ export async function getBaseUrl() {
   // return "http://localhost:3000";
 
   const headersList = await headers();
-  const host = headersList.get("host");
+  const host = headersList.get("x-forwarded-host") ?? headersList.get("host");
 
   return host?.startsWith("localhost") ? `http://${host}` : `https://${host}`;
 }
