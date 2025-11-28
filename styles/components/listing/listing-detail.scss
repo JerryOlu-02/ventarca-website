@@ -755,6 +755,7 @@
   }
 
   .listing_detail_valuation {
+    min-height: unset;
     display: grid;
     grid-template-columns: repeat(2, minmax(70px, 1fr));
   }
