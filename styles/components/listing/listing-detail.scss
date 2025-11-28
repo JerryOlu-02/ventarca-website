@@ -756,12 +756,14 @@
 
   .listing_detail_valuation {
     min-height: unset;
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(70px, 1fr));
   }
 
   .listing_detail_valuation_item {
     width: 100%;
+    height: fit-content;
 
     &:first-of-type {
       width: 100%;
