@@ -9,9 +9,12 @@ import { SearchInput, SearchSchema } from "@/utils/types/searchSchema";
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth } from "@/hooks/use-auth";
+import { industriesFake } from "@/utils/arrays";
 
 export default function HeroSearch() {
   const router = useRouter();
+  const { industries } = useAuth();
 
   const {
     register,
@@ -47,7 +50,7 @@ export default function HeroSearch() {
         {...register("industry")}
         setFormValue={(option) => setValue("industry", option)}
         placeholder="Industry / Sector"
-        options={["Retail", "Saas"]}
+        options={industries ? industries : industriesFake}
       />
 
       <Select
@@ -55,7 +58,15 @@ export default function HeroSearch() {
         {...register("priceRange")}
         setFormValue={(option) => setValue("priceRange", option)}
         placeholder="Price Range"
-        options={["2000-3000", "3000-4000"]}
+        options={[
+          "80000-200000",
+          "200000-400000",
+          "400000-600000",
+          "600000-800000",
+          "800000-1000000",
+          "1000000-3000000",
+          "3000000-5000000",
+        ]}
       />
 
       <Button type="submit" className="btn btn-primary btn-medium">

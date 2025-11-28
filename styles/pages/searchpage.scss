@@ -108,6 +108,10 @@
 }
 
 @media screen and (max-width: 950px) {
+  .section_search {
+    position: relative;
+  }
+
   .search_form {
     form {
       display: grid;

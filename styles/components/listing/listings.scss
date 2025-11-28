@@ -117,7 +117,7 @@
 
 .listingCard_profitability {
   display: grid;
-  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  grid-template-columns: repeat(4, minmax(40px, 1fr));
   // @include flex-row;
   // flex-wrap: wrap;
   gap: 10px;

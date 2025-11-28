@@ -117,14 +117,13 @@ export default function SearchForm() {
                 }
               : { placeholder: "Price Range" })}
             options={[
-              "1000-10000",
-              "10000-20000",
-              "20000-40000",
-              "40000-60000",
-              "60000-80000",
-              "80000-100000",
-              "100000-120000",
-              "120000-300000",
+              "80000-200000",
+              "200000-400000",
+              "400000-600000",
+              "600000-800000",
+              "800000-1000000",
+              "1000000-3000000",
+              "3000000-5000000",
             ]}
           />
 
@@ -133,7 +132,7 @@ export default function SearchForm() {
             {...register("moreFilters")}
             setFormValue={(option) => setValue("moreFilters", option)}
             placeholder="More Filters"
-            options={["2000", "3000"]}
+            options={[]}
           />
 
           <Button
