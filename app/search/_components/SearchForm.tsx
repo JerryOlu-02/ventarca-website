@@ -111,11 +111,10 @@ export default function SearchForm() {
             optionsClass="absolute scroll"
             {...register("priceRange")}
             setFormValue={(option) => setValue("priceRange", option)}
-            {...(defaultPriceRange
-              ? {
-                  placeholder: defaultPriceRange,
-                }
-              : { placeholder: "Price Range" })}
+            placeholder="Price Range"
+            {...(defaultPriceRange && {
+              defaultPlaceHolder: defaultPriceRange,
+            })}
             options={[
               "80000-200000",
               "200000-400000",
@@ -125,6 +124,7 @@ export default function SearchForm() {
               "1000000-3000000",
               "3000000-5000000",
             ]}
+            currency
           />
 
           <Select

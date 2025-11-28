@@ -23,7 +23,7 @@ export default function ListingDetailWrapper({
 
   return (
     <>
-      <ListingDetailHeader scrollToTarget={scrollToTarget} />
+      <ListingDetailHeader listing={listing} scrollToTarget={scrollToTarget} />
 
       <ListingDetailBody listing={listing} />
     </>

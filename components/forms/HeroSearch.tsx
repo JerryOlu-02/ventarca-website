@@ -67,6 +67,7 @@ export default function HeroSearch() {
           "1000000-3000000",
           "3000000-5000000",
         ]}
+        currency
       />
 
       <Button type="submit" className="btn btn-primary btn-medium">

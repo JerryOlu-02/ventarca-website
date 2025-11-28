@@ -5,13 +5,17 @@ import Arrowback from "@/public/icon/arrow-back.svg";
 import Button from "@/components/common/Button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ListingDetailResponse } from "@/types/listing";
 
 export function ListingDetailHeader({
   scrollToTarget,
+  listing,
 }: {
   scrollToTarget: (targetId: string) => void;
+  listing: ListingDetailResponse;
 }) {
   const router = useRouter();
+  // "mailto:ventarcahq@gmail.com"
 
   const [activeIndex, setActiveIndex] = useState(0);
 

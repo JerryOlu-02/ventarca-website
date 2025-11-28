@@ -47,7 +47,7 @@
   width: 100%;
 
   top: 100%;
-  z-index: 4;
+  z-index: 1;
 
   &.open {
     margin-top: 10px;
@@ -81,5 +81,14 @@
 
   &:last-of-type {
     border-bottom: 0;
+  }
+}
+.custom_option.currency {
+  font-size: 0;
+
+  &::before {
+    content: attr(data-currency);
+    font-size: 14px;
+    @include accent3(300);
   }
 }
