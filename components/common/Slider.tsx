@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperType } from "swiper";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Pagination, Autoplay, Mousewheel } from "swiper/modules";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import { SwiperOptions } from "swiper/types";
 
@@ -68,10 +68,11 @@ export default function Slider({
             type: "progressbar",
           }
         }
-        modules={[Navigation, Pagination, Autoplay]}
+        modules={[Navigation, Pagination, Autoplay, Mousewheel]}
         spaceBetween={spaceBetween}
         breakpoints={breakpoints}
         slidesPerView={slidesPerView}
+        mousewheel={true}
         autoplay={autoplay ? { delay: 3000 } : false}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         onSlideChange={(swiper) => handleSlideChange(swiper.realIndex)}

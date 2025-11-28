@@ -56,7 +56,7 @@ export default function Select({
   };
 
   const currencyPlaceholder =
-    selectedOption !== ""
+    currency && selectedOption !== ""
       ? formatCurrency(selectedOption)
       : defaultPlaceHolder
       ? formatCurrency(defaultPlaceHolder)
