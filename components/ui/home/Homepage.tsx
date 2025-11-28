@@ -80,7 +80,7 @@ const tags: Tag[] = [
     id: 2,
     name: "SaaS",
     image: SaaSImg,
-    link: "/search?industry=E-commerce&page=1",
+    link: "/search?industry=saas&page=1",
   },
   {
     id: 3,
