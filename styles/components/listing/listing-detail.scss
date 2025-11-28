@@ -788,6 +788,7 @@
     height: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(70px, 1fr));
+    grid-template-rows: auto auto auto;
   }
 
   .listing_detail_valuation_item {
