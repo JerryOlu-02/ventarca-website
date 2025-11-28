@@ -5,7 +5,8 @@
 @use "../../abstracts/mixins" as *;
 
 .register_section {
-  padding: 88px 80px;
+  padding-top: 88px;
+  padding-bottom: 80px;
   background-image: url("../../../public/images/register-bg.jpg");
   background-position: center;
   background-size: cover;
@@ -128,5 +129,59 @@
   &.error {
     color: $error;
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .register_container {
+    h4 {
+      @include h5(500);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .register_section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-image: none;
+    background-color: $white;
+  }
+
+  .register_container {
+    padding: 0;
+    border-radius: 0;
+    gap: 20px;
+  }
+
+  .register_buttons {
+    gap: 14px;
+  }
+
+  .register_form {
+    gap: 16px;
+  }
+
+  .register_form-item {
+    gap: 16px;
+  }
+
+  .register_form-inputs {
+    gap: 16px;
+  }
+
+  .register_link {
+    @include accent3(300);
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .register_buttons {
+    flex-direction: column;
+  }
+
+  .register_form-item {
+    flex-direction: column;
   }
 }

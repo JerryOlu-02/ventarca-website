@@ -29,6 +29,7 @@ import RecentStory3Img from "@/public/images/recent-story-3.jpg";
 import { useRef } from "react";
 import GetUpdates from "./GetUpdates";
 import Handpicked from "./Handpicked";
+import Link from "next/link";
 
 const brokers: Broker[] = [
   {
@@ -69,12 +70,42 @@ const brokers: Broker[] = [
 ];
 
 const tags: Tag[] = [
-  { id: 1, name: "E-commerce", image: EcomImg },
-  { id: 2, name: "SaaS", image: SaaSImg },
-  { id: 3, name: "Resturants", image: RestImg },
-  { id: 4, name: "Retail", image: RetailImg },
-  { id: 5, name: "Construction", image: ConstImg },
-  { id: 6, name: "Finance", image: FinImg },
+  {
+    id: 1,
+    name: "E-commerce",
+    image: EcomImg,
+    link: "/search?industry=E-commerce&page=1",
+  },
+  {
+    id: 2,
+    name: "SaaS",
+    image: SaaSImg,
+    link: "/search?industry=E-commerce&page=1",
+  },
+  {
+    id: 3,
+    name: "Resturants",
+    image: RestImg,
+    link: "/search?industry=resturante&page=1",
+  },
+  {
+    id: 4,
+    name: "Retail",
+    image: RetailImg,
+    link: "/search?industry=retail&page=1",
+  },
+  {
+    id: 5,
+    name: "Construction",
+    image: ConstImg,
+    link: "/search?industry=construction&page=1",
+  },
+  {
+    id: 6,
+    name: "Finance",
+    image: FinImg,
+    link: "/search?industry=finance&page=1",
+  },
 ];
 
 // const stories: RecentStory[] = [
@@ -183,8 +214,10 @@ function Tags({ tags }: { tags: Tag[] }) {
         {tags.map((tag) => {
           return (
             <div key={tag.id} className="tag">
-              <Image src={tag.image} alt={tag.name} />
-              <span>{tag.name}</span>
+              <Link href={tag.link}>
+                <Image src={tag.image} alt={tag.name} />
+                <span>{tag.name}</span>
+              </Link>
             </div>
           );
         })}

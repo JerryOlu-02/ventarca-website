@@ -21,6 +21,7 @@ export interface Tag {
   id: number;
   name: string;
   image: StaticImageData;
+  link: string;
 }
 
 export interface RecentStory {

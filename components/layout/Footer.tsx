@@ -1,6 +1,8 @@
 "use client";
 
 import Logo from "@/public/logo.svg";
+import LogoMobile from "@/public/icon/logo-mobile.svg";
+
 import "@/styles/layout/footer.scss";
 
 import Button from "../common/Button";
@@ -50,6 +52,8 @@ export default function Footer() {
         <div className="footer_logo-section container">
           <aside>
             <Logo />
+
+            <LogoMobile />
 
             <p>
               Empowering entrepreneurs, investors, and

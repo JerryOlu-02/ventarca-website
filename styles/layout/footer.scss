@@ -24,6 +24,10 @@
   aside {
     @include flex-col;
     gap: 12px;
+
+    svg:nth-of-type(2) {
+      display: none;
+    }
   }
 
   span {
@@ -134,6 +138,16 @@
   .footer_logo-section {
     width: 100%;
     order: 4;
+
+    aside {
+      svg:nth-of-type(1) {
+        display: none;
+      }
+
+      svg:nth-of-type(2) {
+        display: block;
+      }
+    }
   }
 
   .footer_news {

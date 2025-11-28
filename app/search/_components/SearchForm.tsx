@@ -104,7 +104,7 @@ export default function SearchForm() {
               ? {
                   placeholder: defaultIndustry,
                 }
-              : { placeholder: "Industry / Sector" })}
+              : { placeholder: "Industry" })}
           />
 
           <Select

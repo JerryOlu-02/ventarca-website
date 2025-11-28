@@ -6,8 +6,17 @@
   gap: 32px;
   padding-bottom: 66px;
 
+  @media screen and (max-width: 1024px) {
+    gap: 24px;
+    padding-bottom: 44px;
+  }
+
   h2 {
     @include h2(600);
+
+    @media screen and (max-width: 1024px) {
+      @include h4(500);
+    }
   }
 }
 

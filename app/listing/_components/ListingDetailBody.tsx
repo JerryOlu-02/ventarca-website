@@ -1,6 +1,3 @@
-import SmsSvg from "@/public/icon/sms.svg";
-import InfoIcon from "@/public/icon/info-icon.svg";
-import ArrowRight from "@/public/icon/arrow-right.svg";
 import ArrowDown from "@/public/icon/arrow-down.svg";
 import LoactionSvg from "@/public/icon/location.svg";
 import ViewsSvg from "@/public/icon/views.svg";
@@ -8,25 +5,29 @@ import BookmarksSvg from "@/public/icon/bookmark.svg";
 import Bookmarks2Svg from "@/public/icon/bookmark-2.svg";
 import VerifiedSvg from "@/public/icon/verified.svg";
 
-import NoUserImg from "@/public/images/no-user-img.png";
-
 import ListingChart from "@/components/listings/ListingChart";
 import { ListingDetailResponse } from "@/types/listing";
-import Image from "next/image";
-import { getAge, getFormattedDate } from "@/utils/formatDate";
+// import Image from "next/image";
+import { formatCurrencyNumber } from "@/utils/formatCurrencyNumber";
+import ListingDetailSeller from "./ListingDetailSeller";
 
 export default function ListingDetailBody({
   listing,
 }: {
   listing: ListingDetailResponse;
 }) {
-  const listingDateFounded = getFormattedDate(listing.businessInfo.dateFounded);
-  const listingAge = getAge(listing.businessInfo.dateFounded);
-  return (
-    <section className="section">
-      <div className="page_width listing_detail_container">
-        {/*  SELLER DETAILS */}
+  const profit = formatCurrencyNumber(listing.financialHighlights.lastFyEBITDA);
+  const revenue = formatCurrencyNumber(
+    listing.financialHighlights.lastFyRevenue
+  );
+  const price = formatCurrencyNumber(listing.valuation.askingPrice);
+  const avgMonthlyProfit = formatCurrencyNumber(
+    listing.financialHighlights.lastFyEBITDA / 12
+  );
 
+  return (
+    <section className="section listing_detail_body">
+      <div className="page_width listing_detail_container">
         <aside id="listing_detail_overview" className="listing_detail">
           <h3>{listing.businessInfo.headline}</h3>
 
@@ -122,7 +123,7 @@ export default function ListingDetailBody({
             <div className="listing_detail_valuation_item">
               <p className="listing_value">
                 {listing.financialHighlights.currency}
-                {listing.valuation.askingPrice}
+                {price}
               </p>
 
               <div>
@@ -135,7 +136,7 @@ export default function ListingDetailBody({
             <div className="listing_detail_valuation_item">
               <p className="listing_value">
                 {listing.financialHighlights.currency}
-                {listing.financialHighlights.lastFyRevenue}
+                {revenue}
               </p>
 
               <p className="listing_value-desc">Revenue</p>
@@ -144,7 +145,7 @@ export default function ListingDetailBody({
             <div className="listing_detail_valuation_item">
               <p className="listing_value">
                 {listing.financialHighlights.currency}
-                {listing.financialHighlights.lastFyEBITDA}
+                {profit}
               </p>
 
               <p className="listing_value-desc">Profit</p>
@@ -153,7 +154,7 @@ export default function ListingDetailBody({
             <div className="listing_detail_valuation_item">
               <p className="listing_value">
                 {listing.financialHighlights.currency}
-                {Math.ceil(listing.financialHighlights.lastFyEBITDA / 12)}
+                {avgMonthlyProfit}
               </p>
 
               <p className="listing_value-desc">Avg. Monthly Profit</p>
@@ -171,6 +172,8 @@ export default function ListingDetailBody({
               <p>{listing.businessHighlights.executiveSummary}</p>
             </div>
           </div>
+
+          <ListingDetailSeller listing={listing} />
 
           <ListingChart chartName="Financial Snapshot" />
 
@@ -231,95 +234,7 @@ export default function ListingDetailBody({
           </div>
         </aside>
 
-        {/*  SELLER DETAILS */}
-        <aside className="seller_details">
-          <div className="seller_details_container">
-            <div className="contact_seller">
-              <h6>Contact Seller</h6>
-
-              <div className="contact_seller_item">
-                <div className="contact_seller_item_left">
-                  <div className="owner_img">
-                    {listing.user?.photo ? (
-                      <img
-                        src={listing.user.photo.path}
-                        alt="Listing_Owner__Image"
-                      />
-                    ) : (
-                      <Image
-                        src={NoUserImg}
-                        alt="No_USER_IMAGE"
-                        width={50}
-                        height={50}
-                      />
-                    )}
-                  </div>
-
-                  <div className="owner_details">
-                    <p>
-                      {listing.user?.firstName} {listing.user?.lastName}
-                    </p>
-                    <p>Business Owner</p>
-                    <span>{listing.user?.phoneNumber}</span>
-                  </div>
-                </div>
-
-                <SmsSvg />
-              </div>
-            </div>
-
-            <span className="line" />
-
-            <div className="business_started">
-              <h6>Business Started</h6>
-
-              <div className="business_started_item">
-                <div>
-                  <p>{listingDateFounded}</p>
-                  <span>({listingAge})</span>
-                </div>
-
-                <InfoIcon />
-              </div>
-            </div>
-
-            <span className="line" />
-
-            <div className="access_service">
-              <h6>Access Services</h6>
-
-              <div className="access_service_item">
-                <div className="access_service_text">
-                  <p>Hire a Legal Professional</p>
-
-                  <span>
-                    Look through our list of experienced lawyers who can help
-                    you through this process.
-                  </span>
-                </div>
-
-                <span className="access_service_btn">
-                  <ArrowRight />
-                </span>
-              </div>
-
-              <div className="access_service_item">
-                <div className="access_service_text">
-                  <p>Hire a Broker</p>
-
-                  <span>
-                    Look through our list of brokers who can help you run due
-                    diligence on this business.
-                  </span>
-                </div>
-
-                <span className="access_service_btn">
-                  <ArrowRight />
-                </span>
-              </div>
-            </div>
-          </div>
-        </aside>
+        <ListingDetailSeller listing={listing} />
       </div>
     </section>
   );

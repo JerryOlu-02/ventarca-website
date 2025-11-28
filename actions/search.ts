@@ -91,7 +91,7 @@ export async function getListingDetail(id: number) {
       params: {},
     });
 
-    console.log("Search Successful", response.data);
+    // console.log("Search Successful", response.data);
 
     return {
       success: true,

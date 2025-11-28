@@ -271,7 +271,7 @@
 
 @mixin input-text {
   font-size: var(--input);
-  font-weight: 400;
+  font-weight: 300;
   line-height: var(--line-height-input);
   letter-spacing: var(--letter-spacing-input);
   @include ibm-plex-sans;
@@ -279,7 +279,7 @@
 
 @mixin label {
   font-size: var(--label);
-  font-weight: 500;
+  font-weight: 400;
   line-height: var(--line-height-label);
   letter-spacing: var(--letter-spacing-label);
   @include ibm-plex-sans;
@@ -287,7 +287,7 @@
 
 @mixin blockquote {
   font-size: var(--blockquote);
-  font-weight: 600;
+  font-weight: 500;
   line-height: var(--line-height-blockquote);
   letter-spacing: var(--letter-spacing-blockquote);
   @include playfair;

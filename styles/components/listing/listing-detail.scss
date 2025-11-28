@@ -31,6 +31,7 @@
   scroll-margin-top: 90px;
 }
 
+// LISTING DETAIL HEADER
 .listing_detail_menu-section {
   background-color: rgba(245, 245, 245, 1);
   position: sticky;
@@ -100,6 +101,64 @@
   }
 }
 
+// LISTING DETAIL MOBILE
+@media screen and (max-width: 768px) {
+  .listing_detail_menu {
+    .btn {
+      display: none;
+    }
+  }
+
+  .listing_detail_menu-left {
+    gap: 24px;
+
+    .back_btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    div {
+      gap: 24px;
+      padding-bottom: 4px;
+
+      button {
+        @include accent3(400);
+
+        &::before {
+          bottom: -4px;
+          left: 0;
+        }
+
+        &.active {
+          &::before {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .listing_detail_menu-left {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .listing_detail_menu-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    div {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+// LISTING DETAIL CONTAINER
 .listing_detail_container {
   padding-top: 48px;
   padding-bottom: 66px;
@@ -117,11 +176,21 @@
   h3 {
     @include h3(500);
     color: $black;
+
+    @media screen and (max-width: 1024px) {
+      @include h5(500);
+    }
+  }
+
+  .seller_details {
+    display: none;
   }
 }
 
 .listing_detail_save {
   @include flex-row;
+  flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
   width: 100%;
 
@@ -130,6 +199,10 @@
     gap: 6px;
     color: $black;
     @include accent2(400);
+
+    @media screen and (max-width: 1024px) {
+      @include accent3(400);
+    }
   }
 
   div {
@@ -182,21 +255,22 @@
   flex-direction: column;
   gap: 20px;
   width: 50%;
-  height: 100%;
+  aspect-ratio: 2 / 1;
+  // height: 100%;
 
   div:only-child {
     width: 100%;
-    height: 248px;
+    height: 100%;
   }
 
   .detail_photo-item {
     display: flex;
     gap: 20px;
     width: 100%;
-    height: 114px;
+    height: calc(100% / 2);
 
     &:only-child {
-      height: 248px;
+      height: 100%;
     }
 
     div {
@@ -221,9 +295,12 @@
 .listing_detail_tags {
   @include flex-row;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
 
   .tags {
     @include flex-row;
+    flex-wrap: wrap;
     gap: 8px;
 
     span {
@@ -258,7 +335,7 @@
 .listing_detail_valuation {
   @include flex-row;
   gap: 20px;
-  height: 88px;
+  min-height: 88px;
   width: 100%;
 }
 
@@ -280,7 +357,9 @@
 
   div {
     @include flex-row;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 10px;
 
     span {
       color: $green;
@@ -293,7 +372,7 @@
 }
 
 .listing_value {
-  @include p1(600);
+  @include p1(500);
   color: $black;
 }
 
@@ -328,6 +407,10 @@
   p {
     @include accent2(300);
     color: rgba(51, 51, 51, 1);
+
+    @media screen and (max-width: 1024px) {
+      @include accent3(300);
+    }
   }
 }
 
@@ -381,6 +464,10 @@
     @include accent2(300);
     margin-left: 10px;
     color: $black;
+
+    @media screen and (max-width: 1024px) {
+      @include accent3(300);
+    }
   }
 }
 
@@ -541,5 +628,155 @@
     path {
       fill: $black;
     }
+  }
+}
+
+@media screen and (max-width: 1325px) {
+  .listing_detail_body {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .page_width.listing_detail_container {
+    max-width: 100%;
+  }
+
+  .listing_detail {
+    width: 60%;
+  }
+
+  .seller_details {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 1160px) {
+  .listing_detail_body {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media screen and (max-width: 1160px) {
+  .listing_detail_container {
+    flex-direction: column;
+  }
+
+  .seller_details {
+    display: none;
+  }
+
+  .listing_detail {
+    width: 100%;
+
+    .seller_details {
+      display: flex;
+      position: relative;
+      top: 0;
+      width: 100%;
+
+      .seller_details_container {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .listing_detail_container {
+    padding: 24px 0 44px;
+  }
+
+  .listing_detail {
+    .seller_details {
+      padding: 24px 20px;
+    }
+
+    .contact_seller_item {
+      padding: 14px 16px;
+      gap: 11px;
+    }
+
+    .business_started_item {
+      gap: 10px;
+      flex-wrap: wrap-reverse;
+
+      div {
+        p {
+          @include accent3(300);
+        }
+
+        span {
+          @include accent4(300);
+        }
+      }
+    }
+
+    .access_service_text {
+      max-width: 244px;
+    }
+
+    .access_service_btn {
+      height: 32px;
+      aspect-ratio: 1 / 1;
+      border-radius: 40px;
+    }
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .detail_img {
+    flex-direction: column;
+  }
+
+  .cover_photo {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+  }
+
+  .detail_photo {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+
+    div:only-child {
+      width: 100%;
+      height: 100%;
+    }
+
+    .detail_photo-item {
+      gap: 12px;
+
+      height: calc(100% / 2);
+
+      &:only-child {
+        height: 100%;
+      }
+    }
+  }
+
+  .listing_detail_valuation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(70px, 1fr));
+  }
+
+  .listing_detail_valuation_item {
+    width: 100%;
+
+    &:first-of-type {
+      width: 100%;
+      grid-column: 1 / 3;
+    }
+
+    &:last-of-type {
+      width: 100%;
+      grid-column: 1 / 3;
+    }
+  }
+}
+
+@media screen and (max-width: 225px) {
+  .listing_detail_valuation {
+    display: flex;
+    flex-direction: column;
   }
 }

@@ -13,6 +13,7 @@
   padding-top: 40px;
 }
 
+// SEARCH FORM
 .search_form {
   padding: 18px 0;
 
@@ -53,6 +54,89 @@
   }
 }
 
+// SEARCH FORM MOBILE
+@media screen and (max-width: 1300px) {
+  .search_form {
+    form {
+      .select {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1130px) {
+  .section_search {
+    padding: 0 40px;
+  }
+
+  .search_form {
+    max-width: 100%;
+  }
+
+  .search_form {
+    form {
+      gap: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .section_search {
+    padding: 0 24px;
+  }
+
+  .search_form {
+    form {
+      input {
+        width: 100%;
+        height: 40px;
+      }
+
+      .select {
+        .select_container {
+          height: 40px;
+        }
+      }
+
+      .btn {
+        height: 40px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .search_form {
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      input {
+        grid-column: 1 / 3;
+      }
+
+      .select {
+        width: 100%;
+      }
+
+      .btn:last-of-type {
+        grid-column: 1 / 3;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .search_form {
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
 // SEARCH HEADER SECTION
 .section_header {
   border-bottom: 1px solid rgba(195, 195, 195, 1);
@@ -63,8 +147,10 @@
   justify-content: space-between;
 
   h3 {
-    @include h3(600);
+    @include h3(500);
     text-transform: capitalize;
+    line-height: auto;
+    @include flex-col-center;
   }
 }
 
@@ -135,11 +221,49 @@
   }
 }
 
+// SEARCH HEADER MOBILE
+@media screen and (max-width: 1024px) {
+  .search_header {
+    padding: 16px 0;
+    h3 {
+      @include h6(500);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sort_text {
+    display: none;
+  }
+
+  .sort_container {
+    .btn {
+      padding: 10px;
+      max-width: 113px;
+    }
+
+    div {
+      padding: 4px 0px;
+
+      button {
+        @include accent4(300);
+      }
+    }
+  }
+}
+
 // SEARCH PAGE
 .search_page {
   @include flex-col;
   gap: 40px;
   padding-bottom: 66px;
+}
+
+@media screen and (max-width: 1024px) {
+  .search_page {
+    padding-bottom: 48px;
+    gap: 28px;
+  }
 }
 
 // LISTING SECTION
@@ -153,6 +277,15 @@
 
   .listingCard:only-child {
     max-width: 404px;
+  }
+}
+
+// LISTING SECTION MOBILE
+@media screen and (max-width: 400px) {
+  .listing_list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 }
 
@@ -190,5 +323,11 @@
   &:hover {
     background-color: $gold;
     color: $white;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .pagination_container {
+    justify-content: center;
   }
 }

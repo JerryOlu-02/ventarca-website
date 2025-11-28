@@ -34,10 +34,6 @@ export default function HeroSearch() {
     );
   };
 
-  const handleClickSubmit = () => {
-    if (errors.location) alert("Please Fill a location");
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="hero_search">
       <input
@@ -62,11 +58,7 @@ export default function HeroSearch() {
         options={["2000-3000", "3000-4000"]}
       />
 
-      <Button
-        onClick={handleClickSubmit}
-        type="submit"
-        className="btn btn-primary btn-medium"
-      >
+      <Button type="submit" className="btn btn-primary btn-medium">
         Search
       </Button>
     </form>

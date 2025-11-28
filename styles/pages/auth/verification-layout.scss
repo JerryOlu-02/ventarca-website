@@ -37,3 +37,29 @@
     @include accent2(300);
   }
 }
+
+@media screen and (max-width: 768px) {
+  .verification_section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-image: none;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .verification_container {
+    padding: 0;
+    border-radius: 0;
+    gap: 8px;
+
+    h4 {
+      @include h5(500);
+    }
+
+    p {
+      @include accent3(300);
+    }
+  }
+}
