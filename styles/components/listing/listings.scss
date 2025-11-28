@@ -173,7 +173,46 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 768px) {
+  .listingCard {
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .listingCard_content {
+    h5 {
+      @include accent1(500);
+    }
+
+    .btn {
+      font-size: 14px;
+    }
+  }
+
+  .listingCard_save {
+    .location-container {
+      width: 80%;
+    }
+
+    span {
+      @include accent3(400);
+    }
+  }
+
+  .listingCard_profitability_item {
+    .listingCard_profitability_item-text {
+      @include p3(500);
+    }
+
+    div {
+      p {
+        @include accent4(500);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 390px) {
   .listingCard_profitability {
     grid-template-columns: repeat(4, minmax(40px, 1fr));
   }
