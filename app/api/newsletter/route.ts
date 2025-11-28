@@ -8,13 +8,14 @@ export async function POST(req: Request) {
   }: { firstName: string; lastName?: string; email: string } = await req.json();
 
   const brevoUrl = process.env.BREVO_API_URL!;
+  const brevApiKey = process.env.BREVO_API_KEY!;
 
   const resp = await fetch(`${brevoUrl}`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
       accept: "application/json",
-      "api-key": `${process.env.BREVO_API_KEY}`,
+      "api-key": `${brevApiKey}`,
     },
     body: JSON.stringify({
       email: email,

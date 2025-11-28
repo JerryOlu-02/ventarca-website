@@ -7,7 +7,7 @@ export const subscribeToNewsLetter = async function (
   firstName?: string,
   lastName?: string
 ) {
-  const baseUrl = getBaseUrl();
+  const baseUrl = await getBaseUrl();
 
   //   POST data to Brevo
   const resp = await fetch(`${baseUrl}/api/newsletter`, {
