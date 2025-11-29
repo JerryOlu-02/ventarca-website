@@ -27,7 +27,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // Protected routes
-  const protectedRoutes = ["/support-center", "/onboarding"];
+  const protectedRoutes = ["/support-center", "/onboarding", "/verification"];
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -48,6 +48,7 @@ export const config = {
   matcher: [
     "/support-center/:path*",
     "/onboarding/:path*",
+    "/verification/:path*",
     "/settings/:path*",
     "/login",
     "/register",

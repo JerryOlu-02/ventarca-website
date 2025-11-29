@@ -89,6 +89,12 @@ apiClient.interceptors.response.use(
     }
 
     if (error.response?.status === 401 && !originalRequest._retry) {
+      if (originalRequest.url?.includes("/auth/refresh")) {
+        // If the refresh endpoint itself returns 401, it's game over.
+        window.location.href = "/login";
+        return Promise.reject(error);
+      }
+
       if (isRefreshing) {
         return new Promise<string>((resolve, reject) => {
           failedQueue.push({ resolve, reject });

@@ -67,7 +67,7 @@ export default function ListingCard({ listing }: ListingCardProp) {
             <div>
               <p>Price</p>
 
-              <span>0.2X</span>
+              <span>4.5X | 4.1X</span>
             </div>
           </div>
 
