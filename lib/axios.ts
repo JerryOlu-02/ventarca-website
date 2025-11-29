@@ -90,7 +90,7 @@ apiClient.interceptors.response.use(
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (originalRequest.url?.includes("/auth/refresh")) {
-        // If the refresh endpoint itself returns 401, it's game over.
+        // If the refresh endpoint itself returns 401 move to login
         window.location.href = "/login";
         return Promise.reject(error);
       }
