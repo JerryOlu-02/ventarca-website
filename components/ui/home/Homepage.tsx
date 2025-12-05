@@ -84,7 +84,7 @@ const tags: Tag[] = [
   },
   {
     id: 3,
-    name: "Resturants",
+    name: "Restaurants",
     image: RestImg,
     link: "/search?industry=resturants&page=1",
   },

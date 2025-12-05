@@ -72,7 +72,7 @@ export default function Slider({
         spaceBetween={spaceBetween}
         breakpoints={breakpoints}
         slidesPerView={slidesPerView}
-        mousewheel={true}
+        mousewheel={{ forceToAxis: true }}
         autoplay={autoplay ? { delay: 3000 } : false}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         onSlideChange={(swiper) => handleSlideChange(swiper.realIndex)}
