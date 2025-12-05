@@ -1,4 +1,5 @@
 import { ErrorResponse, LoginSuccessResponse } from "@/types/apiResponse";
+import { parse } from "cookie";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -36,22 +37,42 @@ export async function POST(req: Request) {
     user,
   });
 
-  if (setCookie) {
-    outwardResponse.headers.set("Set-Cookie", setCookie);
+  // if (setCookie) {
+  //   outwardResponse.headers.set("Set-Cookie", setCookie);
+  // }
+
+  const setCookieHeader = resp.headers.get("set-cookie");
+
+  if (setCookieHeader) {
+    const parsed = parse(setCookieHeader);
+    const newRefreshToken = parsed.refreshToken;
+
+    if (newRefreshToken) {
+      const isProduction = process.env.NODE_ENV === "production";
+
+      outwardResponse.cookies.set({
+        name: "refreshToken",
+        value: newRefreshToken,
+        httpOnly: true,
+        secure: isProduction,
+        path: "/",
+        sameSite: "lax",
+        domain: isProduction ? ".ventarca.biz" : undefined,
+        maxAge: 60 * 60 * 24 * 7,
+      });
+
+      outwardResponse.cookies.set({
+        name: "user_session_id",
+        value: `${user.id}`,
+        httpOnly: true,
+        secure: isProduction,
+        path: "/",
+        sameSite: "lax",
+        domain: isProduction ? ".ventarca.biz" : undefined,
+        maxAge: 60 * 60 * 24 * 7,
+      });
+    }
   }
-
-  // // Set SSR session cookie
-  // const cookieStore = await cookies();
-
-  // cookieStore.set({
-  //   name: "logged_in",
-  //   value: "true",
-  //   path: "/",
-  //   httpOnly: true,
-  //   sameSite: "lax",
-  //   secure: process.env.NODE_ENV === "production",
-  //   maxAge: 60 * 60 * 24 * 7,
-  // });
 
   return outwardResponse;
 }

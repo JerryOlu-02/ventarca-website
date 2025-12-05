@@ -15,7 +15,9 @@ interface ListingCardProp {
 
 export default function ListingCard({ listing }: ListingCardProp) {
   const currency = listing.financialHighlights.currency;
+
   const profit = formatCurrencyNumber(listing.financialHighlights.lastFyEBITDA);
+
   const revenue = formatCurrencyNumber(
     listing.financialHighlights.lastFyRevenue
   );

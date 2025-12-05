@@ -26,12 +26,12 @@ async function refreshAccessToken(): Promise<string | null> {
   }
 }
 
-// 1. Define custom interface to include the _retry flag
+// Define custom interface to include the _retry flag
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-// 2. Queue Type Definitions
+// Queue Type Definitions
 interface FailedRequest {
   resolve: (token: string) => void;
   reject: (error: any) => void;
@@ -52,7 +52,7 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-// 3. Create the instance
+// Create the instance
 const apiClient: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   withCredentials: false,
@@ -62,7 +62,7 @@ const apiClient: AxiosInstance = axios.create({
   },
 });
 
-// 4. Request Interceptor
+// Request Interceptor
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = getAccessToken();
@@ -77,7 +77,7 @@ apiClient.interceptors.request.use(
   }
 );
 
-// 5. Response Interceptor
+// Response Interceptor
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
@@ -92,6 +92,7 @@ apiClient.interceptors.response.use(
       if (originalRequest.url?.includes("/auth/refresh")) {
         // If the refresh endpoint itself returns 401 move to login
         window.location.href = "/login";
+
         return Promise.reject(error);
       }
 
@@ -114,13 +115,7 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        // REPLACE THIS WITH YOUR ACTUAL REFRESH LOGIC
-        // const { data } = await axios.post<{ accessToken: string }>('/refresh-token', {
-        //   refreshToken: localStorage.getItem('refresh_token')
-        // });
-        // const newToken = data.accessToken;
-
-        const newToken = await refreshAccessToken(); // Mock for example
+        const newToken = await refreshAccessToken();
 
         // Update defaults for subsequent requests
         apiClient.defaults.headers.common["Authorization"] =
@@ -133,10 +128,15 @@ apiClient.interceptors.response.use(
         }
 
         return apiClient(originalRequest);
-      } catch (refreshError) {
+      } catch (refreshError: any) {
         processQueue(refreshError, null);
 
-        window.location.href = "/login";
+        if (refreshError.response?.status === 401) {
+          setAccessToken(null);
+
+          window.location.href = "/login?error=session_expired";
+        }
+
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
@@ -148,96 +148,3 @@ apiClient.interceptors.response.use(
 );
 
 export default apiClient;
-
-// const apiClient = axios.create({
-//   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-//   withCredentials: true,
-// });
-
-// let isRefreshing = false;
-// let failedQueue: Array<(token: string | null) => void> = [];
-
-// function processQueue(token: string | null) {
-//   failedQueue.forEach((cb) => cb(token));
-//   failedQueue = [];
-// }
-
-// async function refreshAccessToken(): Promise<string | null> {
-//   try {
-//     const resp = await fetch("/api/auth/refresh", {
-//       method: "POST",
-//       credentials: "include",
-//     });
-
-//     if (!resp.ok) return null;
-
-//     const data = await resp.json();
-//     const newToken = data.token;
-
-//     setAccessToken(newToken, data.tokenExpires);
-//     return newToken;
-//   } catch {
-//     return null;
-//   }
-// }
-
-// // Add Authorization on every request
-// // apiClient.interceptors.request.use((config) => {
-// //   const token = getAccessToken();
-
-// //   if (token) {
-// //     config.headers = config.headers || {};
-// //     config.headers.Authorization = `Bearer ${token}`;
-// //   }
-
-// //   return config;
-// // });
-
-// // // Retry logic
-// // apiClient.interceptors.response.use(
-// //   (res) => res,
-
-// //   async (error) => {
-// //     const originalReq = error.config;
-
-// //     if (error.response?.status !== 401 || originalReq._retry) {
-// //       return Promise.reject(error);
-// //     }
-
-// //     originalReq._retry = true;
-
-// //     // one refresh at a time
-// //     if (!isRefreshing) {
-// //       isRefreshing = true;
-
-// //       const newToken = await refreshAccessToken();
-// //       isRefreshing = false;
-
-// //       // wake queued requests
-// //       processQueue(newToken);
-
-// //       if (!newToken) {
-// //         // refresh failed → force logout
-// //         return Promise.reject(error);
-// //       }
-// //     }
-
-// //     return new Promise((resolve, reject) => {
-// //       failedQueue.push(async (token) => {
-// //         if (!token) return reject(error);
-
-// //         try {
-// //           originalReq.headers = originalReq.headers || {};
-// //           originalReq.headers.Authorization = `Bearer ${token}`;
-
-// //           const result = await apiClient(originalReq);
-// //           resolve(result);
-// //         } catch (err) {
-// //           reject(err);
-// //         }
-// //       });
-// //     });
-// //   }
-// // );
-
-// export default apiClient;

@@ -1,3 +1,5 @@
+"use client";
+
 import ArrowDown from "@/public/icon/arrow-down.svg";
 import LoactionSvg from "@/public/icon/location.svg";
 import ViewsSvg from "@/public/icon/views.svg";
@@ -10,17 +12,38 @@ import { ListingDetailResponse } from "@/types/listing";
 // import Image from "next/image";
 import { formatCurrencyNumber } from "@/utils/formatCurrencyNumber";
 import ListingDetailSeller from "./ListingDetailSeller";
+import { useAuth } from "@/hooks/use-auth";
+import { addListingBookmark } from "@/utils/bookmark";
+import { useState } from "react";
 
 export default function ListingDetailBody({
   listing,
 }: {
   listing: ListingDetailResponse;
 }) {
+  const { user } = useAuth();
+
+  const [loading, setLoading] = useState(false);
+  const [bookmarkState, setBookmarkState] = useState("Save");
+
+  async function addBookmark() {
+    setLoading(true);
+
+    const { success, error } = await addListingBookmark(listing.id);
+
+    if (success) setBookmarkState("Bookmarked");
+
+    setLoading(false);
+  }
+
   const profit = formatCurrencyNumber(listing.financialHighlights.lastFyEBITDA);
+
   const revenue = formatCurrencyNumber(
     listing.financialHighlights.lastFyRevenue
   );
+
   const price = formatCurrencyNumber(listing.valuation.askingPrice);
+
   const avgMonthlyProfit = formatCurrencyNumber(
     listing.financialHighlights.lastFyEBITDA / 12
   );
@@ -48,10 +71,23 @@ export default function ListingDetailBody({
                 268
               </span>
 
-              <span>
-                <BookmarksSvg />
-                Save
-              </span>
+              {user && (
+                <button
+                  type="button"
+                  onClick={addBookmark}
+                  className="bookmark_btn"
+                >
+                  {bookmarkState === "Save" ? (
+                    <BookmarksSvg />
+                  ) : (
+                    <Bookmarks2Svg />
+                  )}
+
+                  {bookmarkState}
+
+                  {loading && <span className="loader" />}
+                </button>
+              )}
             </div>
           </div>
 
@@ -105,12 +141,16 @@ export default function ListingDetailBody({
                 {/* ))} */}
               </div>
 
+              {listing.progress === "sold" && (
+                <span className="sold">Sold</span>
+              )}
+
               <span
                 className={`verification ${
                   listing.visibility === "verified" ? "verified" : "unverified"
                 }`}
               >
-                <VerifiedSvg />{" "}
+                {listing.visibility === "verified" && <VerifiedSvg />}
                 {listing.visibility === "verified" ? "Verified" : "Unverified"}
               </span>
             </div>

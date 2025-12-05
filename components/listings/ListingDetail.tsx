@@ -5,14 +5,23 @@ import SimilarListingDetail from "./SimilarListingDetail";
 
 export default async function ListingDetail({
   listingId,
+  userId,
 }: {
   listingId: string;
+  userId?: string;
 }) {
   const listingIdProp = parseInt(listingId);
-  const listingDetailResponse = await getListingDetail(listingIdProp);
+  const userIdProp = userId ? parseInt(userId) : undefined;
+
+  const listingDetailResponse = await getListingDetail(
+    listingIdProp,
+    userIdProp
+  );
 
   if (!listingDetailResponse.data) {
-    return <section>Could not Fetch Listing</section>;
+    return (
+      <section className="section page_width">Could not Fetch Listing</section>
+    );
   }
 
   const listing = listingDetailResponse.data;

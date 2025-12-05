@@ -32,12 +32,19 @@ export type ListingCardResponse = {
 
 export type ListingDetailResponse = {
   id: number;
-  progress: string;
+  progress:
+    | "draft"
+    | "pending_payment"
+    | "published"
+    | "under_offer"
+    | "sold"
+    | "expired"
+    | "rejected";
   currentStep: string;
   completedSteps: [];
   requireNda: boolean;
   allowFeaturedPromotion: boolean;
-  visibility: string;
+  visibility: "public" | "verified";
   contactOption: string;
   user: {
     id: number;
@@ -128,7 +135,7 @@ export type ListingDetailResponse = {
     negotiable: boolean;
     negotiableRange: string;
   };
-  createdAt: "2025-11-21T12:12:05.023Z";
-  updatedAt: "2025-11-21T12:12:05.034Z";
-  deletedAt: null;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
 };

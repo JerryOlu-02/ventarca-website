@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+  const cookieStore = await cookies();
   const cookie = req.headers.get("cookie") ?? "";
   const { accessToken } = await req.json();
 
@@ -16,26 +17,37 @@ export async function POST(req: Request) {
   });
 
   if (!resp.ok) {
-    return NextResponse.json({ status: resp.status });
+    // return NextResponse.json({ status: resp.status });
+    console.error("Backend logout failed (non-critical):", resp.statusText);
   }
-
-  // backend clears the HttpOnly refresh cookie
 
   const outwardResponse = NextResponse.json({ ok: true });
 
-  const setCookie = resp?.headers?.get("set-cookie");
-  if (setCookie) outwardResponse.headers.set("Set-Cookie", setCookie);
+  // const setCookie = resp?.headers?.get("set-cookie");
+  // if (setCookie) outwardResponse.headers.set("Set-Cookie", setCookie);
 
-  // if (resp?.ok) {
-  //   const cookieStore = await cookies();
+  const isProduction = process.env.NODE_ENV === "production";
+  const rootDomain = isProduction ? ".ventarca.biz" : undefined;
 
-  //   cookieStore.set({
-  //     name: "logged_in",
-  //     value: "",
-  //     maxAge: 0,
-  //     path: "/",
-  //   });
-  // }
+  // Delete the cookie
+
+  cookieStore.delete({
+    name: "refreshToken",
+    path: "/",
+    domain: rootDomain,
+    secure: isProduction,
+    httpOnly: true,
+    sameSite: "lax",
+  });
+
+  cookieStore.delete({
+    name: "user_session_id",
+    path: "/",
+    domain: rootDomain,
+    secure: isProduction,
+    httpOnly: true,
+    sameSite: "lax",
+  });
 
   return outwardResponse;
 }

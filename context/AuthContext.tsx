@@ -129,12 +129,13 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
     });
 
     const logoutResponseInitialData = await resp.json();
+    // console.log("Logout Response 1...", logoutResponseInitialData);
 
     if (logoutResponseInitialData.ok) redirectHome();
 
     // If token expires refresh then retry
     if (logoutResponseInitialData.status === 401) {
-      // console.log("Logout failed → refreshing token...");
+      // console.log("Logout failed refreshing token...");
 
       const refreshResp = await fetch("/api/auth/refresh", {
         method: "POST",
@@ -143,6 +144,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
 
       if (refreshResp.ok) {
         const data = await refreshResp.json();
+        // console.log("Logout Response 2...", data);
 
         setAccessToken(data.token);
 
@@ -160,6 +162,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = function ({
         if (logoutResponse.ok) {
           redirectHome();
         }
+      } else {
+        redirectHome();
       }
     }
   };

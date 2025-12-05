@@ -4,6 +4,7 @@ import ListingDetail from "@/components/listings/ListingDetail";
 import ListingDetailLoading from "@/components/listings/ListingDetailLoading";
 
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 
 export default async function Page({
   params,
@@ -12,10 +13,12 @@ export default async function Page({
 }) {
   const { listingId } = await params;
 
+  const userId = (await cookies()).get("user_session_id")?.value;
+
   return (
     <>
       <Suspense key={listingId} fallback={<ListingDetailLoading />}>
-        <ListingDetail listingId={listingId} />
+        <ListingDetail listingId={listingId} userId={userId} />
       </Suspense>
     </>
   );

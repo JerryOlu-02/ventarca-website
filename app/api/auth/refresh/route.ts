@@ -1,8 +1,21 @@
 import { ErrorResponse, RefreshResponse } from "@/types/apiResponse";
+import { parse } from "cookie";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+  const origin = req.headers.get("origin");
+
+  const allowedOrigins =
+    process.env.NODE_ENV === "production"
+      ? ["https://preview.ventarca.biz", "https://dashboard.ventarca.biz"]
+      : ["http://localhost:3000", "http://localhost:5173"];
+
+  // Block requests from tools like Postman or Malicious Sites
+  if (!origin || !allowedOrigins.includes(origin)) {
+    return NextResponse.json({ message: "Forbidden Origin" }, { status: 403 });
+  }
+
   const cookieStore = await cookies();
   const backend = process.env.BACKEND_API_URL!;
 
@@ -56,9 +69,29 @@ export async function POST(req: Request) {
   });
 
   // Set new refresh token cookie
-  const setCookie = resp.headers.get("set-cookie");
+  const setCookieHeader = resp.headers.get("set-cookie");
 
-  if (setCookie) outwardResponse.headers.set("Set-Cookie", setCookie);
+  if (setCookieHeader) {
+    const parsed = parse(setCookieHeader);
+    const newRefreshToken = parsed.refreshToken;
+
+    if (newRefreshToken) {
+      const isProduction = process.env.NODE_ENV === "production";
+
+      outwardResponse.cookies.set({
+        name: "refreshToken",
+        value: newRefreshToken,
+        httpOnly: true,
+        secure: isProduction,
+        path: "/",
+        sameSite: "lax",
+        domain: isProduction ? ".ventarca.biz" : undefined,
+        maxAge: 60 * 60 * 24 * 7,
+      });
+    }
+  }
+
+  // if (setCookieHeader) outwardResponse.headers.set("Set-Cookie", setCookieHeader);
 
   return outwardResponse;
 }

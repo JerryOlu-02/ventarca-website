@@ -85,10 +85,12 @@ export async function searchHeroListing({
   }
 }
 
-export async function getListingDetail(id: number) {
+export async function getListingDetail(listingId: number, userId?: number) {
   try {
-    const response = await apiClient.get(`/listing/${id}`, {
-      params: {},
+    const response = await apiClient.get(`/listing/${listingId}`, {
+      params: {
+        ...(userId && { userId: userId }),
+      },
     });
 
     // console.log("Search Successful", response.data);
