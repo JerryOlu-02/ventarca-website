@@ -6,10 +6,12 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const origin = req.headers.get("origin");
 
-  const allowedOrigins =
-    process.env.NODE_ENV === "production"
-      ? ["https://preview.ventarca.biz", "https://dashboard.ventarca.biz"]
-      : ["http://localhost:3000", "http://localhost:5173"];
+  const allowedOrigins = [
+    "https://preview.ventarca.biz",
+    "https://dashboard.ventarca.biz",
+    "http://localhost:3000",
+    "http://localhost:5173",
+  ];
 
   // Block requests from tools like Postman or Malicious Sites
   if (!origin || !allowedOrigins.includes(origin)) {
